@@ -2,6 +2,10 @@
 
 Astro + React landing site for UHAK GPS (study abroad & Working Holiday guidance).
 
+**Live:** [https://uhak-gps.netlify.app/](https://uhak-gps.netlify.app/)
+
+[![UHAK GPS landing preview](docs/preview.png)](https://uhak-gps.netlify.app/)
+
 ## Stack
 
 - Astro (static) + React islands
