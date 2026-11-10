@@ -1,0 +1,32 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'UHAK GPS — Study abroad & Working Holiday in Australia',
+  description = 'Sydney-based guidance for study abroad and Working Holiday — honest pathways, schools that fit, and local support.',
+} = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Shantell+Sans:wght@400;500&family=Outfit:wght@400;500;600&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400&family=Courier+Prime:wght@400&family=Klee+One:wght@400;600&display=swap"
+    />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
