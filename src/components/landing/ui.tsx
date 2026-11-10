@@ -74,7 +74,7 @@ export function CheckIcon({ className }: { className?: string }) {
   return (
     <span
       aria-hidden
-      className={cx('inline-flex size-[18px] shrink-0 items-center justify-center rounded-[5px] bg-accent', className)}
+      className={cx('inline-flex size-[18px] shrink-0 items-center justify-center rounded-full bg-accent', className)}
     >
       <svg viewBox="0 0 16 16" width="10" height="10" aria-hidden>
         <path d="M3.2 8.2 L6.4 11.2 L12.8 4.6" fill="none" stroke="#FFFFFF" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />

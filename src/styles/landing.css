@@ -57,7 +57,7 @@
   align-items: center;
   gap: 26px;
   padding: 12px 0;
-  animation: tick 46s linear infinite reverse;
+  animation: tick 92s linear infinite reverse;
 }
 
 @keyframes tick {
@@ -85,7 +85,11 @@
 }
 
 .wa-react {
-  animation: waPop 0.45s ease 1.6s both;
+  animation-name: waPop;
+  animation-duration: 0.45s;
+  animation-timing-function: ease;
+  animation-delay: 0.9s;
+  animation-fill-mode: both;
 }
 
 @keyframes waIn {
@@ -100,7 +104,22 @@
 }
 
 .wa-b {
-  animation: waIn 0.5s cubic-bezier(0.3, 0.7, 0.2, 1) both;
+  animation-name: waIn;
+  animation-duration: 0.5s;
+  animation-timing-function: cubic-bezier(0.3, 0.7, 0.2, 1);
+  animation-fill-mode: both;
+}
+
+.wa-b-1 {
+  animation-delay: 0.2s;
+}
+
+.wa-b-2 {
+  animation-delay: 1.5s;
+}
+
+.wa-b-3 {
+  animation-delay: 2.1s;
 }
 
 .hdr-row {

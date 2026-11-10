@@ -8,7 +8,7 @@ export function Hero() {
         <Container className="flex flex-wrap items-center justify-center gap-10 py-16 landing:justify-start landing:py-20">
           <div className="flex min-w-[280px] w-full flex-1 basis-80 flex-col items-start gap-[17px]">
             <div className="wa-chat2 mx-auto flex w-full max-w-[330px] flex-col gap-1.5 landing:mx-0" aria-hidden>
-              <span className="wa-b relative mb-3.5 max-w-[86%] self-start rounded-[3px_12px_12px_12px] bg-surface px-3 py-2 text-[15px] leading-[1.35] text-ink shadow-[0_1px_1px_rgba(0,0,0,.06),0_4px_12px_rgba(28,30,33,.08)] [animation-delay:.2s]">
+              <span className="wa-b wa-b-1 relative mb-3.5 max-w-[86%] self-start rounded-[3px_12px_12px_12px] bg-surface px-3 py-2 text-[15px] leading-[1.35] text-ink shadow-[0_1px_1px_rgba(0,0,0,.06),0_4px_12px_rgba(28,30,33,.08)]">
                 <span className="mb-0.5 block text-[11px] font-semibold opacity-60">UHAK GPS</span>
                 Do you want to go to Australia?
                 <span className="float-right ml-2.5 mt-1.5 inline-flex items-center gap-0.5 text-[10px] text-ink/50">10:01</span>
@@ -18,7 +18,7 @@ export function Hero() {
                   </svg>
                 </span>
               </span>
-              <span className="wa-b max-w-[86%] self-end rounded-[12px_3px_12px_12px] bg-surface px-3 py-2 text-[15px] leading-[1.35] text-ink shadow-[0_1px_1px_rgba(0,0,0,.06),0_4px_12px_rgba(28,30,33,.08)] [animation-delay:.9s]">
+              <span className="wa-b wa-b-2 max-w-[86%] self-end rounded-[12px_3px_12px_12px] bg-surface px-3 py-2 text-[15px] leading-[1.35] text-ink shadow-[0_1px_1px_rgba(0,0,0,.06),0_4px_12px_rgba(28,30,33,.08)]">
                 I’d love to… but how?
                 <span className="float-right ml-2.5 mt-1.5 inline-flex items-center gap-0.5 text-[10px] text-ink/50">
                   10:02
@@ -29,7 +29,7 @@ export function Hero() {
               </span>
             </div>
 
-            <h1 className="wa-b wa-h1 m-0 mt-1 font-display text-[clamp(28px,3.4vw,44px)] font-normal leading-[1.1] tracking-[-0.01em] text-ink [animation-delay:1.4s]">
+            <h1 className="wa-h1 m-0 mt-1 font-display text-[clamp(28px,3.4vw,44px)] font-normal leading-[1.1] tracking-[-0.01em] text-ink">
               <span className="sr-only">Do you want to go to Australia? I’d love to, but how? </span>
               We support together
               <br />

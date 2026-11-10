@@ -77,7 +77,7 @@ export const STEPS = [
   {
     title: 'Talk',
     ja: 'まず、話す',
-    body: 'Start with one sentence: “I think I want to go overseas.” That’s enough.',
+    body: 'Just say: “I think I want to go overseas.”',
     detail: 'A free 30-minute chat. No school, visa or decision needed. You can even leave your job out of it.',
     note: '',
     icon: '/images/step-1.webp',
@@ -109,9 +109,9 @@ export const STEPS = [
   {
     title: 'Move',
     ja: '現地で暮らす',
-    body: 'Help once you’ve landed, from someone who lives here.',
+    body: 'Help once you’ve landed, from someone living here.',
     detail: 'Accommodation, work, school life, transport, and the questions that only come up locally.',
-    note: 'Some in-person support may carry an extra fee. We’ll always tell you upfront.',
+    note: '',
     icon: '/images/step-5.webp',
   },
   {
