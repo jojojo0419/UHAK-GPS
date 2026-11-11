@@ -10,7 +10,7 @@ export function Hero({ t }: Props) {
     <div className="hero-band bg-cream">
       <section id="top" className="font-sans">
         <Container className="flex flex-wrap items-center justify-center gap-10 py-16 landing:justify-start landing:py-20">
-          <div className="flex min-w-[280px] w-full flex-1 basis-80 flex-col items-start gap-[17px]">
+          <div className="flex min-w-[280px] w-full flex-1 basis-80 flex-col items-center gap-[17px] landing:items-start">
             <div className="wa-chat2 mx-auto flex w-full max-w-[330px] flex-col gap-1.5 landing:mx-0" aria-hidden>
               <span className="wa-b wa-b-1 relative mb-3.5 max-w-[86%] self-start rounded-[3px_12px_12px_12px] bg-surface px-3 py-2 text-[15px] leading-[1.35] text-ink shadow-[0_1px_1px_rgba(0,0,0,.06),0_4px_12px_rgba(28,30,33,.08)]">
                 <span className="mb-0.5 block text-[11px] font-semibold opacity-60">UHAK GPS</span>
@@ -33,14 +33,14 @@ export function Hero({ t }: Props) {
               </span>
             </div>
 
-            <h1 className="wa-h1 m-0 mt-1 font-display text-[clamp(28px,3.4vw,44px)] font-normal leading-[1.1] tracking-[-0.01em] text-ink">
+            <h1 className="wa-h1 m-0 mt-1 text-center font-display text-[clamp(28px,3.4vw,44px)] font-normal leading-[1.1] tracking-[-0.01em] text-ink landing:text-left">
               <span className="sr-only">{t.hero.srChat}</span>
               <KeepLines text={t.hero.headlineLine1} forceKeep />
               <br />
               <KeepLines text={t.hero.headlineLine2} className="font-medium" forceKeep />
             </h1>
 
-            <ul className="m-0 flex max-w-[360px] list-none flex-col gap-3 p-0">
+            <ul className="m-0 flex max-w-[360px] list-none flex-col items-center gap-3 p-0 landing:items-start">
               {t.hero.checks.map((text) => (
                 <li key={text} className="flex items-center gap-2.5">
                   <CheckIcon />
@@ -49,7 +49,7 @@ export function Hero({ t }: Props) {
               ))}
             </ul>
 
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap justify-center gap-2 landing:justify-start">
               <PrimaryLink href="#book">{t.hero.bookCta}</PrimaryLink>
               <PillLink href="#line">{t.hero.lineCta}</PillLink>
             </div>
