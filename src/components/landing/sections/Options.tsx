@@ -1,25 +1,30 @@
-import { OPTION_CARDS } from '../data';
-import { cx, Container, PillLink, SectionTitle } from '../ui';
+import type { Messages } from '../../../i18n';
+import { OPTION_IDS } from '../data';
+import { cx, Container, KeepLines, PillLink, SectionTitle } from '../ui';
 
 type Props = {
   picks: Record<number, boolean>;
   onToggle: (id: number) => void;
+  t: Messages;
 };
 
-export function Options({ picks, onToggle }: Props) {
-  const picked = OPTION_CARDS.filter((c) => picks[c.id]);
+export function Options({ picks, onToggle, t }: Props) {
+  const cards = OPTION_IDS.map((id, i) => ({ id, ...t.options.cards[i] }));
+  const picked = cards.filter((c) => picks[c.id]);
 
   return (
     <section id="options" aria-labelledby="optionsTitle" className="bg-cream">
       <Container className="flex flex-wrap items-start gap-8 py-[86px] pb-24">
         <div className="flex min-w-0 flex-[999_1_420px] flex-col gap-[22px]">
           <div className="flex flex-col gap-2.5">
-            <SectionTitle id="optionsTitle">Find your next chapter abroad.</SectionTitle>
-            <p className="m-0 text-ink">Choose what you’re looking for. We’ll help you bridge the gap.</p>
+            <SectionTitle id="optionsTitle">{t.options.title}</SectionTitle>
+            <p className="m-0 text-ink">
+              <KeepLines text={t.options.lead} />
+            </p>
           </div>
 
           <div className="opt-list flex flex-col border-b border-line">
-            {OPTION_CARDS.map((card) => {
+            {cards.map((card) => {
               const on = !!picks[card.id];
               return (
                 <button
@@ -42,7 +47,7 @@ export function Options({ picks, onToggle }: Props) {
                     ✓
                   </span>
                   <span className="flex min-w-0 flex-col gap-1">
-                    <span className="font-display text-[clamp(16px,1.7vw,20px)] font-normal leading-[1.2] tracking-[-0.005em]">
+                    <span className="inline-block whitespace-nowrap font-display text-[clamp(16px,1.7vw,20px)] font-normal leading-[1.2] tracking-[-0.005em]">
                       {card.title}
                     </span>
                   </span>
@@ -65,14 +70,16 @@ export function Options({ picks, onToggle }: Props) {
           </div>
         </div>
 
-        <aside aria-label="Your plan" className="sticky top-[92px] flex-1 basis-[210px] rotate-[1.2deg] pt-3">
+        <aside aria-label={t.a11y.yourPlan} className="sticky top-[92px] flex-1 basis-[210px] rotate-[1.2deg] pt-3">
           <div className="relative flex min-h-[260px] flex-col gap-2.5 overflow-visible rounded bg-surface bg-[repeating-linear-gradient(to_bottom,transparent_0_31px,rgba(0,128,105,.12)_31px_32px)] bg-[position:0_60px] px-[22px] py-[26px] pb-[22px] shadow-[0_1px_1px_rgba(0,0,0,.04),0_16px_20px_-14px_rgba(31,40,50,.3)]">
             <span aria-hidden className="plan-tape" />
             <span aria-hidden className="absolute bottom-0 left-4 top-0 border-l border-[rgba(229,85,59,.25)]" />
-            <h3 className="mb-1 ml-2.5 font-display text-[19px] font-medium">Your Plan</h3>
+            <h3 className="mb-1 ml-2.5 font-display text-[19px] font-medium">
+              <span className="inline-block whitespace-nowrap">{t.options.planTitle}</span>
+            </h3>
             {picked.length === 0 ? (
               <p className="m-0 ml-2.5 font-hand text-sm leading-8 text-ink opacity-70">
-                Click cards on the left that catch your eye.
+                <KeepLines text={t.options.planEmpty} />
               </p>
             ) : (
               <ul className="m-0 ml-2.5 list-none p-0">
@@ -84,7 +91,7 @@ export function Options({ picks, onToggle }: Props) {
               </ul>
             )}
             <PillLink href="#book" className="mt-auto">
-              Get Custom Roadmap →
+              {t.options.roadmapCta}
             </PillLink>
           </div>
         </aside>

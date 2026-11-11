@@ -1,4 +1,4 @@
-import type { ComponentProps, ReactNode } from 'react';
+import { Fragment, type ComponentProps, type ReactNode } from 'react';
 
 export function cx(...parts: Array<string | false | null | undefined>) {
   return parts.filter(Boolean).join(' ');
@@ -6,6 +6,36 @@ export function cx(...parts: Array<string | false | null | undefined>) {
 
 export function Container({ children, className }: { children: ReactNode; className?: string }) {
   return <div className={cx('mx-auto w-full max-w-content px-5 landing:px-[35px]', className)}>{children}</div>;
+}
+
+/**
+ * Split on `\n` and keep each designed line from wrapping mid-phrase.
+ * Single-line strings wrap normally unless `forceKeep` is set.
+ */
+export function KeepLines({
+  text,
+  className,
+  forceKeep = false,
+}: {
+  text: string;
+  className?: string;
+  forceKeep?: boolean;
+}) {
+  const lines = text.split('\n');
+  if (lines.length === 1 && !forceKeep) {
+    return <span className={className}>{text}</span>;
+  }
+
+  return (
+    <>
+      {lines.map((line, i) => (
+        <Fragment key={`${i}-${line}`}>
+          {i > 0 ? <br /> : null}
+          <span className={cx('inline-block whitespace-nowrap', className)}>{line}</span>
+        </Fragment>
+      ))}
+    </>
+  );
 }
 
 export function SectionTitle({ id, children, className }: { id?: string; children: ReactNode; className?: string }) {
@@ -17,7 +47,7 @@ export function SectionTitle({ id, children, className }: { id?: string; childre
         className,
       )}
     >
-      {children}
+      {typeof children === 'string' ? <KeepLines text={children} /> : children}
     </h2>
   );
 }

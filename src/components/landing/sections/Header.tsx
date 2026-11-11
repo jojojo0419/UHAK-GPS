@@ -1,12 +1,15 @@
-import { NAV } from '../data';
+import type { Locale, Messages } from '../../../i18n';
 import { cx, PrimaryLink } from '../ui';
 
 type Props = {
   collapsed: boolean;
   activeNav: string;
+  t: Messages;
+  locale: Locale;
+  onLocaleChange: (locale: Locale) => void;
 };
 
-export function Header({ collapsed, activeNav }: Props) {
+export function Header({ collapsed, activeNav, t, locale, onLocaleChange }: Props) {
   return (
     <header
       className={cx(
@@ -20,7 +23,7 @@ export function Header({ collapsed, activeNav }: Props) {
           collapsed ? 'float' : 'atop',
         )}
       >
-        <a href="#top" aria-label="UHAK GPS home" className="flex shrink-0 items-center text-ink no-underline">
+        <a href="#top" aria-label={t.a11y.home} className="flex shrink-0 items-center text-ink no-underline">
           <span className="hdr-logo font-display text-[20px] font-medium leading-none tracking-[0.06em] landing:text-[22px]">
             UHAK GPS
           </span>
@@ -28,9 +31,9 @@ export function Header({ collapsed, activeNav }: Props) {
 
         <nav
           className="hdr-nav flex min-w-0 flex-1 flex-nowrap items-center justify-center gap-x-4 overflow-x-auto landing:gap-x-7"
-          aria-label="Main"
+          aria-label={t.a11y.mainNav}
         >
-          {NAV.map((item) => (
+          {t.nav.map((item) => (
             <a
               key={item.href}
               href={item.href}
@@ -53,7 +56,7 @@ export function Header({ collapsed, activeNav }: Props) {
             href="https://www.instagram.com/"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Instagram"
+            aria-label={t.a11y.instagram}
             className="hidden size-9 items-center justify-center text-ink no-underline landing:inline-flex"
           >
             <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
@@ -62,11 +65,21 @@ export function Header({ collapsed, activeNav }: Props) {
               <circle cx="17.2" cy="6.8" r="0.9" fill="currentColor" stroke="none" />
             </svg>
           </a>
-          <a href="#ja" className="hidden font-jp text-xs font-normal text-muted no-underline landing:inline">
-            日本語
+          <a
+            href={t.langSwitch.href}
+            className={cx(
+              'hidden text-xs font-normal text-muted no-underline landing:inline',
+              t.langSwitch.label === '日本語' ? 'font-jp' : undefined,
+            )}
+            onClick={(e) => {
+              e.preventDefault();
+              onLocaleChange(locale === 'en' ? 'ja' : 'en');
+            }}
+          >
+            {t.langSwitch.label}
           </a>
           <PrimaryLink href="#book" className="ml-4 px-3.5 text-xs leading-none">
-            Book a free chat
+            {t.header.bookChat}
           </PrimaryLink>
         </div>
       </div>

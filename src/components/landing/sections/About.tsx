@@ -1,30 +1,22 @@
-import { ABOUT_QUOTES, COUNSELLOR, MAPS_URL } from '../data';
+import type { Messages } from '../../../i18n';
+import { MAPS_URL } from '../data';
 import { cx, Container, SectionTitle } from '../ui';
 
 type Props = {
   flipped: boolean;
   onFlip: () => void;
+  t: Messages;
 };
 
-export function About({ flipped, onFlip }: Props) {
+export function About({ flipped, onFlip, t }: Props) {
   return (
     <section id="about" aria-labelledby="aboutTitle" className="bg-transparent text-ink">
       <Container className="flex flex-wrap items-center justify-center gap-10 py-[86px] landing:justify-start">
         <div className="flex w-full flex-[999_1_360px] flex-col gap-4">
-          <SectionTitle id="aboutTitle" className="flex flex-col gap-2">
-            <span className="text-[clamp(14px,1.44vw,17px)] leading-[1.4] tracking-[0.01em] text-ink opacity-75">
-              We don't send you to Australia from Japan.
-            </span>
-            <span className="font-display text-[clamp(21px,2.8vw,38px)] font-normal leading-[1.15] tracking-[0.01em]">
-              About us.
-            </span>
-          </SectionTitle>
-          <p className="m-0 max-w-[403px] text-ink">
-            School and visa are the easy part. We also think about where you'll live, how you'll get around, and what a
-            normal week actually costs.
-          </p>
+          <SectionTitle id="aboutTitle">{t.about.title}</SectionTitle>
+          <p className="m-0 max-w-[403px] text-ink">{t.about.body}</p>
           <div className="mt-2 flex flex-wrap gap-x-2.5 gap-y-4">
-            {ABOUT_QUOTES.map((q, i) => (
+            {t.about.quotes.map((q, i) => (
               <div key={q} className="relative flex-1 basis-40 rounded-[12px] bg-surface px-4 py-3.5">
                 <span
                   aria-hidden
@@ -49,7 +41,7 @@ export function About({ flipped, onFlip }: Props) {
             role="button"
             tabIndex={0}
             aria-pressed={flipped}
-            aria-label="Counsellor ID card. Tap to flip. Map opens Google Maps."
+            aria-label={t.a11y.idCard}
             className="mt-1 w-full cursor-pointer rotate-[2deg] border-0 bg-transparent p-0 text-left font-inherit text-ink [perspective:1008px]"
             onClick={onFlip}
             onKeyDown={(e) => {
@@ -69,14 +61,14 @@ export function About({ flipped, onFlip }: Props) {
                 <div className="flex h-full min-h-[200px] flex-col overflow-hidden rounded-[12px] bg-surface shadow-[0_2px_3px_rgba(31,58,80,0.08),0_10px_20px_rgba(31,58,80,0.12)]">
                   <div className="relative flex items-baseline justify-between gap-2 bg-accent px-3.5 py-3 text-surface">
                     <span className="text-xs font-medium tracking-[0.22em]">UHAK GPS</span>
-                    <span className="text-xs tracking-[0.08em]">LOCAL ID</span>
+                    <span className="text-xs tracking-[0.08em]">{t.about.localId}</span>
                   </div>
                   <div className="flex flex-1 items-start gap-3 px-3.5 py-4 pb-5">
                     <a
                       href={MAPS_URL}
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label="Open UHAK GPS location on Google Maps"
+                      aria-label={t.a11y.openMaps}
                       className="relative block h-[92px] w-[72px] shrink-0 overflow-hidden rounded-md bg-[#F7F1E6] no-underline shadow-[inset_0_0_0_1px_rgba(28,30,33,.08)]"
                       onClick={(e) => e.stopPropagation()}
                     >
@@ -88,23 +80,27 @@ export function About({ flipped, onFlip }: Props) {
                     </a>
                     <div className="flex min-w-0 flex-1 flex-col gap-2.5">
                       <div>
-                        <span className="block font-mono text-xs uppercase tracking-[0.12em] opacity-70">Name</span>
+                        <span className="block font-mono text-xs uppercase tracking-[0.12em] opacity-70">
+                          {t.about.nameLabel}
+                        </span>
                         <span className="block text-[13px] font-medium leading-[1.35] tracking-[0.02em]">
-                          {COUNSELLOR.name}
+                          {t.about.counsellor.name}
                         </span>
                       </div>
                       <div>
                         <span className="block font-mono text-xs uppercase tracking-[0.12em] opacity-70">
-                          In Australia since
+                          {t.about.sinceLabel}
                         </span>
                         <span className="block text-[13px] font-medium leading-[1.35] tracking-[0.02em]">
-                          {COUNSELLOR.since}
+                          {t.about.counsellor.since}
                         </span>
                       </div>
                       <div>
-                        <span className="block font-mono text-xs uppercase tracking-[0.12em] opacity-70">Meet us</span>
+                        <span className="block font-mono text-xs uppercase tracking-[0.12em] opacity-70">
+                          {t.about.meetLabel}
+                        </span>
                         <span className="block text-[13px] font-medium leading-[1.35] tracking-[0.02em]">
-                          {COUNSELLOR.meetUs}
+                          {t.about.counsellor.meetUs}
                         </span>
                       </div>
                     </div>
@@ -116,14 +112,16 @@ export function About({ flipped, onFlip }: Props) {
                 <div className="flex h-full min-h-[200px] flex-col overflow-hidden rounded-[12px] bg-surface shadow-[0_2px_3px_rgba(31,58,80,0.08),0_10px_20px_rgba(31,58,80,0.12)]">
                   <div className="relative flex items-baseline justify-between gap-2 bg-accent px-3.5 py-3 text-surface">
                     <span className="text-xs font-medium tracking-[0.22em]">UHAK GPS</span>
-                    <span className="text-xs tracking-[0.08em]">LOCAL ID</span>
+                    <span className="text-xs tracking-[0.08em]">{t.about.localId}</span>
                   </div>
                   <div className="flex flex-1 flex-col gap-2.5 px-3.5 py-4 pb-5">
-                    <span className="block font-mono text-xs uppercase tracking-[0.12em] opacity-70">Ask me about</span>
+                    <span className="block font-mono text-xs uppercase tracking-[0.12em] opacity-70">
+                      {t.about.askLabel}
+                    </span>
                     <ul className="m-0 flex list-none flex-col gap-2 p-0 text-[13px]">
-                      {['Quiet vs fun suburbs', 'Share houses and bond', 'Finding part-time work'].map((t) => (
-                        <li key={t} className="border-b border-accent/25 pb-2">
-                          {t}
+                      {t.about.askTopics.map((topic) => (
+                        <li key={topic} className="border-b border-accent/25 pb-2">
+                          {topic}
                         </li>
                       ))}
                     </ul>
@@ -133,9 +131,9 @@ export function About({ flipped, onFlip }: Props) {
             </div>
           </div>
           <p className="mt-2.5 text-center text-xs leading-[1.45] tracking-[0.01em] opacity-75">
-            Tap the card to flip
+            <span className="inline-block whitespace-nowrap">{t.about.tipFlip}</span>
             <br />
-            Tap the map for Google Maps
+            <span className="inline-block whitespace-nowrap">{t.about.tipMap}</span>
           </p>
         </div>
       </Container>

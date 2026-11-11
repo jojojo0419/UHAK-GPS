@@ -1,4 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { getMessages, type Locale } from '../../i18n';
+import { cx } from './ui';
 import { About } from './sections/About';
 import { Airmail } from './sections/Airmail';
 import { FeelNotes } from './sections/FeelNotes';
@@ -11,7 +13,28 @@ import { Principles } from './sections/Principles';
 import { Schools } from './sections/Schools';
 import { WhyUs } from './sections/WhyUs';
 
-export default function Landing() {
+type Props = {
+  locale: Locale;
+};
+
+function pathForLocale(locale: Locale) {
+  return locale === 'ja' ? '/ja/' : '/';
+}
+
+function applyDocumentLocale(locale: Locale) {
+  const t = getMessages(locale);
+  document.documentElement.lang = locale;
+  document.title = t.meta.title;
+  const desc = document.querySelector('meta[name="description"]');
+  if (desc) desc.setAttribute('content', t.meta.description);
+  const canonical = document.querySelector('link[rel="canonical"]');
+  if (canonical) canonical.setAttribute('href', `${location.origin}${pathForLocale(locale)}`);
+}
+
+export default function Landing({ locale: initialLocale }: Props) {
+  const [locale, setLocale] = useState<Locale>(initialLocale);
+  const [visible, setVisible] = useState(true);
+  const t = useMemo(() => getMessages(locale), [locale]);
   const [collapsed, setCollapsed] = useState(false);
   const [activeNav, setActiveNav] = useState('');
   const [picks, setPicks] = useState<Record<number, boolean>>({});
@@ -20,20 +43,20 @@ export default function Landing() {
 
   useEffect(() => {
     const onScroll = (e: Event) => {
-      const t = e.target as HTMLElement | Document | null;
+      const target = e.target as HTMLElement | Document | null;
       if (
-        t &&
-        (t as HTMLElement).nodeType === 1 &&
-        t !== document.documentElement &&
-        t !== document.body &&
-        ((t as HTMLElement).scrollHeight - (t as HTMLElement).clientHeight) < 4
+        target &&
+        (target as HTMLElement).nodeType === 1 &&
+        target !== document.documentElement &&
+        target !== document.body &&
+        (target as HTMLElement).scrollHeight - (target as HTMLElement).clientHeight < 4
       ) {
         return;
       }
       const y =
-        !t || t === document || t === document.documentElement || t === document.body
+        !target || target === document || target === document.documentElement || target === document.body
           ? window.scrollY || document.documentElement.scrollTop || 0
-          : (t as HTMLElement).scrollTop || 0;
+          : (target as HTMLElement).scrollTop || 0;
 
       setCollapsed((c) => {
         if (!c && y > 90) return true;
@@ -53,24 +76,54 @@ export default function Landing() {
     return () => document.removeEventListener('scroll', onScroll, true);
   }, []);
 
+  useEffect(() => {
+    const onPopState = () => {
+      const next: Locale = location.pathname.startsWith('/ja') ? 'ja' : 'en';
+      setLocale(next);
+      applyDocumentLocale(next);
+      setVisible(true);
+    };
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+  }, []);
+
+  const switchLocale = (next: Locale) => {
+    if (next === locale) return;
+    setVisible(false);
+    window.setTimeout(() => {
+      setLocale(next);
+      applyDocumentLocale(next);
+      window.history.pushState({ locale: next }, '', pathForLocale(next));
+      setVisible(true);
+    }, 180);
+  };
+
   return (
-    <div className="paper min-h-dvh bg-surface font-sans text-[13px] font-normal leading-[1.7] text-ink">
-      <Header collapsed={collapsed} activeNav={activeNav} />
-      <Hero />
-      <FeelNotes />
-      <Options
-        picks={picks}
-        onToggle={(id) => setPicks((p) => ({ ...p, [id]: !p[id] }))}
+    <div
+      className={cx(
+        'paper min-h-dvh bg-surface font-sans text-[13px] font-normal leading-[1.7] text-ink transition-opacity duration-200 ease-out',
+        visible ? 'opacity-100' : 'opacity-0',
+      )}
+    >
+      <Header
+        collapsed={collapsed}
+        activeNav={activeNav}
+        t={t}
+        locale={locale}
+        onLocaleChange={switchLocale}
       />
-      <WhyUs />
-      <HowItWorks step={step} onStep={setStep} />
-      <Schools />
-      <Airmail />
+      <Hero t={t} />
+      <FeelNotes t={t} />
+      <Options picks={picks} onToggle={(id) => setPicks((p) => ({ ...p, [id]: !p[id] }))} t={t} />
+      <WhyUs t={t} />
+      <HowItWorks step={step} onStep={setStep} t={t} />
+      <Schools t={t} />
+      <Airmail t={t} />
       <div className="green-run bg-mint">
-        <About flipped={idFlip} onFlip={() => setIdFlip((v) => !v)} />
-        <Principles />
+        <About flipped={idFlip} onFlip={() => setIdFlip((v) => !v)} t={t} />
+        <Principles t={t} />
       </div>
-      <Footer />
+      <Footer t={t} />
     </div>
   );
 }

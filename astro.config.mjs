@@ -7,9 +7,16 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://uhak-gps.netlify.app',
   integrations: [react()],
-
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'ja'],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
   vite: {
-    plugins: [tailwindcss()]
-  }
+    plugins: [tailwindcss()],
+  },
 });

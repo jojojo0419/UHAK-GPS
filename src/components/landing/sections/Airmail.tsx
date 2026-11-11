@@ -1,4 +1,4 @@
-import { AIRMAIL } from '../data';
+import type { Messages } from '../../../i18n';
 
 const ICONS = [
   function Plane() {
@@ -45,10 +45,10 @@ const ICONS = [
   },
 ] as const;
 
-function Track({ prefix }: { prefix: string }) {
+function Track({ labels, prefix }: { labels: string[]; prefix: string }) {
   return (
     <>
-      {AIRMAIL.map((label, i) => {
+      {labels.map((label, i) => {
         const Icon = ICONS[i % ICONS.length];
         return (
           <span key={`${prefix}-${i}`} className="inline-flex items-center gap-[26px]">
@@ -61,17 +61,21 @@ function Track({ prefix }: { prefix: string }) {
   );
 }
 
-export function Airmail() {
+type Props = {
+  t: Messages;
+};
+
+export function Airmail({ t }: Props) {
   // Identical halves (each = 4 phrase cycles) so translateX(-50%) loops forever.
   const half = [0, 1, 2, 3];
   return (
     <div className="airmail" aria-hidden>
       <div className="ticker-track">
         {half.map((n) => (
-          <Track key={`a-${n}`} prefix={`a${n}`} />
+          <Track key={`a-${n}`} prefix={`a${n}`} labels={t.airmail} />
         ))}
         {half.map((n) => (
-          <Track key={`b-${n}`} prefix={`b${n}`} />
+          <Track key={`b-${n}`} prefix={`b${n}`} labels={t.airmail} />
         ))}
       </div>
     </div>

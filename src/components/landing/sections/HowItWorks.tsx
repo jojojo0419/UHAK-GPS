@@ -1,28 +1,27 @@
-import { STEPS } from '../data';
+import type { Messages } from '../../../i18n';
+import { STEP_ICONS } from '../data';
 import { cx, Container, PillButton, PillLink, SectionTitle } from '../ui';
 
 type Props = {
   step: number;
   onStep: (i: number) => void;
+  t: Messages;
 };
 
-export function HowItWorks({ step, onStep }: Props) {
-  const cur = STEPS[step];
-  const last = step === STEPS.length - 1;
+export function HowItWorks({ step, onStep, t }: Props) {
+  const steps = t.how.steps.map((s, i) => ({ ...s, icon: STEP_ICONS[i] }));
+  const cur = steps[step];
+  const last = step === steps.length - 1;
 
   return (
     <section id="how" aria-labelledby="howTitle" className="bg-cream">
       <Container className="py-20">
-        <div className="mb-8 flex flex-wrap items-end justify-between gap-4 landing:gap-x-[46px]">
-          <SectionTitle id="howTitle">How it usually goes</SectionTitle>
-          <p className="m-0 max-w-[302px] text-ink">
-            Most agencies start once you've decided. We start at the very first sentence, and stay after you land. No
-            worries if you're not sure yet.
-          </p>
+        <div className="mb-8">
+          <SectionTitle id="howTitle">{t.how.title}</SectionTitle>
         </div>
 
-        <div role="tablist" aria-label="Steps" className="journey grid grid-cols-2 gap-3 pt-2 landing:grid-cols-6">
-          {STEPS.map((s, i) => {
+        <div role="tablist" aria-label={t.a11y.steps} className="journey grid grid-cols-2 gap-3 pt-2 landing:grid-cols-6">
+          {steps.map((s, i) => {
             const sel = step === i;
             const done = i < step;
             return (
@@ -49,7 +48,7 @@ export function HowItWorks({ step, onStep }: Props) {
                     !sel && !done && 'grayscale opacity-45',
                   )}
                 />
-                <span className="text-sm font-medium">{s.title}</span>
+                <span className="whitespace-nowrap text-sm font-medium">{s.title}</span>
               </button>
             );
           })}
@@ -60,7 +59,7 @@ export function HowItWorks({ step, onStep }: Props) {
             <img src={cur.icon} alt="" className="block size-[98px]" />
             <div>
               <p className="m-0 font-mono text-[4rem] leading-none tracking-normal text-accent">0{step + 1}</p>
-              <p className="mt-1.5 font-jp text-xs font-light tracking-[0.05em] opacity-75">{cur.ja}</p>
+              <p className="mt-1.5 font-jp text-xs font-light tracking-[0.05em] opacity-75">{cur.flourish}</p>
             </div>
           </div>
 
@@ -71,13 +70,16 @@ export function HowItWorks({ step, onStep }: Props) {
             <div className="mt-1 flex flex-wrap gap-2">
               {step > 0 ? (
                 <PillButton muted onClick={() => onStep(step - 1)}>
-                  Previous
+                  {t.how.previous}
                 </PillButton>
               ) : null}
               {!last ? (
-                <PillButton onClick={() => onStep(step + 1)}>Next: {STEPS[step + 1].title}</PillButton>
+                <PillButton onClick={() => onStep(step + 1)}>
+                  {t.how.nextPrefix}
+                  {steps[step + 1].title}
+                </PillButton>
               ) : (
-                <PillLink href="#book">Start with step 01: a free chat</PillLink>
+                <PillLink href="#book">{t.how.startCta}</PillLink>
               )}
             </div>
           </div>
