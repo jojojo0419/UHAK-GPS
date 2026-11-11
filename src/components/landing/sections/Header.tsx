@@ -53,7 +53,7 @@ export function Header({ collapsed, activeNav, t, locale, onLocaleChange }: Prop
 
         <div className="hdr-actions ml-auto flex shrink-0 items-center justify-end gap-2">
           <a
-            href="https://www.instagram.com/"
+            href="https://www.instagram.com/gagopa_sydney"
             target="_blank"
             rel="noopener noreferrer"
             aria-label={t.a11y.instagram}
@@ -68,7 +68,7 @@ export function Header({ collapsed, activeNav, t, locale, onLocaleChange }: Prop
           <a
             href={t.langSwitch.href}
             className={cx(
-              'hidden text-xs font-normal text-muted no-underline landing:inline',
+              'inline-flex items-center px-1 py-2 text-xs font-normal text-muted no-underline',
               t.langSwitch.label === '日本語' ? 'font-jp' : undefined,
             )}
             onClick={(e) => {
@@ -78,7 +78,7 @@ export function Header({ collapsed, activeNav, t, locale, onLocaleChange }: Prop
           >
             {t.langSwitch.label}
           </a>
-          <PrimaryLink href="#book" className="ml-4 px-3.5 text-xs leading-none">
+          <PrimaryLink href="#book" className="ml-1 px-3.5 text-xs leading-none landing:ml-4">
             {t.header.bookChat}
           </PrimaryLink>
         </div>
