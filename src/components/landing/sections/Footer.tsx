@@ -11,7 +11,7 @@ export function Footer({ t }: Props) {
       <Container className="flex flex-col gap-9 pb-[110px] pt-16">
         <div className="flex flex-wrap items-start justify-between gap-7 landing:gap-x-12">
           <div className="flex max-w-[320px] flex-col gap-2.5">
-            <span className="font-display text-[22px] font-medium tracking-[0.06em]">UHAK GPS</span>
+            <span className="ftr-logo font-display text-[22px] font-medium tracking-[0.06em]">UHAK GPS</span>
             <span className="text-[13px] leading-[1.6] text-surface/70">{t.footer.blurb}</span>
           </div>
           <nav aria-label={t.a11y.footerNav} className="flex flex-wrap gap-x-7 gap-y-3 text-[13px] font-medium">

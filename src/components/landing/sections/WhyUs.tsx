@@ -22,7 +22,7 @@ export function WhyUs({ t }: Props) {
                     {item.was}
                   </span>
                 </p>
-                <p className="m-0 font-display text-[clamp(18px,2vw,22px)] font-medium leading-[1.25] tracking-[-0.01em] text-ink">
+                <p className="why-now m-0 font-display text-[clamp(18px,2vw,22px)] font-medium leading-[1.25] tracking-[-0.01em] text-ink">
                   <span className="inline-block whitespace-nowrap">{item.now}</span>
                 </p>
               </div>

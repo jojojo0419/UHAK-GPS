@@ -17,9 +17,37 @@ html[lang='ja'] {
   word-break: normal;
 }
 
-/* Keep each designed headline line on one row (intentional <br> only) */
+/*
+  JA: any designed size above 18px → −2px (clamp min/max likewise).
+  18px and below stay as EN.
+*/
 html[lang='ja'] .wa-h1 {
-  font-size: clamp(22px, 3.2vw, 44px);
+  /* Hero only: denser CJK — keep the tighter scale (not the global −2) */
+  font-size: clamp(20px, 2.6vw, 34px);
+}
+html[lang='ja'] .sec-h {
+  font-size: clamp(19px, 2.8vw, 36px); /* EN 21 / 38 */
+}
+html[lang='ja'] .why-now {
+  font-size: clamp(18px, 2vw, 20px); /* EN max 22; min stays 18 */
+}
+html[lang='ja'] .opt-title {
+  font-size: clamp(16px, 1.7vw, 18px); /* EN max 20 */
+}
+html[lang='ja'] .plan-title {
+  font-size: 17px; /* EN 19 */
+}
+html[lang='ja'] .hdr-logo {
+  font-size: 18px; /* EN 20; landing: 22 → below */
+}
+html[lang='ja'] .ftr-logo {
+  font-size: 20px; /* EN 22 */
+}
+
+@media (min-width: 760px) {
+  html[lang='ja'] .hdr-logo {
+    font-size: 20px; /* EN landing 22 */
+  }
 }
 
 .paper {
@@ -236,6 +264,10 @@ html[lang='ja'] .wa-h1 {
 
   .hdr-logo {
     font-size: 19px !important;
+  }
+
+  html[lang='ja'] .hdr-logo {
+    font-size: 17px !important; /* EN float 19 */
   }
 
   .hdr-actions a[href='#book'] {

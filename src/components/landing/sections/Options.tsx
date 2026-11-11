@@ -47,7 +47,7 @@ export function Options({ picks, onToggle, t }: Props) {
                     ✓
                   </span>
                   <span className="flex min-w-0 flex-col gap-1">
-                    <span className="inline-block whitespace-nowrap font-display text-[clamp(16px,1.7vw,20px)] font-normal leading-[1.2] tracking-[-0.005em]">
+                    <span className="opt-title inline-block whitespace-nowrap font-display text-[clamp(16px,1.7vw,20px)] font-normal leading-[1.2] tracking-[-0.005em]">
                       {card.title}
                     </span>
                   </span>
@@ -74,7 +74,7 @@ export function Options({ picks, onToggle, t }: Props) {
           <div className="relative flex min-h-[260px] flex-col gap-2.5 overflow-visible rounded bg-surface bg-[repeating-linear-gradient(to_bottom,transparent_0_31px,rgba(0,128,105,.12)_31px_32px)] bg-[position:0_60px] px-[22px] py-[26px] pb-[22px] shadow-[0_1px_1px_rgba(0,0,0,.04),0_16px_20px_-14px_rgba(31,40,50,.3)]">
             <span aria-hidden className="plan-tape" />
             <span aria-hidden className="absolute bottom-0 left-4 top-0 border-l border-[rgba(229,85,59,.25)]" />
-            <h3 className="mb-1 ml-2.5 font-display text-[19px] font-medium">
+            <h3 className="plan-title mb-1 ml-2.5 font-display text-[19px] font-medium">
               <span className="inline-block whitespace-nowrap">{t.options.planTitle}</span>
             </h3>
             {picked.length === 0 ? (

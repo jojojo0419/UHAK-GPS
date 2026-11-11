@@ -43,7 +43,7 @@ export function SectionTitle({ id, children, className }: { id?: string; childre
     <h2
       id={id}
       className={cx(
-        'm-0 font-display text-[clamp(21px,2.8vw,38px)] font-normal leading-[1.15] tracking-[0.01em] text-ink',
+        'sec-h m-0 font-display text-[clamp(21px,2.8vw,38px)] font-normal leading-[1.15] tracking-[0.01em] text-ink',
         className,
       )}
     >
