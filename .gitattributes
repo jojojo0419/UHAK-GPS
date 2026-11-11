@@ -1,2 +1,5 @@
-# Exclude migration snapshot from GitHub language stats (1.2MB HTML skews Linguist).
-legacy/** linguist-vendored
+# Keep legacy snapshot out of GitHub language stats (byte-weighted Linguist).
+legacy/* linguist-vendored=true
+legacy/** linguist-vendored=true
+legacy/uhak-gps-green.html linguist-vendored=true
+legacy/uhak-gps-green.html linguist-detectable=false
