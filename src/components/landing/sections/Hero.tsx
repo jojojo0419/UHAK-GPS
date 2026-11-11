@@ -41,8 +41,8 @@ export function Hero({ t }: Props) {
             </h1>
 
             <ul className="m-0 flex max-w-[360px] list-none flex-col items-center gap-3 p-0 landing:items-start">
-              {t.hero.checks.map((text) => (
-                <li key={text} className="flex items-center gap-2.5">
+              {t.hero.checks.map((text, i) => (
+                <li key={i} className="flex items-center gap-2.5">
                   <CheckIcon />
                   <span className="text-sm leading-[1.45] text-ink whitespace-nowrap">{text}</span>
                 </li>
@@ -56,11 +56,17 @@ export function Hero({ t }: Props) {
           </div>
 
           <figure className="mx-auto m-0 max-w-[300px] flex-1 basis-[300px] rotate-[3deg] bg-surface px-2.5 pt-2.5 shadow-[0_2px_4px_rgba(31,58,80,.08),0_12px_28px_rgba(31,58,80,.14)] landing:mx-0">
-            <img
-              src="/images/hero-polaroid-2.webp"
-              alt={t.hero.polaroidAlt}
-              className="aspect-[3/4] w-full object-cover"
-            />
+            <div className="polaroid-photo relative aspect-[4/5] overflow-hidden">
+              <img
+                src="/images/hero-polaroid-opera.webp"
+                alt={t.hero.polaroidAlt}
+                width={600}
+                height={800}
+                decoding="async"
+                fetchPriority="high"
+                className="h-full w-full object-cover object-center"
+              />
+            </div>
             <figcaption className="px-1 py-2.5 pb-3 font-hand text-[13px] leading-[1.2] text-ink">
               {t.hero.polaroidCaption}
             </figcaption>
