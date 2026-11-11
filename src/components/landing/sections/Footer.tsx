@@ -15,8 +15,8 @@ export function Footer({ t }: Props) {
             <span className="text-[13px] leading-[1.6] text-surface/70">{t.footer.blurb}</span>
           </div>
           <nav aria-label={t.a11y.footerNav} className="flex flex-wrap gap-x-7 gap-y-3 text-[13px] font-medium">
-            {t.footer.links.map((l) => (
-              <a key={`${l.href}-${l.label}`} href={l.href} className="text-surface no-underline hover:text-surface">
+            {t.footer.links.map((l, i) => (
+              <a key={`${l.href}-${i}`} href={l.href} className="text-surface no-underline hover:text-surface">
                 {l.label}
               </a>
             ))}

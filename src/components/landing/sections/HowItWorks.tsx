@@ -26,7 +26,7 @@ export function HowItWorks({ step, onStep, t }: Props) {
             const done = i < step;
             return (
               <button
-                key={s.title}
+                key={i}
                 type="button"
                 role="tab"
                 aria-selected={sel}

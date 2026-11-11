@@ -20,8 +20,8 @@ export function Principles({ t }: Props) {
             aria-label={t.a11y.beliefs}
             className="m-0 flex flex-1 basis-[280px] list-none flex-col gap-4 rounded-2xl bg-surface px-[26px] py-6"
           >
-            {t.principles.items.map((p) => (
-              <li key={p.title} className="flex items-start gap-3">
+            {t.principles.items.map((p, i) => (
+              <li key={i} className="flex items-start gap-3">
                 <span
                   aria-hidden
                   className="mt-0.5 inline-flex size-[22px] shrink-0 items-center justify-center rounded-full bg-accent text-[11px] font-bold text-surface"

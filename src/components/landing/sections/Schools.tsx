@@ -20,12 +20,12 @@ export function Schools({ t }: Props) {
         </div>
 
         <div className="school-cols grid grid-cols-1 gap-y-6 landing:grid-cols-3 landing:gap-x-8">
-          {t.schools.cols.map((col) => (
-            <div key={col.label}>
+          {t.schools.cols.map((col, ci) => (
+            <div key={ci}>
               <p className="mb-2.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-accent">{col.label}</p>
               <ul className="m-0 list-none p-0">
-                {col.items.map((item) => (
-                  <li key={item.name} className="flex flex-col gap-0.5 border-t border-line py-3.5">
+                {col.items.map((item, ii) => (
+                  <li key={ii} className="flex flex-col gap-0.5 border-t border-line py-3.5">
                     <span className="text-sm font-medium text-ink">{item.name}</span>
                     <span className="text-xs text-ink opacity-65">{item.meta}</span>
                   </li>

@@ -14,7 +14,7 @@ export function WhyUs({ t }: Props) {
         </SectionTitle>
         <div className="why-cols grid grid-cols-1 gap-7 landing:grid-cols-3 landing:gap-12">
           {t.why.items.map((item, i) => (
-            <div key={item.now} className="flex flex-col gap-3.5 border-t border-line pt-[18px]">
+            <div key={i} className="flex flex-col gap-3.5 border-t border-line pt-[18px]">
               <span className="font-mono text-xs tracking-[0.04em] text-ink opacity-45">0{i + 1}</span>
               <div className="flex flex-col gap-1.5">
                 <p className="m-0 text-[15px] leading-[1.45] text-ink opacity-45">

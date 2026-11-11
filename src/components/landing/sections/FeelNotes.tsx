@@ -25,7 +25,7 @@ export function FeelNotes({ t }: Props) {
               const note = t.feel.notes[i];
               return (
                 <div
-                  key={`${i}-${note.text}`}
+                  key={i}
                   className={cx(
                     'relative flex min-h-[137px] w-full flex-col justify-start gap-2 box-border overflow-visible px-[17px] py-[22px] shadow-[0_1px_1px_rgba(0,0,0,0.04),0_10px_12px_-9px_rgba(31,40,50,0.28)]',
                     meta.bg,

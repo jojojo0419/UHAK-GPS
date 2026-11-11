@@ -17,7 +17,7 @@ export function About({ flipped, onFlip, t }: Props) {
           <p className="m-0 max-w-[403px] text-ink">{t.about.body}</p>
           <div className="mt-2 flex flex-wrap gap-x-2.5 gap-y-4">
             {t.about.quotes.map((q, i) => (
-              <div key={q} className="relative flex-1 basis-40 rounded-[12px] bg-surface px-4 py-3.5">
+              <div key={i} className="relative flex-1 basis-40 rounded-[12px] bg-surface px-4 py-3.5">
                 <span
                   aria-hidden
                   className={cx(

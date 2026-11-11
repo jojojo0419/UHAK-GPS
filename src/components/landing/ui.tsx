@@ -29,7 +29,7 @@ export function KeepLines({
   return (
     <>
       {lines.map((line, i) => (
-        <Fragment key={`${i}-${line}`}>
+        <Fragment key={i}>
           {i > 0 ? <br /> : null}
           <span className={cx('inline-block whitespace-nowrap', className)}>{line}</span>
         </Fragment>
