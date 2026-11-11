@@ -3,5 +3,5 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Landing from '../components/landing/Landing';
 ---
 <BaseLayout locale="en">
-  <Landing client:only="react" locale="en" />
+  <Landing client:load locale="en" />
 </BaseLayout>
