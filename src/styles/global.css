@@ -25,10 +25,11 @@
   --color-heart: #f15c6d;
   --color-read-tick: #53bdeb;
 
-  --font-sans: "Plus Jakarta Sans", "Zen Kaku Gothic New", sans-serif;
-  --font-display: "Outfit", sans-serif;
+  --font-sans: "Plus Jakarta Sans", "Murecho", "Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
+  /* Outfit has no CJK — Murecho → Zen Kaku → Noto */
+  --font-display: "Outfit", "Murecho", "Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
   --font-hand: "Shantell Sans", "Klee One", cursive;
-  --font-jp: "Noto Sans JP", "Zen Kaku Gothic New", sans-serif;
+  --font-jp: "Murecho", "Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
   --font-mono: "Courier Prime", monospace;
 
   --breakpoint-landing: 760px;

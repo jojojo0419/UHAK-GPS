@@ -1,5 +1,27 @@
 /* Landing motion + sticky header float — keep lean; prefer Tailwind elsewhere */
 
+/*
+  Outfit has no CJK glyphs. On JA pages, remap display/sans/hand tokens so every
+  font-display / font-sans / font-hand usage (Hero, SectionTitle, Options, Why, logo…)
+  picks a Japanese face at the same size scale.
+*/
+html[lang='ja'] {
+  /* Murecho → Zen Kaku → Noto (deployable web fonts with real weights) */
+  --font-display: 'Murecho', 'Zen Kaku Gothic New', 'Noto Sans JP', sans-serif;
+  --font-sans: 'Murecho', 'Zen Kaku Gothic New', 'Noto Sans JP', 'Plus Jakarta Sans', sans-serif;
+  --font-hand: 'Klee One', 'Shantell Sans', cursive;
+  --font-jp: 'Murecho', 'Zen Kaku Gothic New', 'Noto Sans JP', sans-serif;
+
+  /* Prefer breaks at punctuation; avoid mid-phrase wrapping where possible */
+  line-break: strict;
+  word-break: normal;
+}
+
+/* Keep each designed headline line on one row (intentional <br> only) */
+html[lang='ja'] .wa-h1 {
+  font-size: clamp(22px, 3.2vw, 44px);
+}
+
 .paper {
   overflow-x: clip;
   overflow-y: visible;
