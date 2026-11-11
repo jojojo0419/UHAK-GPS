@@ -41,8 +41,8 @@ export const en: Messages = {
     checks: ['Student Visa study from just 00/week', 'School Enrolment & Visa Support'],
     bookCta: 'Book a free 30-minute chat',
     lineCta: 'Message us on LINE 24 hours',
-    polaroidAlt: 'Smiling over a lunch of kimbap near Town Hall',
-    polaroidCaption: 'Lunch break near Town Hall.',
+    polaroidAlt: 'Student smiling by the harbour during her study abroad',
+    polaroidCaption: 'First month in Sydney.',
   },
   feel: {
     title: 'We hear what you feel.',
@@ -217,7 +217,6 @@ export const en: Messages = {
       { href: '#how', label: 'Courses' },
       { href: '#about', label: 'About us' },
       { href: '#book', label: 'Quick quotation' },
-      { href: '#book', label: 'Free chat' },
     ],
     location: 'Sydney, Australia · Free 30-minute consultations',
     copyright: '© 2026 UHAK GPS',

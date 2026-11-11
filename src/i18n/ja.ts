@@ -41,8 +41,8 @@ export const ja: Messages = {
     checks: ['学生ビザの留学、週あたり00から', '学校入学手続き・ビザサポート'],
     bookCta: '無料30分チャットを予約',
     lineCta: 'LINEで24時間メッセージ',
-    polaroidAlt: 'タウンホール近くでキンパを食べながらのランチ',
-    polaroidCaption: 'タウンホール近くのランチタイム。',
+    polaroidAlt: '留学中、ハーバー沿いでの笑顔',
+    polaroidCaption: 'シドニー、最初のひと月。',
   },
   feel: {
     title: 'あなたの気持ちに、\n耳を澄ませます。',
@@ -56,7 +56,7 @@ export const ja: Messages = {
     ],
   },
   options: {
-    title: '海外での次の章を\n見つけよう。',
+    title: '海外での次の章を見つけよう。',
     lead: '気になるものを選んでください。\nギャップを埋めるお手伝いをします。',
     planTitle: 'あなたのプラン',
     planEmpty: '左のカードで気になるものを\nクリック。',
@@ -93,7 +93,7 @@ export const ja: Messages = {
     ],
   },
   how: {
-    title: 'だいたい、\nこんな流れです',
+    title: 'だいたい、こんな流れです',
     previous: '前へ',
     nextPrefix: '次へ: ',
     startCta: 'ステップ01から：無料チャット',
@@ -213,7 +213,6 @@ export const ja: Messages = {
       { href: '#how', label: 'コース' },
       { href: '#about', label: '私たちについて' },
       { href: '#book', label: 'かんたん見積もり' },
-      { href: '#book', label: '無料チャット' },
     ],
     location: 'シドニー、オーストラリア · 無料30分相談',
     copyright: '© 2026 UHAK GPS',
