@@ -31,6 +31,7 @@ export const en: Messages = {
   ],
   header: {
     bookChat: 'Book a free chat',
+    bookChatShort: 'Book',
   },
   hero: {
     chatAsk: 'Do you want to go to Australia?',

@@ -26,6 +26,7 @@ export type Messages = {
   nav: Array<{ href: string; id: string; label: string }>;
   header: {
     bookChat: string;
+    bookChatShort: string;
   };
   hero: {
     chatAsk: string;

@@ -31,6 +31,7 @@ export const ja: Messages = {
   ],
   header: {
     bookChat: '無料相談を予約',
+    bookChatShort: '予約',
   },
   hero: {
     chatAsk: 'オーストラリアに行きたい？',

@@ -265,12 +265,64 @@ html[lang='ja'] .ftr-logo {
   }
 
   .hdr-row.float {
+    flex-wrap: nowrap !important;
     width: auto;
     max-width: calc(100% - 20px) !important;
-    border-radius: 20px;
+    border-radius: 999px;
     margin: 0 10px !important;
-    padding: 4px 12px 2px !important;
+    padding: 4px 10px 4px 12px !important;
     row-gap: 0 !important;
+    gap: 8px !important;
+    align-items: center !important;
+  }
+
+  /* Mobile float: one row — logo off, nav + actions side by side */
+  .hdr-row.float .hdr-brand {
+    display: none !important;
+  }
+
+  .hdr-row.float .hdr-lang,
+  .hdr-row.float .hdr-ig {
+    display: none !important;
+  }
+
+  .hdr-row.float .hdr-nav {
+    order: 1;
+    flex: 1 1 auto !important;
+    width: auto !important;
+    margin-top: 0 !important;
+    padding: 0 4px 0 0 !important;
+    justify-content: space-evenly !important;
+    gap: 14px !important;
+    overflow-x: auto;
+  }
+
+  .hdr-row.float .hdr-nav > a {
+    flex: 0 0 auto;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+
+  .hdr-row.float .hdr-actions {
+    order: 2;
+    width: auto;
+    margin-left: 0 !important;
+    flex-shrink: 0;
+  }
+
+  /* Short Book label only on mobile float; full label otherwise */
+  .hdr-book-short {
+    display: none;
+  }
+
+  .hdr-row.float .hdr-book-long {
+    display: none;
+  }
+
+  .hdr-row.float .hdr-book-short {
+    display: inline;
   }
 
   .hdr-inner {
