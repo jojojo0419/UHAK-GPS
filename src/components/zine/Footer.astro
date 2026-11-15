@@ -1,0 +1,109 @@
+---
+import { OFFICE, MAPS_URL, ticker, topics } from '../../zine/content';
+import Wordmark from './Wordmark.astro';
+
+/** Enough copies that one half is always wider than the viewport. */
+const sequence = Array.from({ length: 6 }, () => ticker).flat();
+
+const topicHrefs: Record<string, string> = {
+  'working-holiday': '/zine/guides/working-holiday-or-student-visa/',
+  'english-vet': '/zine/guides/picking-a-language-school/',
+  university: '/zine/guides/university-pathways/',
+  'sydney-life': '/zine/guides/your-first-week/',
+};
+
+const IG = 'https://www.instagram.com/gagopa_sydney';
+---
+<section aria-labelledby="inquiryTitle" class="bg-paper editorial-rule-top">
+  <div class="wrap flex flex-col items-center gap-6 py-16 text-center landing:py-20">
+    <h2 id="inquiryTitle" class="ed-h2 max-w-[22ch]">Leave your email or LINE ID</h2>
+    <form class="inquiry flex w-full max-w-[560px] flex-col items-stretch gap-4 landing:flex-row landing:items-end" action="/zine/book/" method="get">
+      <label class="flex flex-1 flex-col gap-1 text-left">
+        <span class="ed-meta text-muted">Email or LINE ID</span>
+        <input
+          name="contact"
+          required
+          autocomplete="email"
+          placeholder="you@example.com"
+          class="min-h-11 w-full rounded-none border-0 border-b border-ink bg-transparent px-0 text-[16px] outline-none placeholder:text-muted focus-visible:border-b-2 focus-visible:outline-none"
+        />
+      </label>
+      <button type="submit" class="ed-btn ed-btn-ink">Send</button>
+    </form>
+    <p class="inquiry-done m-0 hidden text-[16px]" role="status">Thanks. We’ll reply by email or LINE.</p>
+    <p class="m-0 max-w-[46ch] text-[13px] text-muted">One reply from Sydney. No newsletter unless you ask.</p>
+  </div>
+</section>
+
+<div class="ticker overflow-hidden border-y border-ink bg-surface" aria-label={ticker.join(' · ')}>
+  <div class="ticker-track" aria-hidden="true">
+    {[0, 1].map(() => (
+      <div class="ticker-group">
+        {sequence.map((item) => (
+          <a href="/zine/book/" tabindex="-1" class="ed-meta ticker-item">
+            {item}
+            <span class="ticker-dot" aria-hidden="true"></span>
+          </a>
+        ))}
+      </div>
+    ))}
+  </div>
+</div>
+
+<footer class="on-green bg-primary text-ink">
+  <div class="wrap pb-8 pt-14">
+    <Wordmark size="footer" />
+    <nav class="mt-12 grid grid-cols-2 gap-x-6 gap-y-10 border-t border-ink pt-8 lg:grid-cols-4" aria-label="Footer">
+      <div>
+        <p class="ed-meta m-0 mb-3 font-bold">Explore</p>
+        <ul class="m-0 flex list-none flex-col gap-1.5 p-0">
+          <li><a class="ed-meta border-b border-transparent hover:border-ink" href="/zine/#latest">The latest</a></li>
+          <li><a class="ed-meta border-b border-transparent hover:border-ink" href="/zine/#plan">Your plan</a></li>
+          <li><a class="ed-meta border-b border-transparent hover:border-ink" href="/zine/#checklists">Checklists</a></li>
+          <li><a class="ed-meta border-b border-transparent hover:border-ink" href="/zine/#who">Who we are</a></li>
+          <li><a class="ed-meta border-b border-transparent hover:border-ink" href="/zine/book/">Book a chat</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="ed-meta m-0 mb-3 font-bold">Topics</p>
+        <ul class="m-0 flex list-none flex-col gap-1.5 p-0">
+          {topics.map((t) => (
+            <li>
+              <a class="ed-meta border-b border-transparent hover:border-ink" href={topicHrefs[t.id] ?? '/zine/'}>{t.label}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <p class="ed-meta m-0 mb-3 font-bold">Find us</p>
+        <ul class="m-0 flex list-none flex-col gap-1.5 p-0">
+          <li><a class="ed-meta border-b border-transparent hover:border-ink" href={MAPS_URL} target="_blank" rel="noopener noreferrer">{OFFICE}</a></li>
+          <li><a class="ed-meta border-b border-transparent hover:border-ink" href="/zine/book/#line">LINE</a></li>
+          <li><a class="ed-meta border-b border-transparent hover:border-ink" href={IG} target="_blank" rel="noopener noreferrer">Instagram</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="ed-meta m-0 mb-3 font-bold">Elsewhere</p>
+        <ul class="m-0 flex list-none flex-col gap-1.5 p-0">
+          <li><a class="font-jp text-[13px] border-b border-transparent hover:border-ink" href="/ja/" lang="ja">日本語版</a></li>
+          <li><a class="ed-meta border-b border-transparent hover:border-ink" href="/">Main site</a></li>
+          <li><a class="ed-meta border-b border-transparent hover:border-ink" href="#top">Back to top</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="mt-12 border-t border-ink pt-5">
+      <p class="ed-meta m-0">© 2026 UHAK GPS · Made in Sydney</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>('form.inquiry').forEach((form) => {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!form.reportValidity()) return;
+      form.classList.add('hidden');
+      form.parentElement?.querySelector('.inquiry-done')?.classList.remove('hidden');
+    });
+  });
+</script>

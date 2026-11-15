@@ -1,0 +1,328 @@
+---
+import ZineLayout from '../../layouts/ZineLayout.astro';
+import Cover from '../../components/zine/Cover.astro';
+import SpotArt from '../../components/zine/SpotArt.astro';
+import {
+  featuredSlugs,
+  fieldNotes,
+  guideBySlug,
+  guides,
+  latestSlugs,
+  MAPS_URL,
+  planOptions,
+  principles,
+  team,
+  faq,
+  toolkits,
+  topicLabel,
+  topics,
+} from '../../zine/content';
+
+const featured = featuredSlugs.map((s) => guideBySlug(s)!);
+const latestOrder = [...latestSlugs, ...guides.map((g) => g.slug).filter((s) => !latestSlugs.includes(s))];
+const latest = latestOrder.map((s) => guideBySlug(s)!);
+const [leadGuide, ...restLatest] = latest;
+---
+<ZineLayout
+  title="UHAK GPS — Study abroad advice from Sydney"
+  description="Guides, checklists and free chats from people who live in Sydney."
+  masthead="cover"
+  active="home"
+>
+  <!-- Topic filter bar -->
+  <div class="ed-topic-bar sticky top-0 z-40 bg-surface editorial-rule-bottom">
+    <div class="wrap flex items-center justify-center py-3">
+      <div class="pill-track no-scrollbar relative -my-2 overflow-x-auto py-2" data-pill-track role="group" aria-label="Filter the latest guides">
+        <span class="pill-thumb" data-pill-thumb aria-hidden="true"></span>
+        <button type="button" class="editorial-pill" data-topic="all" aria-pressed="true" aria-controls="latest-grid">All</button>
+        {topics.map((t) => (
+          <button type="button" class="editorial-pill" data-topic={t.id} aria-pressed="false" aria-controls="latest-grid">{t.label}</button>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero: split cover story + featured guides -->
+  <section aria-labelledby="heroTitle" class="bg-paper ed-rule-draw is-in">
+    <div class="wrap grid gap-8 py-8 landing:py-10 lg:grid-cols-[minmax(0,2fr)_minmax(280px,1fr)]">
+      <article class="group grid border border-ink landing:grid-cols-2">
+        <div class="flex flex-col gap-5 bg-surface p-6 landing:min-h-[520px] landing:p-8">
+          <p class="ed-meta m-0 font-bold">Free chat</p>
+          <h1 id="heroTitle" class="ed-wipe is-in m-0 mt-auto text-[clamp(32px,3.8vw,48px)] font-semibold leading-[1.02] tracking-[-0.03em]">
+            Talk before you’ve decided.
+          </h1>
+          <p class="m-0 max-w-[36ch] text-[15px] leading-relaxed">
+            A free 30-minute chat with someone in Sydney. No school or visa needed.
+          </p>
+          <div class="flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-ink pt-4">
+            <a href="/zine/book/" class="ed-btn">Book a chat</a>
+          </div>
+        </div>
+        <figure class="ed-crop ed-wipe ed-wipe--right is-in relative m-0 min-h-[320px] border-ink max-landing:border-t landing:border-l landing:min-h-full">
+          <img
+            src="/images/hero-polaroid-3.webp"
+            alt="A student with a red backpack looks back and smiles at a city crossing"
+            width="960"
+            height="1200"
+            fetchpriority="high"
+            class="absolute inset-0 h-full w-full object-cover object-[50%_35%]"
+          />
+          <figcaption class="ed-meta absolute bottom-0 left-0 bg-surface px-2.5 py-1.5">Sydney</figcaption>
+        </figure>
+      </article>
+
+      <aside aria-labelledby="featuredTitle" class="flex flex-col">
+        <h2 id="featuredTitle" class="ed-meta m-0 border-b border-ink pb-2 font-bold">Guides</h2>
+        <ul class="m-0 list-none p-0">
+          {featured.map((g) => (
+            <li class="border-b border-ink">
+              <a href={`/zine/guides/${g.slug}/`} class="group flex gap-4 py-4">
+                <Cover cover={g.cover} small class="size-[72px] shrink-0 border border-ink" />
+                <span class="flex flex-col gap-1.5">
+                  <span class="ed-eyebrow">{topicLabel(g.topic)}</span>
+                  <span class="ed-title text-[15px] font-semibold leading-[1.25]">{g.title}</span>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <!-- The latest — asymmetric: lead + grid -->
+  <section id="latest" aria-labelledby="latestTitle" class="ed-reveal bg-paper ed-rule-draw">
+    <div class="wrap py-14 landing:py-20">
+      <div class="border-b border-ink pb-4">
+        <h2 id="latestTitle" class="ed-h2 ed-wipe">The latest</h2>
+      </div>
+
+      <div id="latest-grid" class="mt-8" aria-live="polite">
+        <article data-topic={leadGuide.topic} data-default="true" class="group border border-ink bg-surface transition-opacity duration-150">
+          <a href={`/zine/guides/${leadGuide.slug}/`} class="grid lg:grid-cols-[1.35fr_1fr]">
+            <Cover cover={leadGuide.cover} class="aspect-[16/10] border-ink max-lg:border-b lg:aspect-auto lg:min-h-[340px] lg:border-r" />
+            <div class="flex flex-col gap-4 p-6 landing:p-8">
+              <div class="flex items-center justify-between gap-3">
+                <span class="ed-meta">{leadGuide.date}</span>
+                <span class="ed-eyebrow">{topicLabel(leadGuide.topic)}</span>
+              </div>
+              <h3 class="ed-title m-0 text-[clamp(22px,2.6vw,32px)] font-semibold leading-[1.1] tracking-[-0.02em]">{leadGuide.title}</h3>
+              <p class="m-0 max-w-[42ch] text-[15px] leading-[1.65]">{leadGuide.dek}</p>
+              <span class="editorial-read-more mt-auto self-start">Read more <span class="ed-arrow" aria-hidden="true">-&gt;</span></span>
+            </div>
+          </a>
+        </article>
+
+        <ul class="m-0 mt-8 grid list-none gap-x-6 gap-y-10 p-0 landing:grid-cols-2 lg:grid-cols-3">
+          {restLatest.map((g, i) => (
+            <li data-topic={g.topic} data-default={i < 3 ? 'true' : 'false'} hidden={i >= 3}>
+              <a href={`/zine/guides/${g.slug}/`} class="group flex h-full flex-col gap-3">
+                <Cover cover={g.cover} class="aspect-[4/3] border border-ink" />
+                <div class="flex items-center justify-between gap-3">
+                  <span class="ed-meta">{g.date}</span>
+                  <span class="ed-eyebrow">{topicLabel(g.topic)}</span>
+                </div>
+                <h3 class="ed-title ed-h3">{g.title}</h3>
+                <p class="m-0 text-[14px] leading-[1.6]">{g.dek}</p>
+                <span class="editorial-read-more mt-auto self-start">Read more <span class="ed-arrow" aria-hidden="true">-&gt;</span></span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Your Plan interactive builder -->
+  <section id="plan" aria-labelledby="planTitle" class="ed-reveal bg-paper ed-rule-draw" data-plan>
+    <div class="wrap grid gap-10 py-14 landing:py-20 lg:grid-cols-[1.2fr_0.9fr] lg:gap-12">
+      <div>
+        <h2 id="planTitle" class="ed-h2 ed-wipe">Your plan</h2>
+        <p class="m-0 mt-4 max-w-[44ch] text-[15px] leading-relaxed">Select what you’re considering. Bring the list to your chat if you like.</p>
+        <ul class="m-0 mt-8 list-none border-t border-ink p-0">
+          {planOptions.map((opt) => (
+            <li class="border-b border-ink">
+              <button
+                type="button"
+                class="flex w-full cursor-pointer items-start gap-4 border-0 bg-transparent px-0 py-5 text-left font-inherit text-ink"
+                data-plan-option
+                data-id={opt.id}
+                data-title={opt.title}
+                aria-pressed="false"
+              >
+                <span class="plan-check-box mt-0.5" aria-hidden="true">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <path data-check-path d="M2.5 7.2 5.4 10.2 11.5 3.5" stroke="#111315" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </span>
+                <span class="min-w-0 flex-1">
+                  <span class="block text-[17px] font-semibold leading-tight">{opt.title}</span>
+                  <span class="mt-1 block text-[13px] leading-relaxed text-muted">{opt.line}</span>
+                  <span class="mt-2 flex flex-wrap gap-1.5">
+                    {opt.badges.map((b) => (
+                      <span class="rounded-pill border border-ink/25 px-2.5 py-0.5 text-[11px]">{b}</span>
+                    ))}
+                  </span>
+                </span>
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <aside class="self-start border border-ink bg-surface p-6 landing:sticky landing:top-8 landing:p-8" aria-label="Your plan">
+        <p class="ed-meta m-0">Selected</p>
+        <div class="mt-4 border-t border-ink pt-4 font-mono">
+          <p class="m-0 text-[12px] text-muted" data-plan-empty>Nothing selected yet.</p>
+          <ul class="plan-sheet" data-plan-sheet></ul>
+          <a href="/zine/book/" class="editorial-read-more mt-4 inline-flex">Book a chat <span class="ed-arrow" aria-hidden="true">-&gt;</span></a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Full-bleed manifesto callout -->
+  <section aria-label="Manifesto" class="ed-manifesto relative bg-paper" data-parallax-scene>
+    <div class="ed-manifesto-frame relative border-y border-ink">
+      <figure class="ed-manifesto-photo relative m-0 w-full overflow-hidden">
+        <img
+          src="/images/hero-polaroid-1.webp"
+          alt="A student in a checked shirt laughing outdoors under trees"
+          width="1400"
+          height="995"
+          loading="lazy"
+          data-parallax-bg
+          class="absolute inset-0 h-full w-full object-cover object-[28%_18%] grayscale contrast-[1.06]"
+        />
+        <div class="absolute inset-0 bg-accent/15 mix-blend-multiply" aria-hidden="true"></div>
+      </figure>
+
+      <!-- Callout on wrap left; person stays on the photo’s right. -->
+      <div class="pointer-events-none absolute inset-x-0 top-full z-10 -translate-y-8">
+        <div class="wrap pointer-events-auto flex justify-start">
+          <aside
+            class="on-accent flex w-full max-w-[440px] flex-col gap-5 rounded-badge border-[1.5px] border-ink bg-accent p-8 text-surface landing:p-9"
+            data-parallax-badge
+          >
+            <p class="m-0 font-courier text-[11px] font-bold uppercase leading-none tracking-[0.06em] text-primary">
+              03 / No commission bias
+            </p>
+            <p class="m-0 text-[clamp(28px,3vw,34px)] font-semibold leading-[1.12] tracking-[-0.02em]">
+              We don’t sell schools. You choose.
+            </p>
+            <div class="border-t border-surface/35 pt-5">
+              <p class="m-0 text-[14px] leading-[1.55] text-surface/90">
+                We lay out the honest trade-offs of every option—the final call is always yours.
+              </p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Toolkits -->
+  <section id="checklists" aria-labelledby="toolkitTitle" class="ed-reveal bg-paper ed-rule-draw">
+    <div class="wrap py-14 landing:py-20">
+      <div class="flex flex-col gap-3 border-b border-ink pb-4 landing:flex-row landing:items-end landing:justify-between">
+        <h2 id="toolkitTitle" class="ed-h2 ed-wipe">Checklists</h2>
+        <p class="m-0 max-w-[44ch] text-[14px]">Useful before you book or arrive.</p>
+      </div>
+      <ul class="m-0 mt-8 grid list-none gap-0 p-0 lg:grid-cols-3 lg:gap-6">
+        {toolkits.map((k) => (
+          <li class="max-lg:border-b max-lg:border-ink max-lg:last:border-b-0">
+            <a href={k.href} class:list={['ed-block group flex h-full flex-col gap-4 p-7', k.fill]}>
+              <h3 class="m-0 text-[18px] font-semibold leading-[1.15]">{k.title}</h3>
+              <p class="m-0 text-[14px] leading-[1.6]">{k.text}</p>
+              <ul class="m-0 grid list-none grid-cols-2 gap-x-3 gap-y-1.5 p-0">
+                {k.items.map((item) => (
+                  <li class="flex items-center gap-2 text-[13px]">
+                    <span class="inline-block size-3 shrink-0 border border-ink bg-surface" aria-hidden="true"></span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <span class="mt-auto border-b border-ink pb-4" aria-hidden="true"></span>
+              <span class="editorial-read-more self-start">{k.cta}{' '}<span class="ed-arrow" aria-hidden="true">-&gt;</span></span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Around Town Hall — field notes -->
+  <section aria-labelledby="fieldTitle" class="ed-reveal bg-accent text-surface ed-rule-draw">
+    <div class="wrap py-14 landing:py-20">
+      <div class="flex flex-col gap-3 border-b border-surface/40 pb-4 landing:flex-row landing:items-end landing:justify-between">
+        <div>
+          <h2 id="fieldTitle" class="ed-h2 ed-wipe text-surface">Near Town Hall</h2>
+        </div>
+        <p class="m-0 max-w-[40ch] text-[14px] leading-relaxed text-surface/80">Walk times from 250 Pitt St.</p>
+      </div>
+      <ul class="m-0 mt-2 grid list-none gap-0 p-0 landing:grid-cols-2 lg:grid-cols-3">
+        {fieldNotes.map((n) => (
+          <li class="border-b border-surface/25 py-6 landing:pr-8">
+            <div class="flex items-baseline justify-between gap-4">
+              <h3 class="m-0 text-[18px] font-semibold">{n.place}</h3>
+              <span class="ed-meta shrink-0 text-primary">{n.walk}</span>
+            </div>
+            <p class="m-0 mt-2 text-[14px] leading-relaxed text-surface/80">{n.note}</p>
+          </li>
+        ))}
+      </ul>
+      <a href={MAPS_URL} target="_blank" rel="noopener noreferrer" class="editorial-read-more mt-8 inline-flex border-surface text-surface hover:bg-surface hover:text-ink! hover:border-ink">
+        Open the map <span class="ed-arrow" aria-hidden="true">-&gt;</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- What we believe -->
+  <section aria-labelledby="believeTitle" class="bg-surface border-y border-ink">
+    <div class="wrap">
+      <h2 id="believeTitle" class="ed-h2 m-0 border-b border-ink py-8">What we believe</h2>
+      <ul class="m-0 grid list-none gap-0 p-0 landing:grid-cols-2 lg:grid-cols-4">
+        {principles.map((p) => (
+          <li class="flex flex-col gap-4 border-b border-ink px-0 py-8 landing:border-b-0 landing:border-r landing:border-ink landing:px-6 landing:py-10 landing:last:border-r-0 landing:first:pl-0 landing:last:pr-0">
+            <SpotArt name={p.art} size={56} />
+            <h3 class="m-0 text-[16px] font-semibold uppercase leading-[1.2] tracking-[-0.01em]">{p.title}</h3>
+            <p class="m-0 text-[14px] leading-[1.6]">{p.text}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Who we are + accordion -->
+  <section id="who" aria-labelledby="whoTitle" class="ed-reveal border-y border-ink bg-surface ed-rule-draw">
+    <div class="wrap py-14 landing:py-20">
+      <div class="border-b border-ink pb-4">
+        <h2 id="whoTitle" class="ed-h2 ed-wipe">Who we are</h2>
+      </div>
+      <ul class="m-0 mt-8 grid list-none gap-8 p-0 landing:grid-cols-3 landing:gap-6">
+        {team.map((m) => (
+          <li class="flex flex-col gap-1.5 border-t border-ink pt-4">
+            <p class="m-0 text-[17px] font-semibold">{m.name}</p>
+            <p class="ed-meta m-0">{m.place}</p>
+            <p class="m-0 text-[14px] leading-relaxed">{m.role}</p>
+          </li>
+        ))}
+      </ul>
+      <div class="mt-14 border-t border-ink">
+        {faq.map((f, i) => (
+          <div class="ed-acc border-b border-ink" data-acc>
+            <button type="button" data-acc-btn aria-expanded="false" aria-controls={`acc-panel-${i}`} id={`acc-btn-${i}`}>
+              {f.q}
+              <span class="ed-acc-icon" aria-hidden="true">+</span>
+            </button>
+            <div data-acc-panel id={`acc-panel-${i}`} role="region" aria-labelledby={`acc-btn-${i}`}>
+              <div class="ed-acc-inner">
+                <p class="m-0 max-w-[62ch] pb-6 text-[15px] leading-[1.65]">{f.a}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</ZineLayout>

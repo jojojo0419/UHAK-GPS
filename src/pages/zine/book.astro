@@ -1,0 +1,130 @@
+---
+import ZineLayout from '../../layouts/ZineLayout.astro';
+
+const interests = ['Working Holiday', 'Language school', 'TAFE & vocational', 'University', 'Cost of living', 'Not sure yet'];
+const languages = [
+  { value: 'ja', label: '日本語', lang: 'ja' },
+  { value: 'ko', label: '한국어', lang: 'ko' },
+  { value: 'en', label: 'English', lang: 'en' },
+];
+const expect = [
+  { title: '30 minutes', text: 'Video, or in person near Town Hall.' },
+  { title: 'A short summary', text: 'Afterwards, a written note of what we covered.' },
+  { title: 'No pressure', text: 'If you go quiet, so do we. Message again when you’re ready.' },
+] as const;
+---
+<ZineLayout
+  title="Book a free chat — UHAK GPS"
+  description="Book a free 30-minute chat with someone in Sydney. No school or visa needed."
+  active="book"
+>
+  <section aria-labelledby="bookTitle" class="bg-paper">
+    <div class="wrap grid gap-0 py-8 landing:py-12 lg:grid-cols-[1fr_1.15fr]">
+      <div class="flex flex-col gap-8 border border-ink bg-mint p-7 landing:p-10">
+        <p class="ed-meta m-0 font-bold">Free · 30 minutes · JA · KO · EN</p>
+        <h1 id="bookTitle" class="m-0 text-[clamp(32px,4.5vw,52px)] font-semibold leading-[1.02] tracking-[-0.03em]">
+          Book a chat
+        </h1>
+        <ul class="m-0 list-none border-t border-ink p-0">
+          {expect.map((e) => (
+            <li class="border-b border-ink py-4">
+              <span class="block text-[15px] font-semibold">{e.title}</span>
+              <span class="mt-1 block text-[14px] leading-[1.55]">{e.text}</span>
+            </li>
+          ))}
+        </ul>
+        <p class="m-0 mt-auto text-[14px]">
+          Prefer LINE? <a id="line" href="#line" class="editorial-read-more ml-1">Message us <span class="ed-arrow" aria-hidden="true">-&gt;</span></a>
+        </p>
+      </div>
+
+      <div class="border border-ink bg-surface p-7 max-lg:border-t-0 landing:p-10 lg:border-l-0">
+        <form id="book-form" class="flex flex-col gap-7" novalidate>
+          <div class="grid gap-6 landing:grid-cols-2">
+            <label class="flex flex-col gap-1">
+              <span class="ed-meta text-muted">Your name</span>
+              <input name="name" required autocomplete="given-name" class="min-h-11 rounded-none border-0 border-b border-ink bg-transparent text-[16px] outline-none focus-visible:border-b-2" />
+            </label>
+            <label class="flex flex-col gap-1">
+              <span class="ed-meta text-muted">Email or LINE ID</span>
+              <input name="contact" required autocomplete="email" class="min-h-11 rounded-none border-0 border-b border-ink bg-transparent text-[16px] outline-none focus-visible:border-b-2" />
+            </label>
+          </div>
+
+          <fieldset class="m-0 border-0 p-0">
+            <legend class="ed-meta mb-3 text-muted">What’s on your mind?</legend>
+            <div class="flex flex-wrap gap-2">
+              {interests.map((label) => (
+                <label class="cursor-pointer">
+                  <input type="checkbox" name="topics" value={label} class="peer sr-only" />
+                  <span class="editorial-pill min-h-11! peer-checked:bg-ink peer-checked:text-surface peer-focus-visible:outline-2 peer-focus-visible:outline-offset-3 peer-focus-visible:outline-accent">{label}</span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+
+          <div class="grid gap-6 landing:grid-cols-2">
+            <fieldset class="m-0 border-0 p-0">
+              <legend class="ed-meta mb-3 text-muted">Chat in</legend>
+              <div class="flex gap-2">
+                {languages.map((l, i) => (
+                  <label class="cursor-pointer">
+                    <input type="radio" name="language" value={l.value} checked={i === 0} class="peer sr-only" />
+                    <span lang={l.lang} class="editorial-pill min-h-11! font-jp! text-[13px]! normal-case! peer-checked:bg-ink peer-checked:text-surface peer-focus-visible:outline-2 peer-focus-visible:outline-offset-3 peer-focus-visible:outline-accent">{l.label}</span>
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+            <label class="flex flex-col gap-1">
+              <span class="ed-meta text-muted">Timing</span>
+              <select name="when" class="min-h-11 cursor-pointer rounded-none border-0 border-b border-ink bg-transparent text-[16px] outline-none focus-visible:border-b-2">
+                <option>Just curious</option>
+                <option>In the next 6 months</option>
+                <option>In 6–12 months</option>
+                <option>Already in Sydney</option>
+              </select>
+            </label>
+          </div>
+
+          <label class="flex flex-col gap-1">
+            <span class="ed-meta text-muted">Anything else? Optional</span>
+            <textarea name="note" rows="4" placeholder="A short note is enough." class="resize-y rounded-none border border-ink bg-paper p-3 text-[15px] outline-none placeholder:text-muted focus-visible:border-2"></textarea>
+          </label>
+
+          <p id="book-error" class="m-0 hidden text-[14px] font-bold" role="alert">Add your name and an email or LINE ID so we can reply.</p>
+
+          <div class="flex flex-wrap items-center justify-between gap-4 border-t border-ink pt-6">
+            <p class="m-0 max-w-[36ch] text-[13px] text-muted">We only use this to reply. No newsletter unless you ask.</p>
+            <button type="submit" class="ed-btn ed-btn-ink">Send</button>
+          </div>
+        </form>
+
+        <div id="book-done" hidden class="flex flex-col gap-4 py-6" role="status">
+          <p class="m-0 text-[18px] font-bold">Request sent</p>
+          <p class="m-0 text-[15px] leading-relaxed">We’ll write back by email or LINE.</p>
+          <a href="/zine/" class="editorial-read-more self-start">Back to home <span class="ed-arrow" aria-hidden="true">-&gt;</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</ZineLayout>
+
+<script>
+  const form = document.getElementById('book-form') as HTMLFormElement;
+  const done = document.getElementById('book-done')!;
+  const error = document.getElementById('book-error')!;
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const name = String(data.get('name') ?? '').trim();
+    const contact = String(data.get('contact') ?? '').trim();
+    if (!name || !contact) {
+      error.classList.remove('hidden');
+      return;
+    }
+    error.classList.add('hidden');
+    form.hidden = true;
+    done.hidden = false;
+  });
+</script>

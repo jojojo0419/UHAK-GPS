@@ -1,0 +1,162 @@
+---
+import ZineLayout from '../../../layouts/ZineLayout.astro';
+import Cover from '../../../components/zine/Cover.astro';
+import { guides, topicLabel, type Guide } from '../../../zine/content';
+
+export function getStaticPaths() {
+  return guides.map((guide) => ({ params: { slug: guide.slug }, props: { guide } }));
+}
+
+interface Props {
+  guide: Guide;
+}
+
+const { guide } = Astro.props;
+const index = guides.indexOf(guide);
+const next = [1, 2, 3].map((n) => guides[(index + n) % guides.length]);
+const toc = guide.body.filter((b): b is Extract<Guide['body'][number], { t: 'h' }> => b.t === 'h');
+const page = String(guide.page).padStart(2, '0');
+---
+<ZineLayout title={`${guide.title} — UHAK GPS`} description={guide.dek}>
+  <article>
+    <header class="bg-surface editorial-rule-bottom">
+      <div class="wrap flex items-center justify-between gap-4 border-b border-ink py-3">
+        <nav aria-label="Breadcrumb" class="ed-meta flex items-center gap-2">
+          <a href="/zine/" class="border-b border-transparent hover:border-ink">Home</a>
+          <span aria-hidden="true">/</span>
+          <span class="text-muted">{topicLabel(guide.topic)}</span>
+        </nav>
+        <span class="ed-meta">p.{page}</span>
+      </div>
+      <div class="wrap grid gap-8 py-10 landing:py-14 lg:grid-cols-[1fr_300px] lg:items-end lg:gap-16">
+        <div>
+          <p class="ed-eyebrow m-0">{topicLabel(guide.topic)}</p>
+          <h1 class="m-0 mt-4 max-w-[18ch] text-[clamp(34px,5vw,64px)] font-semibold leading-[1] tracking-[-0.03em]">{guide.title}</h1>
+        </div>
+        <p class="m-0 font-brand text-[clamp(19px,1.8vw,23px)] italic leading-[1.4]">{guide.dek}</p>
+      </div>
+      <div class="wrap">
+        <dl class="ed-meta m-0 grid grid-cols-1 border-t border-ink landing:grid-cols-3">
+          <div class="flex gap-2 py-3 pr-4"><dt class="text-muted">Words</dt><dd class="m-0">UHAK GPS desk</dd></div>
+          <div class="flex gap-2 border-t border-ink py-3 pr-4 landing:border-l landing:border-t-0 landing:border-ink landing:pl-4"><dt class="text-muted">Filed</dt><dd class="m-0">{guide.date}</dd></div>
+          <div class="flex gap-2 border-t border-ink py-3 landing:border-l landing:border-t-0 landing:pl-4"><dt class="text-muted">Place</dt><dd class="m-0">Sydney</dd></div>
+        </dl>
+      </div>
+    </header>
+
+    <div class="bg-paper">
+      <div class="wrap pt-8 landing:pt-10">
+        <Cover cover={guide.cover} eager class="aspect-[4/3] border border-ink landing:aspect-[16/7]" />
+      </div>
+
+      <div class="wrap grid gap-10 py-12 landing:py-16 lg:grid-cols-[200px_minmax(0,1fr)_220px] lg:gap-12">
+        <aside class="lg:sticky lg:top-6 lg:self-start" aria-label="In this guide">
+          {toc.length > 0 && (
+            <>
+              <p class="ed-meta m-0 border-b border-ink pb-2 font-bold">In this guide</p>
+              <ol class="m-0 list-none p-0">
+                {toc.map((h, i) => (
+                  <li class="border-b border-ink">
+                    <a href={`#${h.id}`} class="flex gap-3 py-3 text-[14px] font-semibold leading-snug hover:underline">
+                      <span class="ed-meta pt-0.5 text-muted">{i + 1}</span>
+                      {h.text}
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </>
+          )}
+        </aside>
+
+        <div class="prose-ed max-w-[64ch]">
+          {guide.body.map((b) => {
+            if (b.t === 'p') return <p class:list={[b.drop && 'dropcap text-[17px]']}>{b.text}</p>;
+            if (b.t === 'h')
+              return (
+                <h2 id={b.id} class="mb-0 mt-12! border-t border-ink pt-5 text-[22px] font-semibold uppercase leading-[1.15] tracking-[-0.01em]">
+                  {b.text}
+                </h2>
+              );
+            if (b.t === 'list')
+              return (
+                <ul class="list-none border-t border-ink p-0">
+                  {b.items.map((item) => (
+                    <li class="flex gap-4 border-b border-ink py-3 text-[15px] leading-[1.55]">
+                      <span class="mt-[7px] inline-block size-2.5 shrink-0 bg-accent ring-1 ring-ink" aria-hidden="true"></span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              );
+            if (b.t === 'quote')
+              return (
+                <figure class="mx-0 my-12! px-2 text-center landing:px-8">
+                  <span class="block font-brand -mb-5 text-[72px] font-semibold leading-[0.6] text-accent [-webkit-text-stroke:1px_var(--color-ink)]" aria-hidden="true">“</span>
+                  <blockquote class="m-0 mt-3 font-brand text-[clamp(24px,2.8vw,32px)] font-medium leading-[1.25]">{b.text}</blockquote>
+                  {b.cite && <figcaption class="ed-meta mt-4 text-muted">— {b.cite}</figcaption>}
+                </figure>
+              );
+            if (b.t === 'callout')
+              return (
+                <aside class="rounded-badge border border-ink bg-mint p-7">
+                  <p class="m-0 text-[15px] font-semibold uppercase">{b.title}</p>
+                  <p class="m-0 mt-2 text-[15px] leading-[1.6]">{b.text}</p>
+                </aside>
+              );
+            if (b.t === 'table')
+              return (
+                <figure class="mx-0 mb-0">
+                  <figcaption class="ed-meta mb-2 text-muted">{b.caption}</figcaption>
+                  <table class="w-full border-collapse border-y border-ink text-left text-[14px]">
+                    <tbody>
+                      {b.rows.map(([k, v], i) => (
+                        <tr class:list={['border-b border-ink last:border-b-0', i === b.rows.length - 1 && 'bg-mint font-bold']}>
+                          <th scope="row" class="w-[38%] py-3 pr-4 align-top font-mono text-[12px] font-normal uppercase">{k}</th>
+                          <td class="py-3 align-top">{v}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </figure>
+              );
+          })}
+        </div>
+
+        <aside class="flex flex-col gap-6 lg:sticky lg:top-6 lg:self-start" aria-label="Ask about this guide">
+          <div class="rounded-badge border border-ink bg-mint p-6">
+            <p class="ed-meta m-0 font-bold">Ask about this</p>
+            <p class="m-0 mt-3 text-[16px] font-semibold leading-[1.3]">Your situation is probably a little different. Bring it to a free chat.</p>
+            <a href="/zine/book/" class="ed-btn mt-5 w-full">Book a chat</a>
+          </div>
+          <div>
+            <p class="ed-meta m-0 border-b border-ink pb-2 font-bold">Filed under</p>
+            <span class="editorial-pill mt-3 inline-flex">{topicLabel(guide.topic)}</span>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </article>
+
+  <section aria-labelledby="nextTitle" class="bg-surface editorial-rule-top">
+    <div class="wrap py-14 landing:py-16">
+      <div class="border-b border-ink pb-4">
+        <h2 id="nextTitle" class="ed-h2">Keep reading</h2>
+      </div>
+      <ul class="m-0 mt-8 grid list-none gap-x-6 gap-y-10 p-0 landing:grid-cols-3">
+        {next.map((g) => (
+          <li>
+            <a href={`/zine/guides/${g.slug}/`} class="group flex h-full flex-col gap-3">
+              <Cover cover={g.cover} class="aspect-[4/3] border border-ink" />
+              <div class="flex items-center justify-between">
+                <span class="ed-meta">{g.date}</span>
+                <span class="ed-eyebrow">{topicLabel(g.topic)}</span>
+              </div>
+              <h3 class="ed-title ed-h3">{g.title}</h3>
+              <span class="editorial-read-more mt-auto self-start">Read more -&gt;</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</ZineLayout>
