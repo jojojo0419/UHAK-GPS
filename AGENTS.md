@@ -10,9 +10,12 @@ Manage the background server with `astro dev stop`, `astro dev status`, and `ast
 
 ## Design
 
-Landing UI and visual changes must follow **[docs/design.md](docs/design.md)** (UHAK GPS Green guidelines: color, type, components, motion, copy).
+Two separate design docs — do not mix tokens across surfaces:
 
-A Cursor rule (`.cursor/rules/design-guidelines.mdc`) applies this when editing `src/**` UI files — still open `docs/design.md` for the full tokens and component specs.
+- **Landing `/` and `/ja/`:** **[docs/design.md](docs/design.md)** (`global.css`, `landing.css`, `src/components/landing/`)
+- **Zine `/zine/`:** **[docs/design-zine.md](docs/design-zine.md)** (`zine.css`, `src/components/zine/`, `src/pages/zine/`)
+
+A Cursor rule (`.cursor/rules/design-guidelines.mdc`) applies landing guidelines when editing `src/**` UI files — for zine work, open `docs/design-zine.md`.
 
 ## Documentation
 

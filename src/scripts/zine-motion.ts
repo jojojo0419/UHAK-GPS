@@ -271,6 +271,39 @@ function initAccordion() {
   });
 }
 
+/** Replay the editorial chat transcript when it enters view. */
+function initEdChat() {
+  const root = document.querySelector<HTMLElement>('[data-ed-chat]');
+  if (!root) return;
+
+  const play = () => {
+    root.classList.remove('is-play');
+    // Force reflow so CSS animations restart cleanly.
+    void root.offsetWidth;
+    root.classList.add('is-play');
+  };
+
+  if (reduce()) {
+    root.classList.add('is-play');
+    return;
+  }
+
+  let armed = true;
+  const io = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting && armed) {
+        armed = false;
+        play();
+      } else if (!entry.isIntersecting) {
+        armed = true;
+      }
+    },
+    { threshold: 0.45 },
+  );
+  io.observe(root);
+  onClean(() => io.disconnect());
+}
+
 function boot() {
   cleanup();
   initProgress();
@@ -279,6 +312,7 @@ function boot() {
   initTopicPills();
   initPlan();
   initAccordion();
+  initEdChat();
 }
 
 document.addEventListener('astro:page-load', boot);

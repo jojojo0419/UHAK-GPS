@@ -1,0 +1,89 @@
+---
+/**
+ * Editorial chat — field-note bubbles.
+ * `variant="inline"` sits above the hero headline (no panel chrome).
+ * Motion: `data-ed-chat` + `.is-play` (zine-motion).
+ */
+interface Props {
+  variant?: 'panel' | 'inline';
+}
+
+const { variant = 'panel' } = Astro.props;
+const inline = variant === 'inline';
+---
+
+{inline ? (
+  <div class="ed-chat ed-chat--inline" data-ed-chat aria-hidden="true">
+    <div class="ed-chat-stage">
+      <div class="ed-chat-b1 flex flex-col items-start">
+        <span class="ed-chat-bubble ed-chat-bubble--them relative">
+          Thinking about Australia?
+          <span class="ed-chat-react" aria-hidden="true">
+            <svg viewBox="0 0 24 22" width="11" height="10" aria-hidden="true">
+              <path
+                d="M12 21 C 5 15.5, 1.5 12, 1.5 7.2 C 1.5 3.8, 4.1 1.5, 7 1.5 C 9.1 1.5, 10.9 2.7, 12 4.6 C 13.1 2.7, 14.9 1.5, 17 1.5 C 19.9 1.5, 22.5 3.8, 22.5 7.2 C 22.5 12, 19 15.5, 12 21 Z"
+                fill="currentColor"
+              ></path>
+            </svg>
+          </span>
+        </span>
+      </div>
+
+      <div class="ed-chat-typing" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </div>
+
+      <div class="ed-chat-b2 flex flex-col items-end">
+        <span class="ed-chat-bubble ed-chat-bubble--you">I’d love to… but how?</span>
+      </div>
+    </div>
+    <p class="sr-only">
+      Sample chat: UHAK GPS asks if you’re thinking about Australia. You reply that you’d love to, but don’t know how.
+    </p>
+  </div>
+) : (
+  <aside class="ed-chat-panel flex flex-col border border-ink bg-mint" aria-labelledby="edChatTitle">
+    <header class="flex items-baseline justify-between gap-3 border-b border-ink/20 px-4 py-2.5">
+      <h2 id="edChatTitle" class="m-0 font-courier text-[11px] font-bold uppercase tracking-[0.08em] text-ink">
+        Fig. 01
+      </h2>
+      <p class="m-0 font-courier text-[11px] tracking-[0.04em] text-ink/55">A free chat · Sydney</p>
+    </header>
+
+    <div class="ed-chat relative px-4 py-5 landing:px-5 landing:py-6" data-ed-chat aria-hidden="true">
+      <div class="ed-chat-stage mx-auto flex w-full max-w-[280px] flex-col">
+        <div class="ed-chat-b1 flex flex-col items-start">
+          <span class="ed-chat-bubble ed-chat-bubble--them relative">
+            Thinking about Australia?
+            <span class="ed-chat-react" aria-hidden="true">
+              <svg viewBox="0 0 24 22" width="11" height="10" aria-hidden="true">
+                <path
+                  d="M12 21 C 5 15.5, 1.5 12, 1.5 7.2 C 1.5 3.8, 4.1 1.5, 7 1.5 C 9.1 1.5, 10.9 2.7, 12 4.6 C 13.1 2.7, 14.9 1.5, 17 1.5 C 19.9 1.5, 22.5 3.8, 22.5 7.2 C 22.5 12, 19 15.5, 12 21 Z"
+                  fill="currentColor"
+                ></path>
+              </svg>
+            </span>
+          </span>
+        </div>
+
+        <div class="ed-chat-typing" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </div>
+
+        <div class="ed-chat-b2 flex flex-col items-end">
+          <span class="ed-chat-bubble ed-chat-bubble--you">I’d love to… but how?</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="sr-only">
+      Sample chat: UHAK GPS asks if you’re thinking about Australia. You reply that you’d love to, but don’t know how.
+    </p>
+
+    <footer class="border-t border-ink/20 px-4 py-2.5">
+      <p class="m-0 font-courier text-[11px] leading-snug tracking-[0.03em] text-ink/60">
+        No school. No visa. No decision needed.
+      </p>
+    </footer>
+  </aside>
+)}

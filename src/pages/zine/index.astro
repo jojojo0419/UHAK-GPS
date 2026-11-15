@@ -1,9 +1,7 @@
 ---
 import ZineLayout from '../../layouts/ZineLayout.astro';
-import Cover from '../../components/zine/Cover.astro';
-import SpotArt from '../../components/zine/SpotArt.astro';
+import EdChat from '../../components/zine/EdChat.astro';
 import {
-  featuredSlugs,
   fieldNotes,
   guideBySlug,
   guides,
@@ -18,7 +16,6 @@ import {
   topics,
 } from '../../zine/content';
 
-const featured = featuredSlugs.map((s) => guideBySlug(s)!);
 const latestOrder = [...latestSlugs, ...guides.map((g) => g.slug).filter((s) => !latestSlugs.includes(s))];
 const latest = latestOrder.map((s) => guideBySlug(s)!);
 const [leadGuide, ...restLatest] = latest;
@@ -30,7 +27,7 @@ const [leadGuide, ...restLatest] = latest;
   active="home"
 >
   <!-- Topic filter bar -->
-  <div class="ed-topic-bar sticky top-0 z-40 bg-surface editorial-rule-bottom">
+  <div class="ed-topic-bar ed-topic-bar--primary sticky top-0 z-40 on-green bg-primary text-ink">
     <div class="wrap flex items-center justify-center py-3">
       <div class="pill-track no-scrollbar relative -my-2 overflow-x-auto py-2" data-pill-track role="group" aria-label="Filter the latest guides">
         <span class="pill-thumb" data-pill-thumb aria-hidden="true"></span>
@@ -42,23 +39,25 @@ const [leadGuide, ...restLatest] = latest;
     </div>
   </div>
 
-  <!-- Hero: split cover story + featured guides -->
-  <section aria-labelledby="heroTitle" class="bg-paper ed-rule-draw is-in">
-    <div class="wrap grid gap-8 py-8 landing:py-10 lg:grid-cols-[minmax(0,2fr)_minmax(280px,1fr)]">
-      <article class="group grid border border-ink landing:grid-cols-2">
-        <div class="flex flex-col gap-5 bg-surface p-6 landing:min-h-[520px] landing:p-8">
+  <!-- Hero: chat above headline, copy + photo in one ink box -->
+  <section aria-labelledby="heroTitle" class="ed-hero is-in bg-paper">
+    <div class="wrap py-8 landing:py-10">
+      <div class="ed-hero-shell border border-ink">
+        <div class="ed-hero-copy">
           <p class="ed-meta m-0 font-bold">Free chat</p>
-          <h1 id="heroTitle" class="ed-wipe is-in m-0 mt-auto text-[clamp(32px,3.8vw,48px)] font-semibold leading-[1.02] tracking-[-0.03em]">
+          <EdChat variant="inline" />
+          <h1 id="heroTitle" class="ed-wipe is-in m-0 text-[clamp(32px,3.8vw,48px)] font-semibold leading-[1.02] tracking-[-0.03em]">
             Talk before you’ve decided.
           </h1>
-          <p class="m-0 max-w-[36ch] text-[15px] leading-relaxed">
-            A free 30-minute chat with someone in Sydney. No school or visa needed.
+          <p class="m-0 max-w-[42ch] text-[15px] leading-relaxed">
+            A free 30-minute chat with someone who lives in Sydney. Bring a question, or nothing yet — no school or visa needed.
           </p>
           <div class="flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-ink pt-4">
-            <a href="/zine/book/" class="ed-btn">Book a chat</a>
+            <a href="/zine/book/" class="editorial-read-more inline-flex">Start a chat <span class="ed-arrow" aria-hidden="true">-&gt;</span></a>
           </div>
         </div>
-        <figure class="ed-crop ed-wipe ed-wipe--right is-in relative m-0 min-h-[320px] border-ink max-landing:border-t landing:border-l landing:min-h-full">
+
+        <figure class="ed-hero-photo ed-crop ed-wipe ed-wipe--right is-in relative m-0">
           <img
             src="/images/hero-polaroid-3.webp"
             alt="A student with a red backpack looks back and smiles at a city crossing"
@@ -69,28 +68,11 @@ const [leadGuide, ...restLatest] = latest;
           />
           <figcaption class="ed-meta absolute bottom-0 left-0 bg-surface px-2.5 py-1.5">Sydney</figcaption>
         </figure>
-      </article>
-
-      <aside aria-labelledby="featuredTitle" class="flex flex-col">
-        <h2 id="featuredTitle" class="ed-meta m-0 border-b border-ink pb-2 font-bold">Guides</h2>
-        <ul class="m-0 list-none p-0">
-          {featured.map((g) => (
-            <li class="border-b border-ink">
-              <a href={`/zine/guides/${g.slug}/`} class="group flex gap-4 py-4">
-                <Cover cover={g.cover} small class="size-[72px] shrink-0 border border-ink" />
-                <span class="flex flex-col gap-1.5">
-                  <span class="ed-eyebrow">{topicLabel(g.topic)}</span>
-                  <span class="ed-title text-[15px] font-semibold leading-[1.25]">{g.title}</span>
-                </span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </aside>
+      </div>
     </div>
   </section>
 
-  <!-- The latest — asymmetric: lead + grid -->
+  <!-- The latest — copy kept, cover images as empty boxes -->
   <section id="latest" aria-labelledby="latestTitle" class="ed-reveal bg-paper ed-rule-draw">
     <div class="wrap py-14 landing:py-20">
       <div class="border-b border-ink pb-4">
@@ -100,7 +82,7 @@ const [leadGuide, ...restLatest] = latest;
       <div id="latest-grid" class="mt-8" aria-live="polite">
         <article data-topic={leadGuide.topic} data-default="true" class="group border border-ink bg-surface transition-opacity duration-150">
           <a href={`/zine/guides/${leadGuide.slug}/`} class="grid lg:grid-cols-[1.35fr_1fr]">
-            <Cover cover={leadGuide.cover} class="aspect-[16/10] border-ink max-lg:border-b lg:aspect-auto lg:min-h-[340px] lg:border-r" />
+            <div class="aspect-[16/10] border-ink bg-paper max-lg:border-b lg:aspect-auto lg:min-h-[340px] lg:border-r" aria-hidden="true"></div>
             <div class="flex flex-col gap-4 p-6 landing:p-8">
               <div class="flex items-center justify-between gap-3">
                 <span class="ed-meta">{leadGuide.date}</span>
@@ -117,7 +99,7 @@ const [leadGuide, ...restLatest] = latest;
           {restLatest.map((g, i) => (
             <li data-topic={g.topic} data-default={i < 3 ? 'true' : 'false'} hidden={i >= 3}>
               <a href={`/zine/guides/${g.slug}/`} class="group flex h-full flex-col gap-3">
-                <Cover cover={g.cover} class="aspect-[4/3] border border-ink" />
+                <div class="aspect-[4/3] border border-ink bg-surface" aria-hidden="true"></div>
                 <div class="flex items-center justify-between gap-3">
                   <span class="ed-meta">{g.date}</span>
                   <span class="ed-eyebrow">{topicLabel(g.topic)}</span>
@@ -186,20 +168,21 @@ const [leadGuide, ...restLatest] = latest;
     <div class="ed-manifesto-frame relative border-y border-ink">
       <figure class="ed-manifesto-photo relative m-0 w-full overflow-hidden">
         <img
-          src="/images/hero-polaroid-1.webp"
-          alt="A student in a checked shirt laughing outdoors under trees"
-          width="1400"
-          height="995"
+          src="/images/manifesto-campus.webp"
+          alt="Campus lawn framed by ivy-covered brick arches, students sitting on the grass"
+          width="1920"
+          height="1280"
           loading="lazy"
           data-parallax-bg
-          class="absolute inset-0 h-full w-full object-cover object-[28%_18%] grayscale contrast-[1.06]"
+          class="ed-manifesto-img absolute inset-0 h-full w-full object-cover object-[50%_40%]"
         />
-        <div class="absolute inset-0 bg-accent/15 mix-blend-multiply" aria-hidden="true"></div>
+        <div class="ed-manifesto-tone absolute inset-0" aria-hidden="true"></div>
+        <div class="ed-manifesto-grain absolute inset-0" aria-hidden="true"></div>
       </figure>
 
-      <!-- Callout on wrap left; person stays on the photo’s right. -->
-      <div class="pointer-events-none absolute inset-x-0 top-full z-10 -translate-y-8">
-        <div class="wrap pointer-events-auto flex justify-start">
+      <!-- Callout centered over the campus photo. -->
+      <div class="ed-manifesto-callout pointer-events-none absolute inset-x-0 z-10">
+        <div class="wrap pointer-events-auto flex justify-center">
           <aside
             class="on-accent flex w-full max-w-[440px] flex-col gap-5 rounded-badge border-[1.5px] border-ink bg-accent p-8 text-surface landing:p-9"
             data-parallax-badge
@@ -284,7 +267,15 @@ const [leadGuide, ...restLatest] = latest;
       <ul class="m-0 grid list-none gap-0 p-0 landing:grid-cols-2 lg:grid-cols-4">
         {principles.map((p) => (
           <li class="flex flex-col gap-4 border-b border-ink px-0 py-8 landing:border-b-0 landing:border-r landing:border-ink landing:px-6 landing:py-10 landing:last:border-r-0 landing:first:pl-0 landing:last:pr-0">
-            <SpotArt name={p.art} size={56} />
+            <img
+              src={p.icon}
+              alt=""
+              width="98"
+              height="98"
+              loading="lazy"
+              decoding="async"
+              class="block size-14 landing:size-[72px]"
+            />
             <h3 class="m-0 text-[16px] font-semibold uppercase leading-[1.2] tracking-[-0.01em]">{p.title}</h3>
             <p class="m-0 text-[14px] leading-[1.6]">{p.text}</p>
           </li>
@@ -301,10 +292,13 @@ const [leadGuide, ...restLatest] = latest;
       </div>
       <ul class="m-0 mt-8 grid list-none gap-8 p-0 landing:grid-cols-3 landing:gap-6">
         {team.map((m) => (
-          <li class="flex flex-col gap-1.5 border-t border-ink pt-4">
-            <p class="m-0 text-[17px] font-semibold">{m.name}</p>
-            <p class="ed-meta m-0">{m.place}</p>
-            <p class="m-0 text-[14px] leading-relaxed">{m.role}</p>
+          <li class="flex flex-col gap-3">
+            <div class="aspect-[4/5] border border-ink bg-paper" aria-hidden="true"></div>
+            <div class="flex flex-col gap-1.5 border-t border-ink pt-4">
+              <p class="m-0 text-[17px] font-semibold">{m.name}</p>
+              <p class="ed-meta m-0">{m.place}</p>
+              <p class="m-0 text-[14px] leading-relaxed">{m.role}</p>
+            </div>
           </li>
         ))}
       </ul>

@@ -8,19 +8,27 @@ interface Props {
 
 const { variant = 'cover', active = 'home' } = Astro.props;
 ---
-<header class="bg-surface editorial-rule-bottom">
-  <div class="wrap grid min-h-12 grid-cols-[1fr_auto] items-center gap-x-4">
-    <p class:list={['ed-meta m-0 flex items-center gap-x-2 leading-none', variant === 'compact' && 'max-landing:hidden']}>
+<header class:list={['ed-masthead bg-surface text-ink', variant !== 'cover' && 'editorial-rule-bottom']}>
+  <div class="wrap grid min-h-6 grid-cols-[1fr_auto] items-center gap-x-4 py-1.5">
+    <p class:list={['ed-meta m-0 flex flex-wrap items-center gap-x-2 leading-none', variant === 'compact' && 'max-landing:hidden']}>
       <span>Sydney</span>
       <span class="text-muted" aria-hidden="true">·</span>
       <span class="syd-clock inline-flex items-baseline leading-none tabular-nums" data-syd-clock aria-label="Current time in Sydney">
         <span data-syd-h>00</span><span class="syd-colon" data-syd-colon>:</span><span data-syd-m>00</span>
         <span class="ml-1.5">SYD</span>
       </span>
+      {variant === 'cover' && (
+        <span class="hidden text-muted landing:inline">
+          <span class="mx-2" aria-hidden="true">·</span>
+          Vol. 01 · Nov 2026
+        </span>
+      )}
     </p>
+
     {variant === 'compact' && (
       <Wordmark size="mobile" class="justify-self-center landing:hidden" />
     )}
+
     <div class="flex items-center justify-end gap-4 justify-self-end">
       <a href="/ja/" lang="ja" class="font-jp text-[13px] leading-none text-muted transition-colors hover:text-ink">日本語</a>
       <a href="/zine/book/" class="ed-btn min-h-9! px-4! text-[11px]!">Book a chat</a>
@@ -28,12 +36,17 @@ const { variant = 'cover', active = 'home' } = Astro.props;
   </div>
 
   {variant === 'cover' ? (
-    <div class="wrap flex flex-col items-center border-t border-ink pb-6 pt-7 landing:pb-8 landing:pt-9">
-      <Wordmark size="cover" />
+    <div class="wrap pb-3.5 pt-4 landing:pb-[18px] landing:pt-5">
+      <div class="ed-masthead-brand">
+        <p class="ed-masthead-rail ed-masthead-rail--left m-0">Independent field guide —</p>
+        <Wordmark size="cover" />
+        <p class="ed-masthead-rail ed-masthead-rail--right m-0">— Est. in Sydney 2026</p>
+      </div>
     </div>
   ) : (
-    <div class="wrap hidden items-end justify-between gap-6 border-t border-ink py-5 landing:flex">
+    <div class="wrap hidden items-end justify-between gap-6 border-t border-ink py-2.5 landing:flex">
       <Wordmark size="compact" />
+      <p class="ed-meta m-0 text-muted">Vol. 01 · Nov 2026</p>
     </div>
   )}
 </header>

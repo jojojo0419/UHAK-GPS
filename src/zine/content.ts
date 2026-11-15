@@ -416,22 +416,22 @@ export const toolkits = [
 
 export const principles = [
   {
-    art: 'hand' as const,
+    icon: '/images/step-1.webp',
     title: 'No pressure',
     text: 'The first chat is free. You can leave with no plan.',
   },
   {
-    art: 'magnifier' as const,
+    icon: '/images/step-2.webp',
     title: 'We visit schools',
     text: 'We only suggest places we’ve been to, and we say what we saw.',
   },
   {
-    art: 'compass' as const,
+    icon: '/images/step-3.webp',
     title: 'You decide',
     text: 'We lay out options and trade-offs. The choice stays with you.',
   },
   {
-    art: 'bubble' as const,
+    icon: '/images/step-4.webp',
     title: 'No false promises',
     text: 'We don’t guarantee visas or residency. For migration advice, see a registered agent.',
   },

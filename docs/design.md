@@ -1,242 +1,199 @@
-# UHAK GPS — Design Guidelines (Editorial Green Edition)
+# UHAK GPS — Design Guidelines (Green)
 
-Nov 15, 2026 · @jojo
+Nov 10, 2026 · @jojo
+
+Scope: live landing **`/`** and **`/ja/`** (`src/styles/global.css`, `landing.css`, `src/components/landing/`).
+
+For the magazine experiment on **`/zine/`**, see **[docs/design-zine.md](design-zine.md)**.
 
 ## Overview
 
-UHAK GPS is designed as an **independent editorial publication and Sydney local field guide** rather than a traditional study-abroad agency website. Inspired by modern digital magazines and civic journalism layouts, the system combines a full-viewport green border frame, an oversized editorial masthead, strict `1px` black structural rules, documentary photography with color-blocked overlays, and high-contrast monochrome spot illustrations.
+The Green version is a clean, WhatsApp-like landing page with two greens: bright green #25D366 for actions and deep green #008069 for accents. The brand promise is "Talk before you've decided anything", and every element is designed to lower the barrier to reaching out.
 
-The core brand promise remains **"Talk before you've decided anything"**—replacing aggressive sales funnels with transparent, magazine-grade guides written by people actually living in Sydney.
-
-- **Tone:** editorial, candid, grounded, intellectually honest. Real Sydney life over glossy brochure marketing.
-- **Principles:** strict grid discipline, sharp rectangular framing (`0px` photo radius), `1px` ink dividers, and bold green color blocks used to anchor hierarchy.
-- **Personality:** "An honest local magazine run by friends in Sydney—zero pressure, zero commission bias."
+- **Tone:** clean, bright, friendly. Real everyday life over slick advertising.
+- **Principles:** one idea per section, short copy, and color only where it matters.
+- **Personality:** "We know our stuff. But we're not intimidating."
 
 ## Color
 
-The palette pairs **UHAK GPS's two signature greens** (`#25D366` and `#008069`) with stark print ink (`#111315`), warm newsprint gray (`#F3F2EE`), and crisp white (`#FFFFFF`).
+Use bright green only for **actions and highlights** (fills and bars). Green text, outlines and icons always use deep green, and body text stays near-black, so contrast holds.
 
 | Token | HEX | Role |
 | --- | --- | --- |
-| primary | #25D366 | Outer viewport frame, hero feature block, team/who-we-are band, footer band, active topic dots, hover highlights |
-| accent | #008069 | Deep botanical green for secondary color blocks, category eyebrows, duotone photo overlays, focus outlines |
-| mint | #E7F8E2 | Soft green editorial card block (used in 3-column toolkit grids) |
-| ink | #111315 | Masthead wordmark, headlines, body copy, `1px` structural grid lines, active filter pills, spot illustrations |
-| paper | #F3F2EE | Warm newsprint/stone canvas for main editorial grids and newsletter strip |
-| surface | #FFFFFF | Clean white bands (masthead header, interactive topic explorer, principles section) |
-| muted | #7A7D80 | Inactive topic filter items, secondary metadata, quiet language toggle (`日本語`) |
-| card-sky | #CFE4FB | Secondary editorial color block in multi-column toolkit grids (paired with `primary` and `mint`) |
-| card-sand | #F6E3A8 | Optional warm editorial highlight block for pull-out callouts |
-| border | #111315 | Universal `1px` horizontal section dividers, vertical column rules, and pill outlines |
+| primary | #25D366 | Primary button fill, nav underline, point highlights |
+| primary-hover | #25D366 | Fill stays the same; hover adds the offset shadow |
+| accent | #008069 | Secondary button outline and text, small section labels, line icons, Your Plan handwriting, link hover, focus ring, airmail band text |
+| accent-stripe | #1DAA61 | Striped decorations, paired with accent |
+| ink | #1C1E21 | Body text, primary button text and outline, checks |
+| ink-deep | #111B21 | Footer background |
+| muted | #666666 | Quiet links (日本語 switch) |
+| cream | #FCF5EB | Hero, We hear these a lot, Find your next chapter, How it works backgrounds |
+| mint | #E7F8E2 | Lower band (We live here and below) |
+| surface | #FFFFFF | Cards, speech bubbles, polaroids, Schools section, airmail band |
+| line | #E2E5E8 | Dividers, band borders |
+| line-soft | #E7EAEC | List row dividers inside cards |
+| badge-line | #D5D9DD | Badge outline (inset 1px) |
+| note-yellow / note-blue / note-mint | #FFE47A / #CFE4FB / #D4F0DF | Sticky notes (with white) |
+| option-sand / option-sky | #F6E3A8 / #DCE9F4 | Option card backgrounds |
+| tag-blue / tag-gray | #7FA6CF / #C9CED3 | Category dots (with primary) |
+| heart | #F15C6D | Chat reaction |
+| read-tick | #53BDEB | Chat read check marks |
 
-**Color & Contrast Guardrails**
-- Never use `#25D366` for body text or thin `1px` lines on white/paper surfaces (low luminance contrast).
-- Text placed on `#25D366` or `#E7F8E2` surfaces must always be `ink` `#111315` (`8.4:1+` contrast).
-- `#008069` text is reserved for uppercase category eyebrows (`11–12px` bold) on `surface` `#FFFFFF` and `paper` `#F3F2EE`. On `#008069` fills, use `#FFFFFF` or `#25D366` text.
-- Keep large page bands alternating cleanly between `surface` (`#FFFFFF`), `paper` (`#F3F2EE`), and `primary` (`#25D366`).
+- Never use bright green #25D366 for text or thin lines: it is 2:1 on white and disappears.
+- Never put white text on #25D366; button text is always ink #1C1E21 (8.4:1).
+- Deep green #008069 text passes AA on white (4.9:1) and cream (4.5:1) but not on mint (4.4:1). On the mint band, use ink for small text and keep deep green for 18px+ or bold text and icons.
+- Never place a bright green button on a green background; it only goes on cream, white or dark.
+- Large backgrounds stay in cream, white and mint only. Don't add new colors.
+- Tints of deep green (rgba(0,128,105,.07–.12)) are for notebook lines and card patterns only.
 
 ## Typography
 
-Typography contrasts a **high-impact editorial masthead** with **bold neo-grotesque uppercase section headers**, readable sans-serif body text, and **monospace metadata**.
+Headings are **Outfit** and body text is **Plus Jakarta Sans**. Use the handwriting and typewriter faces only as accents.
 
-| Role | Font | Size | Weight / Styling |
+| Role | Font | Size | Weight / notes |
 | --- | --- | --- | --- |
-| Masthead Logo (`UHAK GPS`) | Newsreader (or Fraunces) | `clamp(44px, 7vw, 88px)` | `600`, tight tracking `-0.03em`, centered display serif |
-| Hero Feature Headline (`h1`) | Plus Jakarta Sans | `clamp(28px, 3.6vw, 44px)` | `800`, `line-height: 1.08`, `letter-spacing: -0.02em` |
-| Section Header (`h2`) | Plus Jakarta Sans | `clamp(22px, 2.8vw, 34px)` | `800`, uppercase (`THE LATEST`, `WHAT WE BELIEVE`, `WHO WE ARE`), `letter-spacing: -0.01em` |
-| Card / Article Title (`h3`) | Plus Jakarta Sans | `15–18px` | `700`, `line-height: 1.25`, uppercase or sentence case |
-| Topic List Item (Interactive) | Plus Jakarta Sans | `clamp(20px, 2.4vw, 28px)` | `700`, `line-height: 1.35`; inactive in `muted` `#7A7D80`, active in `ink` `#111315` |
-| Editorial Pull Quote | Newsreader | `clamp(20px, 2.4vw, 28px)` | `500`, `line-height: 1.35`, centered |
-| Body Copy | Plus Jakarta Sans | `14–15px` | `400`, `line-height: 1.65`, `ink` `#111315` |
-| Micro-Metadata, Dates & Pills | Courier Prime | `11–12px` | `400`–`700`, uppercase (`15.11.26`, `WORKING HOLIDAY`, `READ MORE ->`) |
-| Japanese | Zen Kaku Gothic New / Noto Sans JP | Same scale as English | `400` body, `700` headings |
+| Hero headline | Outfit | clamp(28px, 3.4vw, 44px) | 400, second line 500, letter-spacing -0.01em |
+| Section title (h2) | Outfit | clamp(21px, 2.8vw, 38px) | 400, line-height 1.15 |
+| Card / option title | Outfit | 16–20px | 400–500 |
+| Body | Plus Jakarta Sans | 13–15px | 400, line-height 1.7 |
+| Nav | Plus Jakarta Sans | 13px | 500, sentence case (no all caps) |
+| Labels / badges | Plus Jakarta Sans | 11–12px | 500–600, all caps only for small labels; section labels in accent #008069 |
+| Handwriting (notes, polaroids, Your Plan) | Shantell Sans | 13–24px | 400; Your Plan items in accent |
+| Numbers (01, No.) | Courier Prime | 11–12px | 60% opacity |
+| Japanese | Zen Kaku Gothic New / Noto Sans JP (handwriting: Klee One) | Same as English | 300 for captions |
 
-## Layout & Spacing
+- Use 3 weights at most per screen: 400 / 500 / 600.
+- Logo: **UHAK GPS**, Outfit 500, letter-spacing 0.06em, no symbol.
 
-The entire website is framed inside a **solid `8px` `#25D366` viewport border** (`4px` on mobile), creating the self-contained silhouette of a print magazine cover. Inside, full-bleed bands are separated by **`1px solid #111315` horizontal rules**, with content aligned to a **max-width `1120px` editorial grid**.
+## Layout & spacing
 
-- **Outer Viewport Frame:** `border: 8px solid #25D366` around `body` (`4px` below `760px`).
-- **Inner Container:** `max-width: 1120px`, centered, horizontal padding `32px` on desktop and `16px` on mobile.
-- **Section Spacing:** `56–80px` top and bottom padding per band.
-- **Sharp Magazine Geometry:**
-  - Photographs, featured split cards, toolkit blocks, and accordion rows use **`0px` border radius** (sharp rectangular cuts).
-  - Filter pills (`ALL`, `WORKING HOLIDAY`) and primary action buttons use **`999px` pill radius** with `1px solid #111315` borders.
-  - Mid-page floating callout badges use **`24px` rounded-square corners** (`border-radius: 24px`) to contrast against rectangular photography.
-- **Shadows:** Zero drop shadows (`box-shadow: none`). Hierarchy is established entirely through `1px solid #111315` rules and flat color blocking.
-- **Breakpoint:** `760px`. Multi-column grids collapse cleanly to `1` or `2` columns below `760px` while preserving `1px` horizontal dividers.
+The content width is **max 864px** and every section uses the same rhythm. Backgrounds change only by band.
 
-**Page Architecture & Band Order**
+- **Container:** max-width 864px, side padding 35px on desktop and 20px on mobile.
+- **Section spacing:** 72–104px top and bottom.
+- **Corner radius:** buttons 999px (pill), cards and bubbles 12–16px, notes and polaroids 0–4px.
+- **Shadows:** two soft layers by default (0 1px 2px + 0 8px 20px); reserve the black offset shadow (-4px 4px 0 #1C1E21) for selected and hover states only.
+- **Breakpoint:** 760px. Below it, lay out in one column (option rows, schools, ID card) or two to three columns (steps 3×2, notes 2×2).
 
-1. **Utility Top Bar & Editorial Masthead:** `surface` `#FFFFFF`, `1px` bottom rule
-2. **Topic Filter Pill Bar:** `surface` `#FFFFFF`, horizontal scrollable pills, `1px` bottom rule
-3. **Hero Asymmetric Feature Grid (Main Split Story + 3 Sidebar Guides):** `paper` `#F3F2EE`
-4. **`THE LATEST` (4-Column Guide Grid):** `paper` `#F3F2EE`, `1px` top rule
-5. **`#ASKANYTHING` Interactive Topic Explorer (2-Column Split):** `surface` `#FFFFFF`, bounded top & bottom by `1px` rules
-6. **Mid-Page Documentary Photo + `#25D366` Callout Badge:** `paper` `#F3F2EE`
-7. **`TOOLKITS & CHECKLISTS` (3-Column Color-Blocked Grid):** `paper` `#F3F2EE`, `1px` top rule
-8. **`WHAT WE BELIEVE` (4-Column Spot Illustrations + Centered Pull Quote):** `surface` `#FFFFFF`, bounded top & bottom by `1px` rules
-9. **`WHO WE ARE` (Green Team Portraits + `1px` Accordion List):** `primary` `#25D366`, `1px` top rule
-10. **Inquiry Strip + Announcement Ticker + Editorial Footer:** `paper` `#F3F2EE` strip → `primary` `#25D366` (or `ink` `#111315`) footer
+**Section order and backgrounds**
+
+1. Nav: clear at the top, then a white floating pill on scroll
+2. Hero (chat + polaroids): cream #FCF5EB
+3. We hear these a lot. (notes): cream
+4. Find your next chapter abroad. (options + Your Plan): cream
+5. How it works (6 steps): cream
+6. Schools we know well: white
+7. Airmail line band: white, accent text, 1px line top and bottom
+8. We live here / Studying abroad + principles: mint #E7F8E2
+9. Footer: ink-deep #111B21
 
 ## Components
 
-Every component is built from flat surfaces, `1px solid #111315` rules, and crisp typography—no drop shadows or floating cards.
+Every component uses the same three rules: white surface, near-black outline, bright green only for actions.
 
-| Component | Structure & Visual Rules | Interaction / State |
+| Component | Default | Interaction / state |
 | --- | --- | --- |
-| **Masthead Header** | Top utility row (`SYDNEY, AU · LOCAL GUIDE` left, `日本語` + `BOOK A CHAT` pill right). Below: centered oversized `UHAK GPS` serif wordmark paired with a minimal `#111315` line-art hand/compass icon | `BOOK A CHAT` pill: `#25D366` fill, `1px` black border; inverts to `#111315` fill with `#25D366` text on hover |
-| **Topic Filter Bar** | Centered row labeled `TOPICS:` in `Courier Prime` `11px` uppercase followed by pill tags (`ALL`, `WORKING HOLIDAY`, `ENGLISH & VET`, `UNIVERSITY`, `SYDNEY LIFE`) | Default: transparent fill, `1px solid #111315` border. Active/Hover: solid `#111315` fill, `#FFFFFF` text |
-| **Hero Asymmetric Feature** | `2fr : 1fr` grid (`gap: 32px`). **Left:** flush 2-part rectangle—left half `#25D366` green box (`h1` *"Talk before you've decided anything."*, short summary, `START A CHAT ->` link), right half full-bleed documentary photo (`0px` radius). **Right (`FEATURED GUIDES`):** 3 stacked mini-cards (`72×72px` square photo + mono tag + bold title) | Hovering any card underlines the headline and shifts photo contrast slightly (`scale(1.02)` inside `overflow: hidden` sharp frame) |
-| **4-Column Article Grid** | 4 equal columns (`gap: 24px`). Each item: `4:3` sharp rectangular photo, flex row with `Courier Prime` date (`15.11.26`) left and `#008069` category right, bold `Plus Jakarta Sans` title, and bottom `READ MORE ->` mono link with `1px solid #111315` underline | `READ MORE ->` highlights with `#25D366` background fill on hover |
-| **Interactive Topic Explorer** | `1fr : 1.4fr` split on `#FFFFFF`. **Left:** stacked large topic titles (`Working Holiday`, `Language Schools`, `TAFE & Vocational`, `University Pathways`, `Cost of Living`). **Right:** 3 horizontal story rows (`96×72px` duotone/collage photo + title + 1-line summary) separated by `1px solid #111315` rules | Clicking a topic sets it to `ink` `#111315` with a `10px` `#25D366` dot indicator (others stay `muted` `#7A7D80`) and filters the right-hand guide list |
-| **Full-Bleed Feature Overlay** | Full-width `16:7` documentary Sydney photo (`0px` radius). Overlaid on the left-center: a `24px`-radius `#25D366` callout box (`padding: 36px`) with uppercase bold manifesto headline (`"WE DON'T SELL SCHOOLS. YOUR CHOICE STAYS YOURS."`) and mono sub-tag | Static editorial centerpiece |
-| **3-Column Toolkit Grid** | Section header (`TOOLKITS`) + `1px` top rule. 3 equal sharp-edged rectangular cards (`0px` radius, `padding: 28px`) in `#25D366` (bright green), `#E7F8E2` (mint), and `#CFE4FB` (sky blue), each with bold uppercase title, concise description, and bottom `1px` rule | Hovering a block reveals a crisp `1px solid #111315` inset frame |
-| **Principles & Spot Art** | `WHAT WE BELIEVE` uppercase header + 4-column grid. Each column features a `56×56px` `#111315` ink + `#25D366` accent spot illustration (hand, magnifying glass, compass, speech bubble), uppercase principle title, and 3-line explanation. Below: `1px` rule + centered `Newsreader` pull quote | Static |
-| **Green Team & Accordion Band** | Full-width `#25D366` section (`WHO WE ARE`). Top: 3–4 rectangular grayscale portraits (`1px solid #111315` frame) with name, arrival year, and Sydney suburb (`Town Hall · Since 2019`). Bottom: full-width accordion list separated by `1px solid #111315` top/bottom borders (`How our 1:1 consultation works +`, `Partner schools & institutions +`, `Arrival support in Sydney +`) | Clicking an accordion row rotates `+` to `×` and expands the answer block cleanly |
-| **Inquiry Strip & Footer** | **Strip (`#F3F2EE`):** centered uppercase prompt (`STILL FIGURING IT OUT? LEAVE YOUR EMAIL OR LINE ID`), `1px solid #111315` bottom-bordered transparent input, solid `#111315` pill `SEND`. **Ticker:** full-width `1px` bordered bar (`Based near Town Hall, Sydney · Free 1:1 chats ->`). **Footer (`#25D366`):** oversized `UHAK GPS` wordmark + 4 columns of uppercase mono links | Links underline with `1px solid #111315` on hover |
+| Primary button | Bright green #25D366 fill, ink text, 1.5px ink outline, pill | Hover: offset shadow -4px 4px 0 #1C1E21 + translate(2px, -2px) |
+| Secondary button | Transparent, 1.5px accent #008069 outline, accent text | Hover: ink fill, white text, ink outline. Disabled: outline at 35% opacity |
+| Nav | Clear at the top (cream), logo left, 4 menu items, CTA right | On scroll: white floating pill (max 760px). Underline: 3px bright green bar on hover and for the current section |
+| Hero chat | White bubbles, 15px, corner 12px (3px on the tail corner), time 10px | Incoming (left) → reply (right, blue checks), arriving 0.7s apart; heart reaction pops in |
+| Hero headline | "We'll figure it out, together, in Australia." | Appears after the bubbles |
+| Polaroids | White frame 10px (38px bottom), caption in Shantell Sans, three overlapping at -6° / 5° / -1° | Static |
+| Sticky notes | 4 in one row (yellow, white, sky, mint), clear tape | Static, alternating 0 / 18px vertical offset |
+| Option list | Rows with a hairline divider: check circle, title, one line, badges (inset #D5D9DD outline) | Hover: white 75% background. Selected: white card, 1.5px dark outline, filled dark check. Adds to Your Plan |
+| Your Plan | Lined notepad (accent lines at 12%), red margin line, washi tape, handwritten items in accent | Sticky in the sidebar, CTA at the bottom |
+| Step tickets | 6 in one row: icon 52px, number, title | Selected: white card, black outline, offset shadow; upcoming icons grayscale at 45% |
+| Schools | 3 equal columns with accent category labels, 2 schools each, name + "city · trait" | See all schools → school guide |
+| ID card | Header band, photo 64×76, name, year, suburb | Tap to flip (0.7s), back shows 3 things to ask about |
+| Principles | One white card checklist, 3 items | Static |
+| Footer | Dark #111B21, logo + one line, menu, address and copyright | Links in white, secondary text at 60–70% opacity |
 
-## Imagery & Spot Illustrations
+## Imagery & icons
 
-Visuals blend **unretouched documentary photography**, **editorial duotone/collage treatments**, and **bold monochrome ink spot illustrations**.
+Use **real everyday photos and skeuomorphic icons**. Avoid flashy travel ads and AI-generated-looking images.
 
-- **Documentary Photography:** Real everyday Sydney scenes near Town Hall, Hyde Park, Surry Hills cafes, and university libraries. Natural daylight, authentic candid moments, cropped to strict `0px` rectangles.
-- **Duotone & Collage Thumbnails:** Secondary thumbnails in the topic explorer and sidebar may use `#008069` or `#25D366` duotone color washes with clean geometric cutout accents, echoing independent print zines.
-- **Strictly Avoid:** Opera House / Harbour Bridge tourist clichés, glossy corporate stock photos, paid Unsplash+ assets, and AI-generated imagery.
-- **Spot Illustrations:** Custom `2px`-stroke `#111315` ink drawings paired with flat `#25D366` accent shapes (open hand, compass, coffee cup, magnifying glass) used in the masthead and `WHAT WE BELIEVE` grid.
-- **Rights & Hosting:** Store all photos and SVGs locally inside the Astro repository (`src/assets/`) with descriptive `alt` text.
+- **Photos:** real places and people near Town Hall in Sydney (Hyde Park, the consultation room, a lunch break). Warm natural light, minimal retouching.
+- **What to avoid:** tourist shots like the Opera House, crowded stock photos, Unsplash+ (paid) and AI-generated photos.
+- **Step icons (skeuomorphic):** green tea → Australia map → calendar → journal → airplane → Australian flag. Soft shadow, used only at 52–86px.
+- **Line icons:** 1.2–1.4px stroke in accent #008069, no fill.
+- **Rights:** use only photos the client owns or has consent for. External image URLs are blocked on the canvas, so upload and store every image as a file.
+- **Alt text:** every photo gets a one-line alt text that describes what's in it.
 
-## Motion & Interaction
+## Motion & interaction
 
-Interactions are **fast, tactile, and mechanical**—matching the feel of flipping through a print magazine.
+Motion should be **short and purposeful**: only to show where you are, what changed, or the flow of a conversation.
 
-| Element | Duration | Behavior |
+| Element | Duration | Easing / notes |
 | --- | --- | --- |
-| Topic pill & button hover | `0.15s` | Instant color inversion (`#25D366` ↔ `#111315`) |
-| `READ MORE ->` link hover | `0.15s` | `#25D366` background highlighter fill |
-| Article thumbnail hover | `0.3s` | `cubic-bezier(.25, .8, .25, 1)`, subtle `scale(1.02)` within sharp rectangular crop |
-| Interactive topic switch | `0.2s` | Smooth opacity fade (`0.15s`) on filtered guide rows + `#25D366` active dot snap |
-| Accordion expand/collapse | `0.25s` | Smooth height transition + `+` icon rotation (`45deg`) |
+| Button hover | 0.2s | ease, offset shadow + 2px shift |
+| Secondary button hover | 0.25s | ease, background, outline, text color |
+| Nav transition (clear → pill) | 0.45s | ease, background, width, corner radius |
+| Menu underline | 0.35s | cubic-bezier(.3,.7,.2,1), grows left to right |
+| Chat bubbles arriving | 0.5s each, 0.7s apart | rise from below + slight scale-up |
+| Heart reaction | 0.45s | pop (scales to 1.15× then settles) |
+| Step card selection | 0.25s | background, outline, shadow |
+| ID card flip | 0.7s | cubic-bezier(.3,.7,.2,1), rotateY 180° |
+| Anchor scroll | — | scroll-behavior: smooth, stops under the header |
 
-- Disable all transitions and transforms when `prefers-reduced-motion: reduce` is active.
+- Avoid continuous loops (tickers, floating effects). The exceptions are the subtle flow of the step dots and the slow airmail band (46s per loop).
+- With prefers-reduced-motion, turn off every animation and show the end state immediately.
 
-## Copy & Voice
+## Copy & voice
 
-Write with the **clarity, warmth, and directness of an independent local magazine**.
+The copy talks **the way a friend would** and stays short. Section titles are one sentence, and each description is one line.
 
-- **Tone:** informative, candid, conversational, zero sales pressure.
-- **Headline Style:** Mix direct questions (`"Do you actually need an agent?"`) with clear editorial statements (`"Talk before you've decided anything."`).
-- **Banned Expressions:** `"Limited time offer"`, `"100% visa guarantee"`, `"Permanent Residency guaranteed"`, `"Highly recommended"`, or exaggerated lifestyle hype.
-- **Japanese Support:** Maintain the `日本語` toggle in the top utility bar; keep Japanese typography aligned to `Zen Kaku Gothic New` with native-speaker review prior to launch.
+- **Tone:** conversational, honest, warm. "We hear these a lot." "We actually live here."
+- **Length:** title ≤ 8 words, description ≤ 15 words, buttons 2–5 words.
+- **Nav labels:** sentence case and conversational (What fits me / How it works / Schools we know / Life here).
+- **Banned expressions:** "Limited time", "Highly recommended", guarantees of permanent residency, exaggerated claims about life abroad.
+- **Principles to keep:** We don't sell schools / No promises we can't keep / Your choice stays yours.
+- **Japanese:** use it sparingly, only where it adds emotion (handwritten notes, the floating banner). The final translation needs a native speaker's review.
 
-## Accessibility & Responsive
+## Accessibility & responsive
 
-- **WCAG AA Contrast:** `ink` `#111315` on `surface` `#FFFFFF` (`18.8:1`), `paper` `#F3F2EE` (`16.7:1`), and `primary` `#25D366` (`9.2:1`) exceeds AAA/AA thresholds across every section.
-- **Keyboard & Focus:** Every pill, topic selector, accordion button, and `READ MORE ->` link renders a `2px solid #008069` (or `#111315` on green bands) `:focus-visible` outline with `3px` offset.
-- **Touch Targets:** Filter pills, accordion rows, and navigation links maintain a minimum `44px` tap height.
-- **Mobile (`≤760px`):**
-  - Outer viewport border reduces from `8px` to `4px`.
-  - Topic filter bar becomes horizontally scrollable (`overflow-x: auto`, `white-space: nowrap`).
-  - Hero asymmetric split stacks vertically (`#25D366` headline block above documentary photo, followed by sidebar guides).
-  - 4-column article grid collapses to `1` column (or `2` columns on tablet); 3-column toolkits and 4-column principles collapse to `1` column separated by `1px solid #111315` rules.
+Every screen must meet **WCAG AA** and work on mobile.
 
-## Implementation Tokens & Open Items
+- **Contrast:** body text #1C1E21 on cream, white or mint is 15:1 or higher. Ink on bright green buttons is 8.4:1; never white on #25D366. Accent #008069 text is for white and cream backgrounds (see Color).
+- **Tap targets:** buttons, chips and tabs are at least 44px tall.
+- **Focus:** a visible 2px accent #008069 outline, offset 3px, on every interactive element (:focus-visible).
+- **Semantics:** the hero title is an `h1` and section titles are `h2`. Speech bubbles are decorative (aria-hidden), and the h1 includes the conversation text so it reads in order.
+- **State:** toggles use aria-pressed and step tabs use aria-selected.
+- **Mobile (≤760px):** the nav becomes 2 rows (logo + CTA / scrolling menu), option rows go to 1 column, steps 3×2, notes 2×2, schools 1 column; in-section buttons go full width.
+- **Motion:** respect prefers-reduced-motion.
 
-Configure **Astro + Tailwind CSS v4** directly via `@theme` with zero third-party UI component libraries.
+## Implementation tokens & open items
+
+The site is built with Astro + Tailwind v4 (no component library). Everything above is pinned to Tailwind `@theme` tokens in `src/styles/global.css`, which is the source of truth; use them as utilities (`bg-primary`, `text-accent`, `font-display`, `rounded-pill`, `max-w-content`, `landing:`). Core tokens:
 
 ```css
-@import "tailwindcss";
-
 @theme {
-  /* Editorial Green Palette */
-  --color-primary: #25D366;
-  --color-accent: #008069;
-  --color-mint: #E7F8E2;
-  --color-ink: #111315;
-  --color-paper: #F3F2EE;
-  --color-surface: #FFFFFF;
-  --color-muted: #7A7D80;
-  --color-card-sky: #CFE4FB;
-  --color-card-sand: #F6E3A8;
-  --color-border: #111315;
+  --color-primary: #25d366;   /* action fills; text on it is ink */
+  --color-accent: #008069;    /* outlines, labels, icons, link hover, focus */
+  --color-ink: #1c1e21;
+  --color-ink-deep: #111b21;  /* footer */
+  --color-cream: #fcf5eb;
+  --color-mint: #e7f8e2;
+  --color-surface: #ffffff;
 
-  /* Typography */
-  --font-masthead: "Newsreader", "Zen Kaku Gothic New", serif;
-  --font-sans: "Plus Jakarta Sans", "Zen Kaku Gothic New", sans-serif;
+  --font-display: "Outfit", "Murecho", "Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
+  --font-sans: "Plus Jakarta Sans", "Murecho", "Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
+  --font-hand: "Shantell Sans", "Klee One", cursive;
   --font-mono: "Courier Prime", monospace;
 
-  /* Geometry */
-  --radius-none: 0px;
-  --radius-badge: 24px;
+  --breakpoint-landing: 760px;
   --radius-pill: 999px;
-}
-
-@layer base {
-  body {
-    background-color: var(--color-paper);
-    color: var(--color-ink);
-    font-family: var(--font-sans);
-    border: 8px solid var(--color-primary);
-    min-height: 100vh;
-  }
-
-  @media (max-width: 760px) {
-    body {
-      border-width: 4px;
-    }
-  }
-}
-
-@layer components {
-  .editorial-rule-top {
-    border-top: 1px solid var(--color-ink);
-  }
-
-  .editorial-rule-bottom {
-    border-bottom: 1px solid var(--color-ink);
-  }
-
-  .editorial-pill {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    border: 1px solid var(--color-ink);
-    border-radius: var(--radius-pill);
-    padding: 6px 14px;
-    transition: background-color 0.15s ease, color 0.15s ease;
-  }
-
-  .editorial-pill:hover,
-  .editorial-pill[aria-pressed="true"] {
-    background-color: var(--color-ink);
-    color: var(--color-surface);
-  }
-
-  .editorial-read-more {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: var(--color-ink);
-    border-bottom: 1px solid var(--color-ink);
-    padding: 2px 3px;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    transition: background-color 0.15s ease;
-  }
-
-  .editorial-read-more:hover {
-    background-color: var(--color-primary);
-  }
+  --max-width-content: 864px;
 }
 ```
 
-**Pre-Launch Confirmation Checklist**
+Supporting colors (lines, note and option fills, heart, read tick) are also defined there. Add new tokens to `global.css` rather than hard-coding values.
 
-- [ ] Counsellor portraits (grayscale), names, arrival years in Australia, and Sydney suburbs for `WHO WE ARE`
-- [ ] Real documentary photography around Town Hall, Hyde Park, and local cafes (`4:3` and `16:7` crops)
-- [ ] Custom monochrome ink + `#25D366` SVGs for masthead mark and 4 `WHAT WE BELIEVE` spot illustrations
-- [ ] Real partner institution notes and FAQ copy for the `WHO WE ARE` accordion rows
-- [ ] Booking link (`#book`), LINE ID / link (`#line`), and inquiry form endpoint
-- [ ] Native-speaker review of the Japanese (`日本語`) edition
+**Items to confirm before launch**
+
+- [ ] Counsellor's name, year of arrival in Australia, and suburb
+- [ ] Actual partner school names and notes (replace the mock names)
+- [ ] Booking link (#book) and LINE link (#line)
+- [ ] Long-term Settlement copy (keep any "PR" wording out of promises)
+- [ ] Photo usage consent (friend and students) plus 1–2 more real student photos
+- [ ] Native-speaker review of the Japanese version
+- [ ] Accent #008069 small text on the mint band (4.4:1): switch to ink or enlarge
