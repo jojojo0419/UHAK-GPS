@@ -159,30 +159,30 @@ Every screen must meet **WCAG AA** and work on mobile.
 
 ## Implementation tokens & open items
 
-In the Astro + Tailwind v4 + daisyUI build, pin everything above to the theme tokens below.
+The site is built with Astro + Tailwind v4 (no component library). Everything above is pinned to Tailwind `@theme` tokens in `src/styles/global.css`, which is the source of truth; use them as utilities (`bg-primary`, `text-accent`, `font-display`, `rounded-pill`, `max-w-content`, `landing:`). Core tokens:
 
 ```css
-@plugin "daisyui/theme" {
-  name: "uhakgps-green";
-  --color-primary: #25D366;
-  --color-primary-content: #1C1E21;
-  --color-secondary: #008069;
-  --color-secondary-content: #FFFFFF;
-  --color-neutral: #111B21;
-  --color-base-100: #FCF5EB;
-  --color-base-200: #E7F8E2;
-  --color-base-content: #1C1E21;
-  --radius-field: 999px;
-  --radius-box: 16px;
-}
 @theme {
-  --font-display: "Outfit", "Zen Kaku Gothic New", sans-serif;
-  --font-sans: "Plus Jakarta Sans", "Zen Kaku Gothic New", sans-serif;
+  --color-primary: #25d366;   /* action fills; text on it is ink */
+  --color-accent: #008069;    /* outlines, labels, icons, link hover, focus */
+  --color-ink: #1c1e21;
+  --color-ink-deep: #111b21;  /* footer */
+  --color-cream: #fcf5eb;
+  --color-mint: #e7f8e2;
+  --color-surface: #ffffff;
+
+  --font-display: "Outfit", "Murecho", "Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
+  --font-sans: "Plus Jakarta Sans", "Murecho", "Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
   --font-hand: "Shantell Sans", "Klee One", cursive;
   --font-mono: "Courier Prime", monospace;
-  --shadow-offset: -4px 4px 0 #1C1E21;
+
+  --breakpoint-landing: 760px;
+  --radius-pill: 999px;
+  --max-width-content: 864px;
 }
 ```
+
+Supporting colors (lines, note and option fills, heart, read tick) are also defined there. Add new tokens to `global.css` rather than hard-coding values.
 
 **Items to confirm before launch**
 
