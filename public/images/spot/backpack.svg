@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="backpack">
+  <g transform="translate(4 4)" fill="var(--accent,#25D366)" stroke="none"><rect x="32" y="38" width="56" height="58" rx="16"/></g><path d="M49 38v-6a11 11 0 0 1 22 0v6"/><rect x="32" y="38" width="56" height="58" rx="16"/>
+  <path d="M32 57h56"/><rect x="42" y="69" width="36" height="18" rx="5"/><path d="M52 78h16" stroke-width="1.5"/>
+  <rect x="55" y="52" width="10" height="13" rx="2" fill="currentColor"/>
+</svg>

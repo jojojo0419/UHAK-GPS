@@ -1,58 +1,86 @@
 ---
+/**
+ * Sticker icons for How we work — SVG (crisp at any size).
+ * Assets: public/images/spot/*.svg
+ */
+export type SpotKind =
+  | 'tea'
+  | 'calendar'
+  | 'notebook'
+  | 'map'
+  | 'backpack'
+  | 'speech'
+  | 'gradcap'
+  | 'key'
+  | 'sim'
+  | 'coins'
+  | 'question'
+  | 'free'
+  | 'train'
+  | 'envelope';
+
 interface Props {
-  name: 'hand' | 'magnifier' | 'compass' | 'bubble';
-  size?: number;
+  kind: SpotKind;
   class?: string;
 }
 
-const { name, size = 56, class: className } = Astro.props;
-const ink = '#111315';
-const green = '#25D366';
+const { kind, class: className = '' } = Astro.props;
+
+const src: Record<SpotKind, string> = {
+  tea: '/images/spot/tea.svg',
+  calendar: '/images/spot/calendar.svg',
+  notebook: '/images/spot/notebook.svg',
+  map: '/images/spot/map.svg',
+  backpack: '/images/spot/backpack.svg',
+  speech: '/images/spot/speech.svg',
+  gradcap: '/images/spot/gradcap.svg',
+  key: '/images/spot/key.svg',
+  sim: '/images/spot/sim.svg',
+  coins: '/images/spot/coins.svg',
+  question: '/images/spot/question.svg',
+  free: '/images/spot/free.svg',
+  train: '/images/spot/train.svg',
+  envelope: '/images/spot/envelope.svg',
+};
 ---
-<svg
-  width={size}
-  height={size}
-  viewBox="0 0 56 56"
-  fill="none"
-  stroke={ink}
-  stroke-width="2"
-  stroke-linecap="round"
-  stroke-linejoin="round"
-  aria-hidden="true"
-  class={className}
->
-  {name === 'hand' && (
-    <>
-      <circle cx="35" cy="20" r="11" fill={green} stroke="none" />
-      <path d="M17 50v-8c-4-3-7-7-7-12v-6a3 3 0 0 1 6 0v6" />
-      <path d="M16 24V12a3 3 0 0 1 6 0v14" />
-      <path d="M22 24V9a3 3 0 0 1 6 0v17" />
-      <path d="M28 25V12a3 3 0 0 1 6 0v15" />
-      <path d="M34 27v-9a3 3 0 0 1 6 0v14c0 7-4 10-6 12v6" />
-    </>
-  )}
-  {name === 'magnifier' && (
-    <>
-      <circle cx="24" cy="24" r="13" fill={green} stroke="none" transform="translate(-3 -3)" />
-      <circle cx="24" cy="24" r="14" />
-      <path d="M34 34l14 14" stroke-width="4" />
-      <path d="M17 21a8 8 0 0 1 8-6" />
-    </>
-  )}
-  {name === 'compass' && (
-    <>
-      <circle cx="28" cy="28" r="21" />
-      <path d="M28 4v5M28 47v5M4 28h5M47 28h5" />
-      <path d="M34 22l-4 10-8 2 4-10z" fill={green} />
-      <path d="M22 34l4-10 8-2" />
-      <circle cx="28" cy="28" r="1.5" fill={ink} />
-    </>
-  )}
-  {name === 'bubble' && (
-    <>
-      <rect x="14" y="16" width="34" height="24" rx="4" fill={green} stroke="none" />
-      <path d="M8 12h32a4 4 0 0 1 4 4v18a4 4 0 0 1-4 4H22l-9 8v-8H8a4 4 0 0 1-4-4V16a4 4 0 0 1 4-4z" />
-      <path d="M13 22h22M13 29h14" />
-    </>
-  )}
-</svg>
+
+<span class:list={['ed-stamp', className]} data-kind={kind}>
+  <img
+    src={`${src[kind]}?v=line1`}
+    alt=""
+    width="160"
+    height="160"
+    decoding="async"
+    draggable="false"
+  />
+</span>
+
+<style>
+  .ed-stamp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 52px;
+    height: 52px;
+  }
+
+  .ed-stamp img {
+    display: block;
+    width: 52px;
+    height: 52px;
+    max-width: 100%;
+    object-fit: contain;
+    object-position: center;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  @media (min-width: 760px) {
+    .ed-stamp,
+    .ed-stamp img {
+      width: 64px;
+      height: 64px;
+    }
+  }
+</style>
