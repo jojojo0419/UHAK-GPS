@@ -3,10 +3,9 @@ import Wordmark from './Wordmark.astro';
 
 interface Props {
   variant?: 'cover' | 'compact';
-  active?: 'home' | 'book';
 }
 
-const { variant = 'cover', active = 'home' } = Astro.props;
+const { variant = 'cover' } = Astro.props;
 ---
 <header class:list={['ed-masthead bg-surface text-ink', variant !== 'cover' && 'editorial-rule-bottom']}>
   <div class="wrap grid min-h-6 grid-cols-[1fr_auto] items-center gap-x-4 py-1.5">
@@ -38,9 +37,9 @@ const { variant = 'cover', active = 'home' } = Astro.props;
   {variant === 'cover' ? (
     <div class="wrap pb-3.5 pt-4 landing:pb-[18px] landing:pt-5">
       <div class="ed-masthead-brand">
-        <p class="ed-masthead-rail ed-masthead-rail--left m-0">Independent field guide —</p>
+        <p class="ed-masthead-rail ed-masthead-rail--left m-0">Independent field guide</p>
         <Wordmark size="cover" />
-        <p class="ed-masthead-rail ed-masthead-rail--right m-0">— Est. in Sydney 2026</p>
+        <p class="ed-masthead-rail ed-masthead-rail--right m-0">Sydney · 2026</p>
       </div>
     </div>
   ) : (

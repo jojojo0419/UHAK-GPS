@@ -9,14 +9,13 @@ const languages = [
 ];
 const expect = [
   { title: '30 minutes', text: 'Video, or in person near Town Hall.' },
-  { title: 'A short summary', text: 'Afterwards, a written note of what we covered.' },
-  { title: 'No pressure', text: 'If you go quiet, so do we. Message again when you’re ready.' },
+  { title: 'A short summary', text: 'A written note of what we covered after the call.' },
+  { title: 'No obligation', text: 'You can stop contact at any time and return later if you want.' },
 ] as const;
 ---
 <ZineLayout
-  title="Book a free chat — UHAK GPS"
-  description="Book a free 30-minute chat with someone in Sydney. No school or visa needed."
-  active="book"
+  title="Book a free chat | UHAK GPS"
+  description="Book a free 30-minute chat with someone in Sydney. No school or visa required."
 >
   <section aria-labelledby="bookTitle" class="bg-paper">
     <div class="wrap grid gap-0 py-8 landing:py-12 lg:grid-cols-[1fr_1.15fr]">
@@ -52,7 +51,7 @@ const expect = [
           </div>
 
           <fieldset class="m-0 border-0 p-0">
-            <legend class="ed-meta mb-3 text-muted">What’s on your mind?</legend>
+            <legend class="ed-meta mb-3 text-muted">What are you considering?</legend>
             <div class="flex flex-wrap gap-2">
               {interests.map((label) => (
                 <label class="cursor-pointer">
@@ -78,7 +77,7 @@ const expect = [
             <label class="flex flex-col gap-1">
               <span class="ed-meta text-muted">Timing</span>
               <select name="when" class="min-h-11 cursor-pointer rounded-none border-0 border-b border-ink bg-transparent text-[16px] outline-none focus-visible:border-b-2">
-                <option>Just curious</option>
+                <option>Still exploring</option>
                 <option>In the next 6 months</option>
                 <option>In 6–12 months</option>
                 <option>Already in Sydney</option>
