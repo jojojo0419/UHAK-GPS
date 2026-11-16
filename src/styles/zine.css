@@ -21,7 +21,6 @@
   --font-logo: "Newsreader", "Zen Kaku Gothic New", serif;
   --font-sans: "Outfit", "Zen Kaku Gothic New", sans-serif;
   --font-mono: "Zilla Slab", "Zen Kaku Gothic New", serif;
-  --font-courier: "Courier Prime", monospace;
   --font-jp: "Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
 
   --radius-none: 0px;
@@ -85,12 +84,13 @@
   }
 
   body {
+    --ed-frame: 8px;
     background-color: var(--color-paper);
     color: var(--color-ink);
     font-family: var(--font-sans);
     font-size: 15px;
     line-height: 1.65;
-    border: 8px solid var(--color-primary);
+    border: var(--ed-frame) solid var(--color-primary);
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
@@ -98,7 +98,7 @@
 
   @media (max-width: 760px) {
     body {
-      border-width: 4px;
+      --ed-frame: 4px;
     }
   }
 
@@ -159,7 +159,8 @@
 
     .ed-chat-b1,
     .ed-chat-b2,
-    .ed-chat-react {
+    .ed-chat-react,
+    .ed-chat-read {
       opacity: 1 !important;
       transform: none !important;
     }
@@ -227,7 +228,7 @@
   }
 
   .ed-wordmark-tag {
-    font-family: var(--font-courier);
+    font-family: var(--font-brand);
     font-weight: 700;
     font-size: 0.24em;
     line-height: 1;
@@ -250,7 +251,7 @@
     font-size: 18px;
   }
 
-  /* Cover brand: courier rails flanking the wordmark */
+  /* Cover brand: rails flanking the wordmark */
   .ed-masthead-brand {
     display: flex;
     align-items: center;
@@ -261,9 +262,9 @@
     display: none;
     flex: 1 1 0;
     min-width: 0;
-    font-family: var(--font-courier);
+    font-family: var(--font-brand);
     font-size: 10px;
-    font-weight: 700;
+    font-weight: 400;
     line-height: 1;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -334,6 +335,7 @@
     min-height: 32px;
     font-family: var(--font-mono);
     font-size: 11px;
+    font-weight: 600;
     line-height: 1;
     text-transform: uppercase;
     letter-spacing: 0.04em;
@@ -358,24 +360,23 @@
 
   /* Sticky topic bar on primary chrome — no top/bottom rules.
      1px overlaps kill hairlines that read as borders at the seams. */
-  .ed-topic-bar,
-  .ed-topic-bar--primary {
+  .ed-topic-bar {
     border-top: 0;
     border-bottom: 0;
     margin-top: -1px;
     box-shadow: 0 1px 0 var(--color-primary);
   }
 
-  .ed-topic-bar--primary .pill-thumb {
+  .ed-topic-bar .pill-thumb {
     background: var(--color-ink);
   }
 
-  .ed-topic-bar--primary .editorial-pill {
+  .ed-topic-bar .editorial-pill {
     border-color: var(--color-ink);
     color: var(--color-ink);
   }
 
-  .ed-topic-bar--primary .editorial-pill[aria-pressed="true"] {
+  .ed-topic-bar .editorial-pill[aria-pressed="true"] {
     color: var(--color-surface);
     border-color: transparent;
   }
@@ -431,39 +432,39 @@
   .ed-hero-copy {
     display: flex;
     flex-direction: column;
-    gap: 1.15rem;
+    gap: 1rem;
     background: var(--color-surface);
-    padding: 28px 20px 32px;
+    padding: 26px 20px 28px;
     border-bottom: 1px solid var(--color-ink);
   }
 
   /* Keep Free chat → bubbles → headline as one tight cluster */
   .ed-hero-copy > .ed-meta + .ed-chat--inline {
-    margin-top: -0.35rem;
+    margin-top: 0.35rem;
   }
 
   .ed-hero-copy > .ed-chat--inline + h1 {
-    margin-top: 0.1rem;
+    margin-top: -0.45rem;
   }
 
   .ed-hero-photo {
     position: relative;
-    min-height: 260px;
+    min-height: 280px;
     border: 0;
     background: var(--color-ink);
   }
 
   @media (width >= 760px) {
     .ed-hero-shell {
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.85fr);
       align-items: stretch;
     }
 
     .ed-hero-copy {
-      padding: 36px 40px 40px;
+      padding: 32px 36px 34px;
       border-bottom: 0;
       border-right: 1px solid var(--color-ink);
-      min-height: 520px;
+      min-height: 460px;
       justify-content: center;
     }
 
@@ -472,14 +473,12 @@
     }
   }
 
-  /* ── Editorial chat (hero sidebar field note) ─────────────── */
-  .ed-chat-panel {
-    isolation: isolate;
-  }
-
+  /* ── Editorial chat (hero field note) ─────────────────────── */
   .ed-chat--inline {
+    align-self: flex-start;
     width: 100%;
-    max-width: 268px;
+    max-width: 320px;
+    margin-left: 16px;
     padding-bottom: 8px; /* heart badge clearance */
   }
 
@@ -487,41 +486,60 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    align-items: flex-start;
+    gap: 12px;
     width: 100%;
   }
 
-  .ed-chat--inline .ed-chat-b1,
+  .ed-chat--inline .ed-chat-b1 {
+    position: relative;
+    margin: 0 !important;
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  /* Typing + reply share one reserved corner — no jump when … swaps */
+  .ed-chat--inline .ed-chat-reply {
+    position: relative;
+    align-self: stretch;
+    min-height: 2.85rem;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding-left: 1.75rem;
+  }
+
   .ed-chat--inline .ed-chat-b2 {
     position: relative;
     margin: 0 !important;
-  }
-
-  .ed-chat--inline .ed-chat-b1 {
-    display: flex;
-    justify-content: flex-start;
-  }
-
-  .ed-chat--inline .ed-chat-b2 {
     display: flex;
     justify-content: flex-end;
+    width: 100%;
   }
 
   .ed-chat--inline .ed-chat-bubble {
-    max-width: 92%;
-    padding: 8px 11px 9px;
-    font-size: 13px;
+    max-width: 96%;
+    padding: 11px 15px 12px;
+    font-size: 15.5px;
     font-weight: 600;
-    line-height: 1.3;
+    line-height: 1.32;
   }
 
-  /* Typing floats in place — does not open a blank band in the stack */
+  .ed-chat--inline .ed-chat-bubble--you {
+    border-radius: 16px 3px 16px 16px;
+    /* Match landing wa-b: ticks float to the end of the last line */
+    padding-right: 12px;
+  }
+
   .ed-chat--inline .ed-chat-typing {
     position: absolute;
-    right: 0;
-    top: 50%;
+    right: 10px;
+    top: 0;
     margin: 0;
-    transform: translateY(-50%) scale(0.96);
+    border-radius: 14px 3px 14px 14px;
+    transform: scale(0.96);
     z-index: 1;
   }
 
@@ -532,7 +550,7 @@
   }
 
   .ed-chat--inline.is-play .ed-chat-b2 {
-    animation: ed-chat-in 0.5s var(--ease-crisp) 1.95s both;
+    animation: ed-chat-in 0.45s var(--ease-crisp) 1.95s both;
   }
 
   .ed-chat-stage {
@@ -561,6 +579,36 @@
     background: var(--color-surface);
     color: var(--color-ink);
     border: 1px solid var(--color-ink);
+    box-sizing: border-box;
+  }
+
+  /* WhatsApp / landing wa-chat: time (+ ticks) float to the last line */
+  .ed-chat-meta {
+    float: right;
+    margin: 0.375rem 0 0 0.625rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.125rem;
+    font-size: 10px;
+    line-height: 1;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+    pointer-events: none;
+  }
+
+  .ed-chat-bubble--them .ed-chat-meta {
+    color: color-mix(in srgb, var(--color-surface) 50%, transparent);
+  }
+
+  .ed-chat-bubble--you .ed-chat-meta {
+    color: color-mix(in srgb, var(--color-ink) 50%, transparent);
+  }
+
+  .ed-chat-read svg {
+    display: block;
+    overflow: visible;
+    color: #53bdeb;
   }
 
   .ed-chat-react {
@@ -644,11 +692,11 @@
   @keyframes ed-chat-typing-in {
     from {
       opacity: 0;
-      transform: translateY(-50%) scale(0.94);
+      transform: scale(0.94);
     }
     to {
       opacity: 1;
-      transform: translateY(-50%) scale(1);
+      transform: scale(1);
     }
   }
 
@@ -681,7 +729,7 @@
   @keyframes ed-chat-typing-fade {
     to {
       opacity: 0;
-      transform: translateY(4px) scale(0.94);
+      transform: scale(0.94);
       visibility: hidden;
     }
   }
@@ -707,9 +755,9 @@
     gap: 8px;
     min-height: 44px;
     padding: 0 22px;
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
     font-size: 12px;
-    font-weight: 700;
+    font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     white-space: nowrap;
@@ -772,24 +820,17 @@
     margin: 0;
   }
 
-  /* Sharp crop — heavy zoom + colour revive on hover. */
+  /* Sharp crop — subtle zoom on hover. */
   .ed-crop {
     overflow: hidden;
     position: relative;
   }
 
-  .ed-crop > img,
-  .ed-crop > .duo,
-  .ed-crop > svg {
-    transition:
-      transform 0.45s var(--ease-crisp),
-      filter 0.45s var(--ease-crisp);
+  .ed-crop > img {
+    transition: transform 0.45s var(--ease-crisp);
     transform-origin: center;
   }
 
-  .group:hover .ed-crop > img,
-  .group:hover .ed-crop > .duo,
-  .group:hover .ed-crop > svg,
   .ed-crop:hover > img {
     transform: scale(1.03);
   }
@@ -800,55 +841,30 @@
     text-underline-offset: 3px;
   }
 
-  /* Duotone: ink-to-green wash over a grayscale photo. */
-  .duo {
-    position: relative;
-    background: var(--color-primary);
-    isolation: isolate;
+  /* How we work line icons — centered in each column */
+  .ed-stamp {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 64px;
+    height: 64px;
   }
 
-  .duo img {
-    filter: grayscale(1) contrast(1.15) brightness(1.05);
-    mix-blend-mode: multiply;
-    transition: filter 0.45s var(--ease-crisp), mix-blend-mode 0.45s var(--ease-crisp);
-  }
-
-  .duo::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: var(--color-accent);
-    mix-blend-mode: lighten;
+  .ed-stamp img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    user-select: none;
     pointer-events: none;
-    opacity: 1;
-    transition: opacity 0.45s var(--ease-crisp);
   }
 
-  .group:hover .duo img,
-  .duo:hover img {
-    filter: none;
-    mix-blend-mode: normal;
-  }
-
-  .group:hover .duo::after,
-  .duo:hover::after {
-    opacity: 0;
-  }
-
-  .duo-mint {
-    background: var(--color-mint);
-  }
-
-  .duo-mint::after {
-    background: var(--color-ink);
-  }
-
-  .duo-sky {
-    background: var(--color-card-sky);
-  }
-
-  .duo-sky::after {
-    background: #1c3550;
+  @media (width >= 760px) {
+    .ed-stamp {
+      width: 72px;
+      height: 72px;
+    }
   }
 
   /* Toolkit: flat until hover — then stamp offset shadow. */
@@ -960,6 +976,9 @@
 
   .ticker {
     position: relative;
+    z-index: 30;
+    /* Bleed over the green page frame so the strip sits above it */
+    margin-inline: calc(-1 * var(--ed-frame));
     /* Isolate from view-transition flashes */
     view-transition-name: none;
   }
@@ -1075,65 +1094,129 @@
     transform: none;
   }
 
-  /* Manifesto: shorter photo + callout centered on the image */
+  /* Manifesto: cool mono campus + frosted plate that sits in the scene */
   .ed-manifesto {
     padding-bottom: 0;
   }
 
   .ed-manifesto-photo {
-    aspect-ratio: 2 / 1;
+    /* Tall enough for the plate to sit inside the campus, not crush it */
+    aspect-ratio: 5 / 4;
+    min-height: 360px;
   }
 
   @media (width >= 760px) {
     .ed-manifesto-photo {
-      aspect-ratio: 3 / 1;
+      aspect-ratio: 2.35 / 1;
+      min-height: 0;
     }
   }
 
   .ed-manifesto-img {
-    /* Cool mono is baked into the asset; keep CSS light so detail stays crisp */
-    filter: contrast(1.03);
+    filter: contrast(1.04) brightness(1.02);
   }
 
-  /* Soft sage / cyan wash — blue-green black-and-white */
+  /* Cool botanical wash — brick/ivy mono → brand greens */
   .ed-manifesto-tone {
     pointer-events: none;
     background: linear-gradient(
       135deg,
-      color-mix(in srgb, #008069 28%, transparent) 0%,
-      color-mix(in srgb, #25d366 12%, transparent) 45%,
-      color-mix(in srgb, #4a6b7c 22%, transparent) 100%
+      color-mix(in srgb, #4a6b7c 26%, transparent) 0%,
+      color-mix(in srgb, #008069 20%, transparent) 48%,
+      color-mix(in srgb, #25d366 12%, transparent) 100%
     );
     mix-blend-mode: soft-light;
-    opacity: 0.85;
+    opacity: 0.75;
   }
 
-  /* Very light grain — texture only, not crushing */
   .ed-manifesto-grain {
     pointer-events: none;
-    opacity: 0.1;
+    opacity: 0.08;
     mix-blend-mode: soft-light;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     background-size: 220px 220px;
   }
 
+  /* Light well only — campus must stay readable around the plate */
   .ed-manifesto-grain::after {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      to bottom,
-      rgb(17 19 21 / 0.06) 0%,
-      transparent 30%,
-      transparent 75%,
-      rgb(17 19 21 / 0.1) 100%
-    );
+    background:
+      radial-gradient(
+        ellipse 50% 55% at 50% 48%,
+        rgb(17 19 21 / 0.14) 0%,
+        transparent 68%
+      ),
+      linear-gradient(
+        to bottom,
+        rgb(17 19 21 / 0.08) 0%,
+        transparent 25%,
+        transparent 75%,
+        rgb(17 19 21 / 0.12) 100%
+      );
   }
 
   .ed-manifesto-callout {
     top: 50%;
     bottom: auto;
     transform: translateY(-50%);
+  }
+
+  .ed-manifesto-card {
+    position: relative;
+    display: flex;
+    width: min(100%, 26rem);
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.6rem 1.5rem 1.7rem;
+    color: var(--color-ink);
+    background: color-mix(in srgb, var(--color-surface) 72%, transparent);
+    /* Sharp ink frame — matches hero / latest boxes */
+    border: 1px solid var(--color-ink);
+    border-radius: 0;
+    backdrop-filter: blur(16px) saturate(1.2);
+    -webkit-backdrop-filter: blur(16px) saturate(1.2);
+    isolation: isolate;
+    overflow: hidden;
+    box-shadow: inset 0 1px 0 color-mix(in srgb, var(--color-surface) 55%, transparent);
+  }
+
+  .ed-manifesto-kicker {
+    font-family: var(--font-brand);
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .ed-manifesto-lead {
+    font-family: var(--font-sans);
+    font-size: clamp(26px, 3.2vw, 34px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    max-width: 14ch;
+  }
+
+  .ed-manifesto-support {
+    margin-top: 0.1rem;
+    padding-top: 0.95rem;
+    border-top: 1px solid color-mix(in srgb, var(--color-ink) 18%, transparent);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 1.55;
+    color: color-mix(in srgb, var(--color-ink) 72%, transparent);
+    max-width: 34ch;
+  }
+
+  @media (width >= 760px) {
+    .ed-manifesto-card {
+      padding: 1.85rem 1.75rem 1.95rem;
+      gap: 1.15rem;
+    }
   }
 
   [data-parallax-bg] {
