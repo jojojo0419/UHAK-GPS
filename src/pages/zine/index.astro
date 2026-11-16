@@ -1,9 +1,11 @@
 ---
 import ZineLayout from '../../layouts/ZineLayout.astro';
 import EdChat from '../../components/zine/EdChat.astro';
+import SpotArt from '../../components/zine/SpotArt.astro';
 import {
   fieldNotes,
   guideBySlug,
+  GUIDE_HREF,
   guides,
   latestSlugs,
   MAPS_URL,
@@ -21,13 +23,12 @@ const latest = latestOrder.map((s) => guideBySlug(s)!);
 const [leadGuide, ...restLatest] = latest;
 ---
 <ZineLayout
-  title="UHAK GPS — Study abroad advice from Sydney"
-  description="Guides, checklists and free chats from people who live in Sydney."
+  title="UHAK GPS | Study abroad advice from Sydney"
+  description="Guides, checklists, and free chats from a team based in Sydney."
   masthead="cover"
-  active="home"
 >
   <!-- Topic filter bar -->
-  <div class="ed-topic-bar ed-topic-bar--primary sticky top-0 z-40 on-green bg-primary text-ink">
+  <div class="ed-topic-bar sticky top-0 z-40 on-green bg-primary text-ink">
     <div class="wrap flex items-center justify-center py-3">
       <div class="pill-track no-scrollbar relative -my-2 overflow-x-auto py-2" data-pill-track role="group" aria-label="Filter the latest guides">
         <span class="pill-thumb" data-pill-thumb aria-hidden="true"></span>
@@ -41,16 +42,16 @@ const [leadGuide, ...restLatest] = latest;
 
   <!-- Hero: chat above headline, copy + photo in one ink box -->
   <section aria-labelledby="heroTitle" class="ed-hero is-in bg-paper">
-    <div class="wrap py-8 landing:py-10">
+    <div class="wrap py-7 landing:py-9">
       <div class="ed-hero-shell border border-ink">
         <div class="ed-hero-copy">
           <p class="ed-meta m-0 font-bold">Free chat</p>
-          <EdChat variant="inline" />
-          <h1 id="heroTitle" class="ed-wipe is-in m-0 text-[clamp(32px,3.8vw,48px)] font-semibold leading-[1.02] tracking-[-0.03em]">
-            Talk before you’ve decided.
+          <EdChat />
+          <h1 id="heroTitle" class="ed-wipe is-in m-0 text-[clamp(32px,3.6vw,46px)] font-semibold leading-[1.03] tracking-[-0.03em]">
+            Talk before you decide.
           </h1>
-          <p class="m-0 max-w-[42ch] text-[15px] leading-relaxed">
-            A free 30-minute chat with someone who lives in Sydney. Bring a question, or nothing yet — no school or visa needed.
+          <p class="m-0 max-w-[40ch] text-[15px] leading-relaxed">
+            A free 30-minute chat with someone based in Sydney. Bring a question if you have one. No school or visa is required to book.
           </p>
           <div class="flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-ink pt-4">
             <a href="/zine/book/" class="editorial-read-more inline-flex">Start a chat <span class="ed-arrow" aria-hidden="true">-&gt;</span></a>
@@ -81,7 +82,7 @@ const [leadGuide, ...restLatest] = latest;
 
       <div id="latest-grid" class="mt-8" aria-live="polite">
         <article data-topic={leadGuide.topic} data-default="true" class="group border border-ink bg-surface transition-opacity duration-150">
-          <a href={`/zine/guides/${leadGuide.slug}/`} class="grid lg:grid-cols-[1.35fr_1fr]">
+          <a href={GUIDE_HREF} class="grid lg:grid-cols-[1.35fr_1fr]">
             <div class="aspect-[16/10] border-ink bg-paper max-lg:border-b lg:aspect-auto lg:min-h-[340px] lg:border-r" aria-hidden="true"></div>
             <div class="flex flex-col gap-4 p-6 landing:p-8">
               <div class="flex items-center justify-between gap-3">
@@ -98,7 +99,7 @@ const [leadGuide, ...restLatest] = latest;
         <ul class="m-0 mt-8 grid list-none gap-x-6 gap-y-10 p-0 landing:grid-cols-2 lg:grid-cols-3">
           {restLatest.map((g, i) => (
             <li data-topic={g.topic} data-default={i < 3 ? 'true' : 'false'} hidden={i >= 3}>
-              <a href={`/zine/guides/${g.slug}/`} class="group flex h-full flex-col gap-3">
+              <a href={GUIDE_HREF} class="group flex h-full flex-col gap-3">
                 <div class="aspect-[4/3] border border-ink bg-surface" aria-hidden="true"></div>
                 <div class="flex items-center justify-between gap-3">
                   <span class="ed-meta">{g.date}</span>
@@ -174,30 +175,21 @@ const [leadGuide, ...restLatest] = latest;
           height="1280"
           loading="lazy"
           data-parallax-bg
-          class="ed-manifesto-img absolute inset-0 h-full w-full object-cover object-[50%_40%]"
+          class="ed-manifesto-img absolute inset-0 h-full w-full object-cover object-[50%_35%]"
         />
         <div class="ed-manifesto-tone absolute inset-0" aria-hidden="true"></div>
         <div class="ed-manifesto-grain absolute inset-0" aria-hidden="true"></div>
       </figure>
 
-      <!-- Callout centered over the campus photo. -->
+      <!-- Callout: frosted editorial plate over cool mono campus -->
       <div class="ed-manifesto-callout pointer-events-none absolute inset-x-0 z-10">
         <div class="wrap pointer-events-auto flex justify-center">
-          <aside
-            class="on-accent flex w-full max-w-[440px] flex-col gap-5 rounded-badge border-[1.5px] border-ink bg-accent p-8 text-surface landing:p-9"
-            data-parallax-badge
-          >
-            <p class="m-0 font-courier text-[11px] font-bold uppercase leading-none tracking-[0.06em] text-primary">
-              03 / No commission bias
+          <aside class="ed-manifesto-card" data-parallax-badge>
+            <p class="ed-manifesto-kicker m-0">03 / No commission bias</p>
+            <p class="ed-manifesto-lead m-0">We work for you.</p>
+            <p class="ed-manifesto-support m-0">
+              We set out the main options and what each involves, then leave the decision with you.
             </p>
-            <p class="m-0 text-[clamp(28px,3vw,34px)] font-semibold leading-[1.12] tracking-[-0.02em]">
-              We don’t sell schools. You choose.
-            </p>
-            <div class="border-t border-surface/35 pt-5">
-              <p class="m-0 text-[14px] leading-[1.55] text-surface/90">
-                We lay out the honest trade-offs of every option—the final call is always yours.
-              </p>
-            </div>
           </aside>
         </div>
       </div>
@@ -246,11 +238,13 @@ const [leadGuide, ...restLatest] = latest;
       <ul class="m-0 mt-2 grid list-none gap-0 p-0 landing:grid-cols-2 lg:grid-cols-3">
         {fieldNotes.map((n) => (
           <li class="border-b border-surface/25 py-6 landing:pr-8">
-            <div class="flex items-baseline justify-between gap-4">
-              <h3 class="m-0 text-[18px] font-semibold">{n.place}</h3>
-              <span class="ed-meta shrink-0 text-primary">{n.walk}</span>
+            <div class="flex flex-wrap items-center gap-x-2.5 gap-y-2">
+              <h3 class="m-0 text-[18px] font-bold leading-none tracking-[-0.01em]">{n.place}</h3>
+              <span class="inline-flex items-center rounded-pill bg-mint px-2.5 py-1 font-mono text-[10px] font-bold uppercase leading-none tracking-[0.08em] text-ink">
+                {n.walk}
+              </span>
             </div>
-            <p class="m-0 mt-2 text-[14px] leading-relaxed text-surface/80">{n.note}</p>
+            <p class="m-0 mt-3 max-w-[28ch] text-[14px] leading-relaxed text-surface/65">{n.note}</p>
           </li>
         ))}
       </ul>
@@ -260,22 +254,14 @@ const [leadGuide, ...restLatest] = latest;
     </div>
   </section>
 
-  <!-- What we believe -->
+  <!-- How we work -->
   <section aria-labelledby="believeTitle" class="bg-surface border-y border-ink">
     <div class="wrap">
-      <h2 id="believeTitle" class="ed-h2 m-0 border-b border-ink py-8">What we believe</h2>
+      <h2 id="believeTitle" class="ed-h2 m-0 border-b border-ink py-8">How we work</h2>
       <ul class="m-0 grid list-none gap-0 p-0 landing:grid-cols-2 lg:grid-cols-4">
         {principles.map((p) => (
-          <li class="flex flex-col gap-4 border-b border-ink px-0 py-8 landing:border-b-0 landing:border-r landing:border-ink landing:px-6 landing:py-10 landing:last:border-r-0 landing:first:pl-0 landing:last:pr-0">
-            <img
-              src={p.icon}
-              alt=""
-              width="98"
-              height="98"
-              loading="lazy"
-              decoding="async"
-              class="block size-14 landing:size-[72px]"
-            />
+          <li class="flex flex-col items-center gap-5 border-b border-ink px-0 py-8 text-center landing:border-b-0 landing:border-r landing:border-ink landing:px-6 landing:py-10 landing:last:border-r-0">
+            <SpotArt kind={p.icon} />
             <h3 class="m-0 text-[16px] font-semibold uppercase leading-[1.2] tracking-[-0.01em]">{p.title}</h3>
             <p class="m-0 text-[14px] leading-[1.6]">{p.text}</p>
           </li>
@@ -285,7 +271,7 @@ const [leadGuide, ...restLatest] = latest;
   </section>
 
   <!-- Who we are + accordion -->
-  <section id="who" aria-labelledby="whoTitle" class="ed-reveal border-y border-ink bg-surface ed-rule-draw">
+  <section id="who" aria-labelledby="whoTitle" class="ed-reveal border-b border-ink bg-surface ed-rule-draw">
     <div class="wrap py-14 landing:py-20">
       <div class="border-b border-ink pb-4">
         <h2 id="whoTitle" class="ed-h2 ed-wipe">Who we are</h2>

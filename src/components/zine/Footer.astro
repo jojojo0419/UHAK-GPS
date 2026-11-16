@@ -1,16 +1,9 @@
 ---
-import { OFFICE, MAPS_URL, ticker, topics } from '../../zine/content';
+import { GUIDE_HREF, OFFICE, MAPS_URL, ticker, topics } from '../../zine/content';
 import Wordmark from './Wordmark.astro';
 
 /** Enough copies that one half is always wider than the viewport. */
 const sequence = Array.from({ length: 6 }, () => ticker).flat();
-
-const topicHrefs: Record<string, string> = {
-  'working-holiday': '/zine/guides/working-holiday-or-student-visa/',
-  'english-vet': '/zine/guides/picking-a-language-school/',
-  university: '/zine/guides/university-pathways/',
-  'sydney-life': '/zine/guides/your-first-week/',
-};
 
 const IG = 'https://www.instagram.com/gagopa_sydney';
 ---
@@ -31,7 +24,7 @@ const IG = 'https://www.instagram.com/gagopa_sydney';
       <button type="submit" class="ed-btn ed-btn-ink">Send</button>
     </form>
     <p class="inquiry-done m-0 hidden text-[16px]" role="status">Thanks. We’ll reply by email or LINE.</p>
-    <p class="m-0 max-w-[46ch] text-[13px] text-muted">One reply from Sydney. No newsletter unless you ask.</p>
+    <p class="m-0 max-w-[46ch] text-[13px] text-muted">We reply once from Sydney. We do not add you to a newsletter unless you ask.</p>
   </div>
 </section>
 
@@ -69,7 +62,7 @@ const IG = 'https://www.instagram.com/gagopa_sydney';
         <ul class="m-0 flex list-none flex-col gap-1.5 p-0">
           {topics.map((t) => (
             <li>
-              <a class="ed-meta border-b border-transparent hover:border-ink" href={topicHrefs[t.id] ?? '/zine/'}>{t.label}</a>
+              <a class="ed-meta border-b border-transparent hover:border-ink" href={GUIDE_HREF}>{t.label}</a>
             </li>
           ))}
         </ul>
