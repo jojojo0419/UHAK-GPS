@@ -43,15 +43,6 @@ function initClock() {
   const colon = root.querySelector('[data-syd-colon]');
   if (!hours || !mins || !colon) return;
 
-  const dateEl = document.querySelector('[data-syd-date]');
-  const dateFmt = new Intl.DateTimeFormat('en-AU', {
-    timeZone: 'Australia/Sydney',
-    weekday: 'long',
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-  });
-
   let blink = true;
   const tick = () => {
     const parts = new Intl.DateTimeFormat('en-AU', {
@@ -62,7 +53,6 @@ function initClock() {
     }).formatToParts(new Date());
     hours.textContent = parts.find((p) => p.type === 'hour')?.value ?? '00';
     mins.textContent = parts.find((p) => p.type === 'minute')?.value ?? '00';
-    if (dateEl) dateEl.textContent = dateFmt.format(new Date());
     if (!reduce()) {
       blink = !blink;
       colon.classList.toggle('is-off', !blink);

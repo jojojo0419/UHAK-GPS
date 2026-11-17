@@ -6,15 +6,6 @@ interface Props {
 }
 
 const { variant = 'cover' } = Astro.props;
-
-// Rendered on the server, then refreshed client-side by the clock in zine-motion.ts.
-const sydDate = new Intl.DateTimeFormat('en-AU', {
-  timeZone: 'Australia/Sydney',
-  weekday: 'long',
-  day: 'numeric',
-  month: 'long',
-  year: 'numeric',
-}).format(new Date());
 ---
 <header class:list={['ed-masthead bg-surface text-ink', variant !== 'cover' && 'editorial-rule-bottom']}>
   <div class="wrap grid min-h-6 grid-cols-[1fr_auto] items-center gap-x-4 py-1.5">
@@ -40,24 +31,9 @@ const sydDate = new Intl.DateTimeFormat('en-AU', {
   </div>
 
   {variant === 'cover' ? (
-    <div class="wrap">
-      <div class="ed-masthead-broadsheet">
-        <div class="ed-masthead-brand">
-          <p class="ed-masthead-ear ed-masthead-ear--left m-0">
-            <span class="ed-masthead-ear-kicker">Est. Sydney</span>
-            “Talk before you decide.”
-          </p>
-          <Wordmark size="broadsheet" />
-          <a href="/zine/book/" class="ed-masthead-ear ed-masthead-ear--right">
-            <span class="ed-masthead-ear-kicker">Free · 20 min</span>
-            Book a chat with a local →
-          </a>
-        </div>
-        <p class="ed-masthead-dateline ed-meta m-0">
-          <span>Vol. 01 · No. 07</span>
-          <span class="ed-masthead-date" data-syd-date>{sydDate}</span>
-          <span class="max-landing:hidden">Sydney edition · Free</span>
-        </p>
+    <div class="wrap pb-3.5 pt-4 landing:pb-[18px] landing:pt-5">
+      <div class="ed-masthead-brand">
+        <Wordmark size="cover" />
       </div>
     </div>
   ) : (

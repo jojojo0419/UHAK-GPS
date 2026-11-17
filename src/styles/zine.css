@@ -260,87 +260,41 @@
     font-size: 18px;
   }
 
-  .ed-wordmark--broadsheet {
-    font-size: clamp(52px, 10vw, 128px);
-  }
-
-  /* Cover masthead: broadsheet nameplate — heavy rule, ears, dateline. */
-  .ed-masthead-broadsheet {
-    border-top: 3px solid var(--color-ink);
-  }
-
+  /* Cover brand: rails flanking the wordmark */
   .ed-masthead-brand {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    gap: 24px;
-    padding: 16px 0 14px;
-  }
-
-  .ed-masthead-brand > .ed-wordmark {
-    grid-column: 2;
-  }
-
-  .ed-masthead-ear {
-    display: none;
-    max-width: 168px;
-    padding: 10px 12px;
-    border: 1px solid var(--color-ink);
-    font-family: var(--font-brand);
-    font-size: 12px;
-    line-height: 1.35;
-    color: var(--color-ink);
-  }
-
-  .ed-masthead-ear-kicker {
-    display: block;
-    margin-bottom: 4px;
-    font-family: var(--font-mono);
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-accent);
-  }
-
-  .ed-masthead-ear--left {
-    grid-column: 1;
-    justify-self: start;
-    font-style: italic;
-  }
-
-  .ed-masthead-ear--right {
-    grid-column: 3;
-    justify-self: end;
-    transition: background-color 0.2s ease;
-  }
-
-  .ed-masthead-ear--right:hover {
-    background: var(--color-mint);
-  }
-
-  .ed-masthead-dateline {
     display: flex;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 7px 0;
-    border-top: 1px solid var(--color-ink);
-    border-bottom: 1px solid var(--color-ink);
-    margin-bottom: 4px;
+    align-items: center;
+    justify-content: center;
   }
 
-  @media (width < 760px) {
-    .ed-masthead-brand {
-      padding: 12px 0 10px;
-    }
+  .ed-masthead-rail {
+    display: none;
+    flex: 1 1 0;
+    min-width: 0;
+    font-family: var(--font-brand);
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+  }
 
-    .ed-masthead-dateline {
-      font-size: 10px;
-    }
+  .ed-masthead-rail--left {
+    text-align: right;
+    padding-right: 18px;
+  }
+
+  .ed-masthead-rail--right {
+    text-align: left;
+    padding-left: 18px;
   }
 
   @media (width >= 760px) {
-    .ed-masthead-ear {
+    .ed-masthead-rail {
       display: block;
     }
   }
