@@ -1,0 +1,52 @@
+---
+/**
+ * Editorial chat — field-note bubbles above the hero headline.
+ * Meta (time + ticks) mirrors landing wa-chat float layout.
+ * Motion: `data-ed-chat` + `.is-play` (zine-motion).
+ */
+---
+<div class="ed-chat ed-chat--inline" data-ed-chat aria-hidden="true">
+  <div class="ed-chat-stage">
+    <div class="ed-chat-b1">
+      <span class="ed-chat-bubble ed-chat-bubble--them relative">
+        Do you want to go to Australia?
+        <span class="ed-chat-meta">10:01</span>
+        <span class="ed-chat-react" aria-hidden="true">
+          <svg viewBox="0 0 24 22" width="11" height="10" aria-hidden="true">
+            <path
+              d="M12 21 C 5 15.5, 1.5 12, 1.5 7.2 C 1.5 3.8, 4.1 1.5, 7 1.5 C 9.1 1.5, 10.9 2.7, 12 4.6 C 13.1 2.7, 14.9 1.5, 17 1.5 C 19.9 1.5, 22.5 3.8, 22.5 7.2 C 22.5 12, 19 15.5, 12 21 Z"
+              fill="currentColor"
+            ></path>
+          </svg>
+        </span>
+      </span>
+    </div>
+
+    <!-- Shared slot so typing (…) and reply share the same corner -->
+    <div class="ed-chat-reply">
+      <div class="ed-chat-typing" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </div>
+      <div class="ed-chat-b2">
+        <span class="ed-chat-bubble ed-chat-bubble--you">
+          I’d love to… but how?
+          <span class="ed-chat-meta ed-chat-read" aria-hidden="true" title="Read">
+            10:02
+            <svg viewBox="0 0 16 11" width="14" height="9" fill="none" aria-hidden="true">
+              <path
+                d="M1 6 L4 9 L10 2 M6 9 L7 10 L15 1"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></path>
+            </svg>
+          </span>
+        </span>
+      </div>
+    </div>
+  </div>
+  <p class="sr-only">
+    Sample chat: UHAK GPS asks, Do you want to go to Australia? You reply, I’d love to… but how? Message read.
+  </p>
+</div>
