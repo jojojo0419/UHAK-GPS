@@ -142,7 +142,6 @@ export const planOptions = [
 
 export const toolkits = [
   {
-    fill: 'bg-card-sand',
     title: 'First-week checklist',
     text: 'SIM, bank, tax number, and room viewings in order.',
     items: ['SIM card', 'Bank account', 'Tax file number', 'Room viewings'],
@@ -150,7 +149,6 @@ export const toolkits = [
     cta: 'Open checklist',
   },
   {
-    fill: 'bg-mint',
     title: 'Weekly budget',
     text: 'Rent, transport, food, and extras with stated assumptions.',
     items: ['Rent and bond', 'Transport', 'Groceries', 'Eating out'],
@@ -158,7 +156,6 @@ export const toolkits = [
     cta: 'See numbers',
   },
   {
-    fill: 'bg-card-sky',
     title: 'Questions for a school',
     text: 'What to ask before you pay.',
     items: ['Class size', 'Nationality mix', 'Level changes', 'Refund rules'],
