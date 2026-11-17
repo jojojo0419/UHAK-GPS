@@ -59,19 +59,19 @@ const src: Record<SpotKind, string> = {
   .ed-stamp {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     flex-shrink: 0;
-    width: 52px;
-    height: 52px;
+    width: 80px;
+    height: 80px;
   }
 
   .ed-stamp img {
     display: block;
-    width: 52px;
-    height: 52px;
+    width: 80px;
+    height: 80px;
     max-width: 100%;
     object-fit: contain;
-    object-position: center;
+    object-position: left center;
     user-select: none;
     pointer-events: none;
   }
@@ -79,8 +79,8 @@ const src: Record<SpotKind, string> = {
   @media (min-width: 760px) {
     .ed-stamp,
     .ed-stamp img {
-      width: 64px;
-      height: 64px;
+      width: 96px;
+      height: 96px;
     }
   }
 </style>
