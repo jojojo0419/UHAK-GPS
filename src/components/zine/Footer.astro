@@ -91,12 +91,22 @@ const IG = 'https://www.instagram.com/gagopa_sydney';
 </footer>
 
 <script>
-  document.querySelectorAll<HTMLFormElement>('form.inquiry').forEach((form) => {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      if (!form.reportValidity()) return;
-      form.classList.add('hidden');
-      form.parentElement?.querySelector('.inquiry-done')?.classList.remove('hidden');
+  const cleaners: Array<() => void> = [];
+
+  function initInquiryForms() {
+    while (cleaners.length) cleaners.pop()?.();
+
+    document.querySelectorAll<HTMLFormElement>('form.inquiry').forEach((form) => {
+      const onSubmit = (e: Event) => {
+        e.preventDefault();
+        if (!form.reportValidity()) return;
+        form.classList.add('hidden');
+        form.parentElement?.querySelector('.inquiry-done')?.classList.remove('hidden');
+      };
+      form.addEventListener('submit', onSubmit);
+      cleaners.push(() => form.removeEventListener('submit', onSubmit));
     });
-  });
+  }
+
+  document.addEventListener('astro:page-load', initInquiryForms);
 </script>

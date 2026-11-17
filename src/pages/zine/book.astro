@@ -109,21 +109,34 @@ const expect = [
 </ZineLayout>
 
 <script>
-  const form = document.getElementById('book-form') as HTMLFormElement;
-  const done = document.getElementById('book-done')!;
-  const error = document.getElementById('book-error')!;
+  let detach: (() => void) | undefined;
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const data = new FormData(form);
-    const name = String(data.get('name') ?? '').trim();
-    const contact = String(data.get('contact') ?? '').trim();
-    if (!name || !contact) {
-      error.classList.remove('hidden');
-      return;
-    }
-    error.classList.add('hidden');
-    form.hidden = true;
-    done.hidden = false;
-  });
+  function initBookForm() {
+    detach?.();
+    detach = undefined;
+
+    const form = document.getElementById('book-form') as HTMLFormElement | null;
+    const done = document.getElementById('book-done');
+    const error = document.getElementById('book-error');
+    if (!form || !done || !error) return;
+
+    const onSubmit = (e: Event) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const name = String(data.get('name') ?? '').trim();
+      const contact = String(data.get('contact') ?? '').trim();
+      if (!name || !contact) {
+        error.classList.remove('hidden');
+        return;
+      }
+      error.classList.add('hidden');
+      form.hidden = true;
+      done.hidden = false;
+    };
+
+    form.addEventListener('submit', onSubmit);
+    detach = () => form.removeEventListener('submit', onSubmit);
+  }
+
+  document.addEventListener('astro:page-load', initBookForm);
 </script>
