@@ -1,5 +1,6 @@
 ---
 import Wordmark from './Wordmark.astro';
+import InstagramLink from './InstagramLink.astro';
 
 interface Props {
   variant?: 'cover' | 'compact';
@@ -7,7 +8,7 @@ interface Props {
 
 const { variant = 'cover' } = Astro.props;
 ---
-<header class:list={['ed-masthead bg-surface text-ink', variant !== 'cover' && 'editorial-rule-bottom']}>
+<header class:list={['ed-masthead bg-paper text-ink', variant !== 'cover' && 'editorial-rule-bottom']}>
   <div class="wrap grid min-h-6 grid-cols-[1fr_auto] items-center gap-x-4 py-1.5">
     <p class:list={['ed-meta m-0 flex flex-wrap items-center gap-x-2 leading-none', variant === 'compact' && 'max-landing:hidden']}>
       <span>Sydney</span>
@@ -25,14 +26,15 @@ const { variant = 'cover' } = Astro.props;
     )}
 
     <div class="flex items-center justify-end gap-4 justify-self-end">
-      <a href="/ja/" lang="ja" class="font-jp text-[13px] leading-none text-muted transition-colors hover:text-ink">日本語</a>
+      <InstagramLink class="text-muted hover:text-ink" />
+      <a href="/ja/" lang="ja" class="mr-1 font-jp text-[13px] leading-none text-muted transition-colors hover:text-ink">日本語</a>
       <a href="/zine/book/" class="ed-btn min-h-9! px-4! text-[11px]!">Book a chat</a>
     </div>
   </div>
 
   {variant === 'cover' ? (
-    <div class="wrap pb-3.5 pt-4 landing:pb-[18px] landing:pt-5">
-      <div class="ed-masthead-brand">
+    <div class="wrap">
+      <div class="ed-masthead-brand border-t border-ink pb-3.5 pt-4 landing:pb-6 landing:pt-5">
         <Wordmark size="cover" />
       </div>
     </div>
