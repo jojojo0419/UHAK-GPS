@@ -2,6 +2,8 @@
 import ZineLayout from '../../layouts/ZineLayout.astro';
 import EdChat from '../../components/zine/EdChat.astro';
 import SpotArt from '../../components/zine/SpotArt.astro';
+import Wordmark from '../../components/zine/Wordmark.astro';
+import InstagramLink from '../../components/zine/InstagramLink.astro';
 import {
   fieldNotes,
   guideBySlug,
@@ -21,13 +23,15 @@ const latestOrder = [...latestSlugs, ...guides.map((g) => g.slug).filter((s) => 
 const latest = latestOrder.map((s) => guideBySlug(s)!);
 const [leadGuide, ...restLatest] = latest;
 
-/** Sticky nav labels (filter ids stay topic-based). */
-const navPills = [
-  { id: 'all', label: 'All' },
-  { id: 'working-holiday', label: 'Services' },
-  { id: 'english-vet', label: 'Courses' },
-  { id: 'university', label: 'About us' },
-  { id: 'sydney-life', label: 'Quick quotation' },
+/**
+ * Sticky section nav (anchors). Target sections aren't built yet — add the
+ * matching `id` to a section and the link + scroll-spy underline start working.
+ */
+const navLinks = [
+  { href: '#services', label: 'Services' },
+  { href: '#courses', label: 'Courses' },
+  { href: '#about', label: 'About' },
+  { href: '#quote', label: 'Quote' },
 ] as const;
 ---
 <ZineLayout
@@ -35,20 +39,32 @@ const navPills = [
   description="Guides, checklists, and free chats from a team based in Sydney."
   masthead="cover"
 >
-  <!-- Topic filter bar -->
-  <div class="ed-topic-bar sticky top-0 z-40 on-green bg-primary text-ink">
-    <div class="wrap flex items-center justify-center py-3">
-      <div class="pill-track no-scrollbar relative -my-2 overflow-x-auto py-2" data-pill-track role="group" aria-label="Filter the latest guides">
-        <span class="pill-thumb" data-pill-thumb aria-hidden="true"></span>
-        {navPills.map((pill) => (
-          <button
-            type="button"
-            class="editorial-pill"
-            data-topic={pill.id}
-            aria-pressed={pill.id === 'all' ? 'true' : 'false'}
-            aria-controls="latest-grid"
-          >{pill.label}</button>
-        ))}
+  <!-- Sticky section bar -->
+  <div class="ed-topic-bar on-green sticky top-0 z-[70] text-ink" data-topic-bar>
+    <div class="ed-topic-bar-inner wrap py-3">
+      <!-- Revealed once the masthead scrolls away (see initTopicBarStuck). -->
+      <div class="ed-topic-bar-brand" data-scroll-top>
+        <Wordmark size="mobile" />
+      </div>
+      <div class="ed-topic-bar-nav">
+        <nav class="ed-section-nav no-scrollbar" data-section-nav aria-label="Sections">
+          <span class="ed-section-nav-bar" data-section-nav-bar aria-hidden="true"></span>
+          {navLinks.map((link, i) => (
+            <>
+              {i > 0 && <span class="ed-section-nav-sep" aria-hidden="true">·</span>}
+              <a href={link.href} class="ed-section-nav-link" data-section-link>{link.label}</a>
+            </>
+          ))}
+        </nav>
+      </div>
+      <div class="ed-topic-bar-actions">
+        <InstagramLink class="ed-topic-bar-ig max-landing:hidden" />
+        <a href="/ja/" lang="ja" class="ed-topic-bar-lang mr-1 font-jp text-[13px] leading-none">日本語</a>
+        <a href="/zine/book/" class="ed-btn ed-topic-bar-book min-h-9! px-4! text-[11px]!">
+          <span class="max-landing:hidden">Book a chat</span>
+          <span class="landing:hidden">Book</span>
+          <span class="ed-arrow" aria-hidden="true">→</span>
+        </a>
       </div>
     </div>
   </div>
@@ -166,7 +182,7 @@ const navPills = [
         </ul>
       </div>
 
-      <aside class="self-start border border-ink bg-surface p-6 landing:sticky landing:top-8 landing:p-8" aria-label="Your plan">
+      <aside class="self-start border border-ink bg-surface p-6 landing:sticky landing:top-[97px] landing:p-8" aria-label="Your plan">
         <p class="ed-meta m-0">Selected</p>
         <div class="mt-4 border-t border-ink pt-4 font-mono">
           <p class="m-0 text-[12px] text-muted" data-plan-empty>Nothing selected yet.</p>

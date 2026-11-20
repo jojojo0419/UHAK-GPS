@@ -42,17 +42,6 @@
     }
   }
 
-  @keyframes ed-stagger-in {
-    from {
-      opacity: 0;
-      transform: translateY(6px);
-    }
-    to {
-      opacity: 1;
-      transform: none;
-    }
-  }
-
   @keyframes ed-page-out {
     to {
       opacity: 0;
@@ -92,6 +81,7 @@
     font-size: 15px;
     line-height: 1.65;
     border: var(--ed-frame) solid var(--color-primary);
+    border-top-width: calc(var(--ed-frame) + 1px);
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
@@ -315,27 +305,6 @@
     opacity: 0;
   }
 
-  /* Topic pill track + sliding ink thumb. */
-  .pill-track {
-    position: relative;
-    display: flex;
-    gap: 8px;
-    align-items: center;
-  }
-
-  .pill-thumb {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    height: 32px;
-    margin-top: -16px;
-    border-radius: var(--radius-pill);
-    background: var(--color-ink);
-    pointer-events: none;
-    opacity: 0;
-    z-index: 0;
-  }
-
   .editorial-pill {
     position: relative;
     z-index: 1;
@@ -367,32 +336,236 @@
     border-color: transparent;
   }
 
-  /* Sticky topic bar on primary chrome — no top/bottom rules.
-     1px overlaps kill hairlines that read as borders at the seams. */
+  /* Section bar: 1px ink rules above and below in both states. Green chrome
+     at rest (no CTA shown); once stuck only the fill fades to paper so the
+     green primary CTA can sit in it unchanged. */
   .ed-topic-bar {
-    border-top: 0;
-    border-bottom: 0;
-    margin-top: -1px;
-    box-shadow: 0 1px 0 var(--color-primary);
+    /* Rules blend into the green at rest; turn ink once stuck. */
+    border-top: 1px solid var(--color-primary);
+    border-bottom: 1px solid var(--color-primary);
+    background: var(--color-primary);
+    transition:
+      background-color 0.3s var(--ease-crisp),
+      border-color 0.3s var(--ease-crisp);
   }
 
-  .ed-topic-bar .pill-thumb {
-    background: var(--color-ink);
-  }
-
-  .ed-topic-bar .editorial-pill {
+  .ed-topic-bar.is-stuck {
     border-color: var(--color-ink);
+    background: var(--color-paper);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ed-topic-bar {
+      transition: none;
+    }
+  }
+
+  /* Brand | section links | actions — sides stay hidden until the masthead is gone. */
+  .ed-topic-bar-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, auto) minmax(0, 1fr);
+    grid-template-areas: "brand pills actions";
+    align-items: center;
+    gap: 16px;
+  }
+
+  .ed-topic-bar-brand {
+    grid-area: brand;
+    justify-self: start;
+  }
+
+  .ed-topic-bar-brand .ed-wordmark,
+  .ed-topic-bar-brand .ed-wordmark:hover,
+  .ed-topic-bar-brand .ed-wordmark:visited {
+    font-size: 28px;
     color: var(--color-ink);
   }
 
-  .ed-topic-bar .editorial-pill[aria-pressed="true"] {
-    color: var(--color-surface);
-    border-color: transparent;
+  .ed-topic-bar-nav {
+    grid-area: pills;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
   }
 
-  #latest-grid [data-topic].is-stagger-in {
-    animation: ed-stagger-in 0.4s var(--ease-crisp) both;
-    animation-delay: var(--stagger, 0ms);
+  /* Section nav: newspaper-style text links + sliding 2px underline. */
+  .ed-section-nav {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    padding: 8px 0;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .ed-section-nav-link {
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+    padding: 6px 0;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-ink);
+    text-decoration: none;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 6px;
+  }
+
+  .ed-section-nav-link:hover {
+    text-decoration-line: underline;
+  }
+
+  /* Active: heavier weight + the sliding 2px bar; siblings recede. */
+  .ed-section-nav-link[aria-current="true"] {
+    font-weight: 800;
+  }
+
+  .ed-section-nav-link[aria-current="true"]:hover {
+    text-decoration-line: none;
+  }
+
+  .ed-section-nav:has([aria-current="true"]) .ed-section-nav-link:not([aria-current="true"]) {
+    opacity: 0.6;
+  }
+
+  .ed-section-nav-link {
+    transition: opacity 0.2s ease;
+  }
+
+  .ed-section-nav-link:hover {
+    opacity: 1 !important;
+  }
+
+  .ed-section-nav-link:focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 3px;
+  }
+
+  .ed-section-nav-sep {
+    flex-shrink: 0;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    line-height: 1;
+    color: var(--color-ink);
+    opacity: 0.55;
+  }
+
+  .ed-section-nav-bar {
+    position: absolute;
+    left: 0;
+    bottom: 6px;
+    height: 3px;
+    background: var(--color-ink);
+    pointer-events: none;
+    opacity: 0;
+  }
+
+
+  .ed-topic-bar-actions {
+    grid-area: actions;
+    justify-self: end;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .ed-topic-bar-brand,
+  .ed-topic-bar-actions {
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.3s var(--ease-crisp),
+      transform 0.3s var(--ease-crisp),
+      visibility 0s linear 0.3s;
+  }
+
+  .ed-topic-bar-brand {
+    transform: translateX(-8px);
+  }
+
+  .ed-topic-bar-actions {
+    transform: translateX(8px);
+  }
+
+  .ed-topic-bar.is-stuck .ed-topic-bar-brand,
+  .ed-topic-bar.is-stuck .ed-topic-bar-actions {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition-delay: 0s;
+  }
+
+  /* Short column rule between section links and the CTA cluster. */
+  @media (width >= 760px) {
+    .ed-topic-bar-actions::before {
+      content: "";
+      width: 1px;
+      height: 16px;
+      transform: translateX(4px);
+      background: var(--color-ink);
+      opacity: 0.5;
+    }
+  }
+
+  /* CTA: standard green primary pill + arrow. */
+  .ed-topic-bar-book {
+    gap: 6px;
+  }
+
+  .ed-topic-bar-book .ed-arrow {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    transition: transform 0.22s var(--ease-crisp);
+  }
+
+  .ed-topic-bar-book:hover .ed-arrow {
+    transform: translateX(3px);
+  }
+
+  .ed-topic-bar-lang,
+  .ed-topic-bar-ig {
+    color: var(--color-ink);
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+  }
+
+  .ed-topic-bar-lang:hover,
+  .ed-topic-bar-ig:hover {
+    opacity: 1;
+  }
+
+  /* Mobile: no room for brand / 日本語 — pills scroll, short Book on the right once stuck. */
+  @media (width < 760px) {
+    .ed-topic-bar-inner {
+      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-areas: "pills actions";
+      gap: 10px;
+    }
+
+    .ed-topic-bar-brand,
+    .ed-topic-bar-lang {
+      display: none;
+    }
+
+    .ed-topic-bar:not(.is-stuck) .ed-topic-bar-actions {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ed-topic-bar-brand,
+    .ed-topic-bar-actions {
+      transform: none;
+      transition: none;
+    }
   }
 
   /* Highlighter fill L→R + arrow nudge. */

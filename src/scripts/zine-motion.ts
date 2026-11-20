@@ -14,6 +14,12 @@ const cleanup = () => {
   while (cleaners.length) cleaners.pop()?.();
 };
 
+/** Smooth jump to a y position or element (instant for reduced motion). */
+const scrollToTarget = (target: number | HTMLElement, offset = 0) => {
+  const top = typeof target === 'number' ? target : target.getBoundingClientRect().top + window.scrollY + offset;
+  window.scrollTo({ top, behavior: reduce() ? 'auto' : 'smooth' });
+};
+
 function initProgress() {
   const bar = document.querySelector<HTMLElement>('[data-reading-progress]');
   if (!bar) return;
@@ -181,72 +187,92 @@ function initPlan() {
   });
 }
 
-function initTopicPills() {
-  const track = document.querySelector<HTMLElement>('[data-pill-track]');
-  const thumb = document.querySelector<HTMLElement>('[data-pill-thumb]');
-  const pills = [...document.querySelectorAll<HTMLButtonElement>('[data-topic][aria-controls="latest-grid"]')];
-  const items = [...document.querySelectorAll<HTMLElement>('#latest-grid [data-topic]')];
-  if (!track || !thumb || !pills.length) return;
+/**
+ * Sticky section nav: anchor links with a sliding 2px underline that follows
+ * scroll position. Links whose target section doesn't exist yet are inert.
+ */
+function initSectionNav() {
+  const nav = document.querySelector<HTMLElement>('[data-section-nav]');
+  const bar = document.querySelector<HTMLElement>('[data-section-nav-bar]');
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('[data-section-link]')];
+  if (!nav || !bar || !links.length) return;
 
-  const moveThumb = (pill: HTMLButtonElement, animate: boolean) => {
-    const tr = track.getBoundingClientRect();
-    const pr = pill.getBoundingClientRect();
-    const x = pr.left - tr.left + track.scrollLeft;
-    thumb.style.width = `${pr.width}px`;
-    thumb.style.transform = `translate3d(${x}px, 0, 0)`;
-    thumb.style.opacity = '1';
-    if (!animate) thumb.style.transition = 'none';
-    else thumb.style.transition = `transform 0.35s ${EASE}, width 0.35s ${EASE}`;
-    if (!animate)
-      requestAnimationFrame(() => {
-        thumb.style.transition = `transform 0.35s ${EASE}, width 0.35s ${EASE}`;
-      });
+  const targetOf = (link: HTMLAnchorElement) => {
+    const id = link.hash.slice(1);
+    return id ? document.getElementById(id) : null;
   };
 
-  const filter = (topic: string) => {
-    const visible = items.filter((el) =>
-      topic === 'all' ? el.dataset.default === 'true' : el.dataset.topic === topic,
-    );
-    items.forEach((el) => {
-      el.hidden = true;
-      el.classList.remove('is-stagger-in');
+  let current: HTMLAnchorElement | null = null;
+
+  const moveBar = (link: HTMLAnchorElement | null, animate: boolean) => {
+    if (!link) {
+      bar.style.opacity = '0';
+      return;
+    }
+    const nr = nav.getBoundingClientRect();
+    const lr = link.getBoundingClientRect();
+    const x = lr.left - nr.left + nav.scrollLeft;
+    bar.style.transition = animate
+      ? `transform 0.35s ${EASE}, width 0.35s ${EASE}, opacity 0.2s ease`
+      : 'none';
+    bar.style.width = `${lr.width}px`;
+    bar.style.transform = `translate3d(${x}px, 0, 0)`;
+    bar.style.opacity = '1';
+  };
+
+  const setActive = (link: HTMLAnchorElement | null, animate = true) => {
+    if (link === current) return;
+    current = link;
+    links.forEach((l) => {
+      if (l === link) l.setAttribute('aria-current', 'true');
+      else l.removeAttribute('aria-current');
     });
-    visible.forEach((el, i) => {
-      el.hidden = false;
-      if (reduce()) {
-        el.classList.add('is-stagger-in');
-        return;
-      }
-      el.style.setProperty('--stagger', `${i * 30}ms`);
-      void el.offsetWidth;
-      el.classList.add('is-stagger-in');
-    });
+    moveBar(link, animate && !reduce());
   };
 
-  const activate = (pill: HTMLButtonElement, animate = true) => {
-    pills.forEach((p) => p.setAttribute('aria-pressed', String(p === pill)));
-    moveThumb(pill, animate);
-    filter(pill.dataset.topic ?? 'all');
-  };
+  moveBar(null, false);
 
-  const active = pills.find((p) => p.getAttribute('aria-pressed') === 'true') ?? pills[0];
-  activate(active, false);
-
-  pills.forEach((pill) => {
-    const onClick = () => activate(pill, true);
-    pill.addEventListener('click', onClick);
-    onClean(() => pill.removeEventListener('click', onClick));
+  links.forEach((link) => {
+    const onClick = (e: MouseEvent) => {
+      // Placeholder anchors: no jump / URL change until the section exists,
+      // but still show the active state so the click reads.
+      const target = targetOf(link);
+      e.preventDefault();
+      setActive(link);
+      if (!target) return;
+      // Land below the sticky bar.
+      const barH = document.querySelector<HTMLElement>('[data-topic-bar]')?.offsetHeight ?? 0;
+      scrollToTarget(target, -barH);
+      history.pushState(null, '', link.hash);
+    };
+    link.addEventListener('click', onClick);
+    onClean(() => link.removeEventListener('click', onClick));
   });
 
-  const onResize = () => {
-    const current = pills.find((p) => p.getAttribute('aria-pressed') === 'true');
-    if (current) moveThumb(current, false);
-  };
+  // Scroll spy: the section crossing the upper-middle of the viewport wins.
+  const pairs = links
+    .map((link) => ({ link, target: targetOf(link) }))
+    .filter((p): p is { link: HTMLAnchorElement; target: HTMLElement } => !!p.target);
+  if (pairs.length) {
+    const visible = new Set<Element>();
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((en) => (en.isIntersecting ? visible.add(en.target) : visible.delete(en.target)));
+        const hit = pairs.find((p) => visible.has(p.target));
+        setActive(hit ? hit.link : null);
+      },
+      { rootMargin: '-40% 0px -55% 0px' },
+    );
+    pairs.forEach((p) => io.observe(p.target));
+    onClean(() => io.disconnect());
+  }
+
+  const onResize = () => moveBar(current, false);
   window.addEventListener('resize', onResize, { passive: true });
-  track.addEventListener('scroll', onResize, { passive: true });
+  nav.addEventListener('scroll', onResize, { passive: true });
   onClean(() => {
     window.removeEventListener('resize', onResize);
-    track.removeEventListener('scroll', onResize);
+    nav.removeEventListener('scroll', onResize);
   });
 }
 
@@ -304,6 +330,30 @@ function initEdChat() {
   onClean(() => io.disconnect());
 }
 
+/** Topic bar picks up brand + 日本語 + Book once the masthead scrolls out of view. */
+function initTopicBarStuck() {
+  const bar = document.querySelector<HTMLElement>('[data-topic-bar]');
+  const masthead = document.querySelector<HTMLElement>('.ed-masthead');
+  if (!bar || !masthead) return;
+
+  const io = new IntersectionObserver(([entry]) => {
+    bar.classList.toggle('is-stuck', !entry.isIntersecting);
+  });
+  io.observe(masthead);
+  onClean(() => io.disconnect());
+
+  // Bar wordmark: glide back to the top instead of reloading /zine/.
+  const brand = bar.querySelector<HTMLElement>('[data-scroll-top]');
+  if (!brand) return;
+  const onBrandClick = (e: MouseEvent) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+    e.preventDefault();
+    scrollToTarget(0);
+  };
+  brand.addEventListener('click', onBrandClick);
+  onClean(() => brand.removeEventListener('click', onBrandClick));
+}
+
 function boot() {
   cleanup();
   // Opt into hidden-until-reveal styles only when this script runs.
@@ -311,7 +361,8 @@ function boot() {
   initProgress();
   initClock();
   initReveal();
-  initTopicPills();
+  initSectionNav();
+  initTopicBarStuck();
   initPlan();
   initAccordion();
   initEdChat();
