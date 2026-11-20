@@ -18,10 +18,10 @@
   --color-card-mint: #d8efc8;
   --color-border: #111315;
 
-  --font-brand: "Zilla Slab", "Zen Kaku Gothic New", serif;
+  --font-brand: "JetBrains Mono", "Zen Kaku Gothic New", ui-monospace, monospace;
   --font-logo: "Playfair Display", "Zen Kaku Gothic New", serif;
   --font-sans: "Outfit", "Zen Kaku Gothic New", sans-serif;
-  --font-mono: "Zilla Slab", "Zen Kaku Gothic New", serif;
+  --font-mono: "JetBrains Mono", "Zen Kaku Gothic New", ui-monospace, monospace;
   --font-jp: "Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
 
   --radius-none: 0px;
@@ -234,7 +234,7 @@
   }
 
   .ed-wordmark-tag {
-    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-family: var(--font-mono);
     font-weight: 600;
     font-size: 0.24em;
     line-height: 1;
