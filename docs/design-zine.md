@@ -20,12 +20,12 @@ Core promise: **"Talk before you decide."**
 
 | Token | HEX | Role |
 | --- | --- | --- |
-| primary | #25D366 | Viewport frame, sticky topic bar, footer band, **primary CTA** (`.ed-btn` / `Book a chat`), ticker/read accents |
+| primary | #25D366 | Viewport frame, resting section bar, footer band, **primary CTA** (`.ed-btn` / `Book a chat`), ticker/read accents |
 | accent | #008069 | Category eyebrows, manifesto kicker, Near Town Hall band, focus outlines, ticker dots |
 | ink | #111315 | Wordmark, headlines, body, `1px` rules, active pill thumb |
 | mint | #E7F8E2 | Soft editorial blocks (book intro, guide callouts, checklist cards) |
-| paper | #F3F2EE | Main editorial canvas, hero band, inquiry strip |
-| surface | #FFFFFF | Masthead, hero copy panel, latest lead card, Who we are, How we work, ticker |
+| paper | #F3F2EE | Masthead, main editorial canvas, hero band, inquiry strip |
+| surface | #FFFFFF | Hero copy panel, latest lead card, Who we are, How we work, ticker |
 | muted | #7A7D80 | Secondary metadata, quiet `日本語` toggle |
 | card-sky | #CFE4FB | Checklist / toolkit color block |
 | card-sand | #F6E3A8 | Checklist / toolkit color block |
@@ -33,7 +33,7 @@ Core promise: **"Talk before you decide."**
 
 **Color roles (important)**
 
-- **`#25D366`** is chrome green (viewport frame, sticky topic bar, footer) and the CTA fill. Mid-page editorial bands still prefer `surface` / `paper` / `mint` / `accent`.
+- **`#25D366`** is chrome green (viewport frame, resting section bar, footer) and the CTA fill. Mid-page editorial bands still prefer `surface` / `paper` / `mint` / `accent`.
 - Never use `#25D366` for body text or thin `1px` lines on white/paper (contrast fails).
 - Text on `#25D366` or `#E7F8E2` is always `ink` `#111315`.
 - Text on `#008069` is `surface` `#FFFFFF` (or `#25D366` for tiny labels only).
@@ -43,12 +43,12 @@ Core promise: **"Talk before you decide."**
 
 | Role | Font | Size / weight |
 | --- | --- | --- |
-| Wordmark `UHAK` | Newsreader (`--font-logo`) | Cover/footer: `clamp(40px, 6vw, 72px)`; compact: `clamp(28px, 3.5vw, 40px)`; mobile: `18px`; weight `400`; tracking `-0.03em` |
-| Wordmark `[GPS]` | Zilla Slab (`--font-brand`) | `0.24em` of name size; sits top-right of UHAK |
+| Wordmark `UHAK` | Playfair Display (`--font-logo`) | Cover: `clamp(40px, 5.5vw, 56px)`; footer: `clamp(40px, 6vw, 72px)`; compact: `clamp(28px, 3.5vw, 40px)`; mobile: `18px`; weight `400`; tracking `-0.03em` |
+| Wordmark `[GPS]` | JetBrains Mono (`--font-mono`), `600` | `0.24em` of name size; sits top-right of UHAK |
 | Section `h2` | Outfit (`--font-sans`) | `clamp(22px, 2.8vw, 34px)`, semibold, uppercase |
 | Hero `h1` / titles | Outfit | Hero: `clamp(32px, 3.6vw, 46px)`; titles ~`600`–`700`, tight tracking |
 | Body | Outfit | `14–15px`, `400`, line-height `1.65` |
-| Meta / pills / dates | Zilla Slab (`--font-mono` / `--font-brand`) | `11–12px`, uppercase; topic pills `600` |
+| Meta / pills / dates | JetBrains Mono (`--font-mono` / `--font-brand`) | `11–12px`, uppercase; topic pills `600` |
 | Japanese | Zen Kaku Gothic New | Match English scale |
 
 Avoid default UI stacks (Inter, Roboto, system). Do not reintroduce Plus Jakarta Sans on `/zine/`.
@@ -64,8 +64,8 @@ Avoid default UI stacks (Inter, Roboto, system). Do not reintroduce Plus Jakarta
 
 **Home band order (`/zine/`)**
 
-1. Utility row + cover wordmark (`surface`) — optional masthead rails: “Independent field guide” / “Sydney · 2026”
-2. **Sticky topic pills** (`primary`, `top: 0`, no “Topics:” label)
+1. Utility row → `1px` ink rule → cover wordmark (`paper`)
+2. **Sticky section bar** (`top: 0`; no rules + `primary` fill at rest → `paper` with `1px` ink rules top + bottom once stuck) — text anchor links. Once the masthead scrolls away the bar reveals mini wordmark (left; click smooth-scrolls to top) + Instagram / `日本語` / green primary `Book a chat →` behind a `1px` ink column rule (right); mobile shows only a short `Book →`
 3. **Hero** — single ink-bordered shell: `surface` copy (Free chat meta → inline `EdChat` → headline → support → `editorial-read-more`) + documentary photo (`paper` band)
 4. **The latest** — lead story + filterable grid (`paper`); cover slots are empty ink-bordered boxes for now
 5. **Your plan** — checklist builder + selected sheet (`paper`)
@@ -87,13 +87,13 @@ Removed from the edition: Questions/letters Q&A, weekly costs receipt, topic exp
 
 | Component | Rules | Interaction |
 | --- | --- | --- |
-| **Masthead** | Left: `Sydney ·` live SYD clock (+ Vol. on cover desktop). Right: `日本語` + green `Book a chat` pill (`.ed-btn`). Cover: centered Newsreader/`[GPS]` wordmark with flanking rails | Button: primary fill → ink fill / primary text on hover |
-| **Sticky topic bar** | Primary green chrome (`.ed-topic-bar`). Centered pills: `All`, `Working Holiday`, `English & VET`, `University`, `Sydney Life`. Sliding ink thumb | Filters `#latest-grid`; sticky while scrolling |
+| **Masthead** | Left: `Sydney ·` live SYD clock (+ Vol. on cover desktop). Right: `日本語` + green `Book a chat` pill (`.ed-btn`). Cover: thin `1px` ink rule under the utility row, then centered Playfair `UHAK` + JetBrains Mono `[GPS]` wordmark | Button: primary fill → ink fill / primary text on hover |
+| **Sticky section bar** | `.ed-topic-bar`: `primary` green fill, no rules, at rest (links only, no CTA). When the masthead scrolls away (`.is-stuck`) the fill fades to `paper` and `1px` ink rules appear above and below, so the revealed CTA stays the standard green `.ed-btn`. JetBrains Mono uppercase text links separated by `·` (`Services · Courses · About · Quote`) — anchors to page sections (targets TBD; links without a target are inert). The only pill in the bar is the CTA (green primary + `→`) | Hover: `1px` underline. Active (click or scroll spy): `800` weight + sliding `3px` ink underline; other links dim to `0.6`. Sticky while scrolling |
 | **Hero** | One bordered shell (no guides sidebar). Left `surface`: “Free chat” + inline `EdChat` + “Talk before you decide.” + short support + `Start a chat` (`editorial-read-more`). Right: documentary photo + “Sydney” caption | Chat transcript plays on intersect; wipe on copy/photo |
 | **EdChat** | Inline field-note bubbles above the hero headline (`EdChat.astro`) | Replay when entering view (`data-ed-chat`) |
 | **The latest** | Lead feature + up to 3 default cards; other guides unlock via topic filter. Empty cover boxes (no art yet). All CTAs → `/zine/guides/` | Stagger in on filter change |
 | **Your plan** | Selectable options with check animation; sticky “Selected” sheet | Toggle `aria-pressed`; lines animate in/out |
-| **Manifesto callout** | Full-bleed campus photo (`~2.35/1` desktop, `5/4` mobile) with cool green wash + grain (not flat grayscale). Frosted `surface` plate, ink border, centered over photo. Structure: Zilla accent kicker → bold lead → `1px` rule → 14px support | Subtle parallax on photo only; plate stays planted |
+| **Manifesto callout** | Full-bleed campus photo (`~2.35/1` desktop, `5/4` mobile) with cool green wash + grain (not flat grayscale). Frosted `surface` plate, ink border, centered over photo. Structure: JetBrains Mono accent kicker → bold lead → `1px` rule → 14px support | Subtle parallax on photo only; plate stays planted |
 | **Checklists** | Three blocks (`card-sand`, `mint`, `card-sky`), ink border on hover via `.ed-block` | Hard offset hover |
 | **Near Town Hall** | Accent band; place name + mint pill badge for walk time (`4 min`); muted note below | Map link |
 | **How we work** | 4 columns, green line icons (`tea` / `calendar` / `notebook` / `map`) via `SpotArt.astro`, ~48–56px | Static |
@@ -163,10 +163,10 @@ Tokens and components live in **`src/styles/zine.css`**. Layout: `ZineLayout.ast
   --color-card-sand: #f6e3a8;
   --color-border: #111315;
 
-  --font-brand: "Zilla Slab", "Zen Kaku Gothic New", serif;
-  --font-logo: "Newsreader", "Zen Kaku Gothic New", serif;
+  --font-brand: "JetBrains Mono", "Zen Kaku Gothic New", ui-monospace, monospace;
+  --font-logo: "Playfair Display", "Zen Kaku Gothic New", serif;
   --font-sans: "Outfit", "Zen Kaku Gothic New", sans-serif;
-  --font-mono: "Zilla Slab", "Zen Kaku Gothic New", serif;
+  --font-mono: "JetBrains Mono", "Zen Kaku Gothic New", ui-monospace, monospace;
   --font-jp: "Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
 
   --radius-none: 0px;
