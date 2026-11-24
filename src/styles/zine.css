@@ -422,9 +422,15 @@
     text-decoration-line: underline;
   }
 
-  /* Active: heavier weight + the sliding 2px bar; siblings recede. */
+  /* Active: heavier weight + primary text/underline; siblings recede.
+     On the resting green chrome, keep ink so the mark stays visible. */
   .ed-section-nav-link[aria-current="true"] {
     font-weight: 800;
+    color: var(--color-primary);
+  }
+
+  .ed-topic-bar:not(.is-stuck) .ed-section-nav-link[aria-current="true"] {
+    color: var(--color-ink);
   }
 
   .ed-section-nav-link[aria-current="true"]:hover {
@@ -436,7 +442,9 @@
   }
 
   .ed-section-nav-link {
-    transition: opacity 0.2s ease;
+    transition:
+      opacity 0.2s ease,
+      color 0.2s ease;
   }
 
   .ed-section-nav-link:hover {
@@ -462,9 +470,13 @@
     left: 0;
     bottom: 6px;
     height: 3px;
-    background: var(--color-ink);
+    background: var(--color-primary);
     pointer-events: none;
     opacity: 0;
+  }
+
+  .ed-topic-bar:not(.is-stuck) .ed-section-nav-bar {
+    background: var(--color-ink);
   }
 
 
