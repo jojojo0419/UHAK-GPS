@@ -195,6 +195,7 @@ Supporting colors (lines, note and option fills, heart, read tick) are also defi
 - [x] Booking link → `/book/`, `/ja/book/` (Netlify Forms, `src/components/book/BookPage.astro`)
 - [ ] LINE link (#line)
 - [x] Longer Stay copy — renamed from "Long-term Settlement"; no PR/residency promises, registered-agent referral (matches `/zine/`)
-- [ ] Photo usage consent (friend and students) plus 1–2 more real student photos
+- [x] Hero polaroid: free-licence stock portrait (`hero-polaroid-3.webp`, shared with `/zine/`)
+- [ ] Photo usage consent for friend/student photos, plus 1–2 more real student photos
 - [ ] Native-speaker review of the Japanese version
 - [ ] Accent #008069 small text on the mint band (4.4:1): switch to ink or enlarge
