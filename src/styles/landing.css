@@ -312,11 +312,7 @@ html[lang='ja'] .ftr-logo {
     flex-shrink: 0;
   }
 
-  /* Short Book label only on mobile float; full label otherwise */
-  .hdr-book-short {
-    display: none;
-  }
-
+  /* Short Book label only on mobile float; full label otherwise (base rule above) */
   .hdr-row.float .hdr-book-long {
     display: none;
   }
@@ -369,6 +365,11 @@ html[lang='ja'] .ftr-logo {
     width: 100%;
     justify-content: center;
   }
+}
+
+/* Header Book CTA: full label by default; the mobile float swaps to the short one. */
+.hdr-book-short {
+  display: none;
 }
 
 .book-pop {
