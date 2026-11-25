@@ -1,5 +1,5 @@
 import type { Messages } from '../../../i18n';
-import { MAPS_URL } from '../data';
+import { MAPS_URL } from '../../../data/office';
 import { cx, Container, SectionTitle } from '../ui';
 
 type Props = {

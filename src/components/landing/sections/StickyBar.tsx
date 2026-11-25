@@ -51,7 +51,7 @@ export function StickyBar({ asked, onAsk, onClose, t }: Props) {
 
       <div className="flex items-center gap-0.5 border-l-[1.5px] border-dashed border-surface/55 pl-2.5">
         <a
-          href="#book"
+          href={t.book.href}
           className="inline-flex min-h-7 items-center whitespace-nowrap rounded-pill bg-surface px-3 py-1.5 text-xs font-medium tracking-[0.01em] text-ink no-underline"
         >
           {t.sticky.bookChat}

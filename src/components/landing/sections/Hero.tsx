@@ -50,7 +50,7 @@ export function Hero({ t }: Props) {
             </ul>
 
             <div className="flex flex-wrap justify-center gap-2 landing:justify-start">
-              <PrimaryLink href="#book">{t.hero.bookCta}</PrimaryLink>
+              <PrimaryLink href={t.book.href}>{t.hero.bookCta}</PrimaryLink>
               <PillLink href="#line">{t.hero.lineCta}</PillLink>
             </div>
           </div>

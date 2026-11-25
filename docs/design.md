@@ -192,8 +192,9 @@ Supporting colors (lines, note and option fills, heart, read tick) are also defi
 
 - [ ] Counsellor's name, year of arrival in Australia, and suburb
 - [ ] Actual partner school names and notes (replace the mock names)
-- [ ] Booking link (#book) and LINE link (#line)
-- [ ] Long-term Settlement copy (keep any "PR" wording out of promises)
+- [x] Booking link → `/book/`, `/ja/book/` (Netlify Forms, `src/components/book/BookPage.astro`)
+- [ ] LINE link (#line)
+- [x] Longer Stay copy — renamed from "Long-term Settlement"; no PR/residency promises, registered-agent referral (matches `/zine/`)
 - [ ] Photo usage consent (friend and students) plus 1–2 more real student photos
 - [ ] Native-speaker review of the Japanese version
 - [ ] Accent #008069 small text on the mint band (4.4:1): switch to ink or enlarge

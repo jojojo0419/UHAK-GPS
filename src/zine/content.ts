@@ -122,19 +122,19 @@ export const planOptions = [
   },
   {
     id: 'lang',
-    title: 'Language school',
+    title: 'Language & Experience',
     line: 'English study before or alongside work.',
     badges: ['English', 'Student visa'],
   },
   {
     id: 'vet',
-    title: 'VET / college',
+    title: 'Specialised Degree / VET',
     line: 'A recognised course with a set weekly timetable.',
     badges: ['Student visa', 'Qualification'],
   },
   {
     id: 'long',
-    title: 'Longer stay',
+    title: 'Longer Stay',
     line: 'Options after the first year. No outcome is guaranteed.',
     badges: ['Planning only'],
   },
@@ -190,7 +190,7 @@ export const principles = [
 export const team = [
   {
     name: '[Counsellor name]',
-    role: 'Counsellor · Japanese, Korean, English',
+    role: 'QEAC-qualified counsellor · Japanese, Korean, English',
     place: 'Town Hall · Since [Year]',
   },
   {
@@ -229,7 +229,3 @@ export const ticker = [
   'Free 30-minute chats',
   'Japanese · Korean · English',
 ];
-
-export const OFFICE = '250 Pitt St, Sydney NSW 2000';
-export const MAPS_URL =
-  'https://www.google.com/maps/search/?api=1&query=250+Pitt+St%2C+Sydney+NSW+2000';

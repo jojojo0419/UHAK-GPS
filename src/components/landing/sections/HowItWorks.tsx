@@ -79,7 +79,7 @@ export function HowItWorks({ step, onStep, t }: Props) {
                   {steps[step + 1].title}
                 </PillButton>
               ) : (
-                <PillLink href="#book">{t.how.startCta}</PillLink>
+                <PillLink href={t.book.href}>{t.how.startCta}</PillLink>
               )}
             </div>
           </div>
