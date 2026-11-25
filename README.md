@@ -183,10 +183,12 @@ Dev server tip (from `AGENTS.md`): `astro dev --background`, then `astro dev sta
 
 Tracked in GitHub Issues — remaining highlights:
 
-- Wire `#line` CTAs to the LINE official account
-- Placeholder numbers (`00/week`, `000 students`)
-- StickyBar restore or remove
-- Nav IA cleanup
-- Open Graph / social preview
-- Analytics, search, Sveltia CMS + blog
-- Unify `/zine/` copy with the landing (checklist under [`/zine/`](#zine--editorial-redesign-work-in-progress))
+- [x] Wire `#book` CTAs → `/book/` and `/ja/book/` with Netlify Forms
+- [x] Hero polaroid matches the zine (study-abroad portrait instead of the Opera House)
+- [ ] Wire `#line` CTAs to the LINE official account
+- [ ] Placeholder numbers (`00/week`, `000 students`)
+- [ ] StickyBar restore or remove
+- [ ] Nav IA cleanup
+- [ ] Open Graph / social preview
+- [ ] Analytics, search, Sveltia CMS + blog
+- [ ] Unify `/zine/` copy with the landing — mostly done; team and Japanese left (checklist under [`/zine/`](#zine--editorial-redesign-work-in-progress))
