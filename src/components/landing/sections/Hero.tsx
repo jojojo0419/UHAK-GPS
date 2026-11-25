@@ -58,10 +58,10 @@ export function Hero({ t }: Props) {
           <figure className="mx-auto m-0 max-w-[300px] flex-1 basis-[300px] rotate-[3deg] bg-surface px-2.5 pt-2.5 shadow-[0_2px_4px_rgba(31,58,80,.08),0_12px_28px_rgba(31,58,80,.14)] landing:mx-0">
             <div className="polaroid-photo relative aspect-[4/5] overflow-hidden">
               <img
-                src="/images/hero-polaroid-opera.webp"
+                src="/images/hero-polaroid-3.webp"
                 alt={t.hero.polaroidAlt}
-                width={600}
-                height={800}
+                width={960}
+                height={1200}
                 decoding="async"
                 fetchPriority="high"
                 className="h-full w-full object-cover object-center"
