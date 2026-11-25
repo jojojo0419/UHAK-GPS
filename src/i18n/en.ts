@@ -43,7 +43,7 @@ export const en: Messages = {
     checks: ['Student Visa study from just 00/week', 'School Enrolment & Visa Support'],
     bookCta: 'Book a free 30-minute chat',
     lineCta: 'Message us on LINE 24 hours',
-    polaroidAlt: 'Student smiling by the harbour during her study abroad',
+    polaroidAlt: 'A student with a red backpack looks back and smiles at a city crossing',
     polaroidCaption: 'First month in Sydney.',
   },
   feel: {

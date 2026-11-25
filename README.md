@@ -7,15 +7,32 @@ Astro + React landing site for **UHAK GPS** — Sydney-based study abroad & Work
 - English: [https://uhak-gps.netlify.app/](https://uhak-gps.netlify.app/)
 - Japanese: [https://uhak-gps.netlify.app/ja/](https://uhak-gps.netlify.app/ja/)
 
-[![UHAK GPS landing preview](docs/preview.png)](https://uhak-gps.netlify.app/)
+| Desktop | Mobile |
+| --- | --- |
+| [![UHAK GPS landing, desktop](docs/landing/landing-desktop.png)](https://uhak-gps.netlify.app/) | <img src="docs/landing/landing-mobile.png" alt="UHAK GPS landing, mobile" width="260"> |
 
 ## Features
 
 - Static landing with interactive React sections (options picker, how-it-works steps, flip ID card)
 - **EN / JA** i18n — `/` and `/ja/`, soft client-side language switch (fade + `history.pushState`, no full reload)
 - Sticky floating header on scroll, square nav underline, WhatsApp-style hero chat animation
+- **Booking** at `/book/` and `/ja/book/` — Netlify Forms, no backend (see [Booking](#booking))
 - Responsive layout (breakpoint `760px`)
 - Netlify deploy from `main` + GitHub Actions CI (`npm ci` + `npm run build`)
+
+## Booking
+
+Every landing *Book* CTA opens a landing-styled booking page: **`/book/`** (EN) and **`/ja/book/`** (JA).
+
+| Form (desktop) | Sent (mobile) |
+| --- | --- |
+| [![Booking form, desktop](docs/landing/book-desktop.png)](https://uhak-gps.netlify.app/book/) | <img src="docs/landing/book-done-mobile.png" alt="Booking sent state, mobile" width="260"> |
+
+- **Netlify Forms**, form name `book-chat`, with a honeypot spam field. `/zine/book/` posts the same form, so all requests land in one inbox.
+- Labels are localised; stored values stay in English (`src/data/booking.ts`), so submissions look the same from every page.
+- *Your Plan* picks on the landing carry over as `?plan=wh,long` and are pre-checked.
+- After sending, the page echoes the request as a chat bubble and lists the next steps.
+- **Local dev:** under `astro dev` the POST is skipped and treated as sent, so the done state can be checked locally. Real submissions only work on Netlify (Deploy Preview or production).
 
 ## `/zine/` — editorial redesign (work in progress)
 
@@ -61,7 +78,7 @@ docs/design-zine.md        → zine design guidelines
 | Layer | Choice |
 | --- | --- |
 | Framework | Astro 7 (static) + `@astrojs/react` |
-| UI | React islands (`client:only`) |
+| UI | React island (`client:load`, server-rendered HTML) + static Astro for `/book/` |
 | CSS | Tailwind CSS v4 (`@tailwindcss/vite`) + lean `landing.css` |
 | Hosting | Netlify (`netlify.toml`, publish `dist`) |
 | CI | GitHub Actions (`.github/workflows/ci.yml`) |
@@ -71,13 +88,21 @@ docs/design-zine.md        → zine design guidelines
 ```
 src/
   pages/
-    index.astro          → /     (en)
-    ja/index.astro       → /ja/  (ja)
+    index.astro          → /          (en)
+    ja/index.astro       → /ja/       (ja)
+    book.astro           → /book/     (en)
+    ja/book.astro        → /ja/book/  (ja)
   layouts/BaseLayout.astro
   i18n/                  → en.ts / ja.ts / types / getMessages()
+  data/
+    office.ts            → office address + Google Maps URL (landing + zine)
+    booking.ts           → booking form name, fields, stored values
+  scripts/book-form.ts   → shared booking submit logic (landing + zine)
+  components/book/
+    BookPage.astro       → booking page (static, so Netlify detects the form)
   components/landing/
     Landing.tsx          → locale state, soft language switch
-    data.ts              → non-copy structure (icons, note meta, maps URL)
+    data.ts              → non-copy structure (icons, note meta, option ids)
     ui.tsx               → Container, SectionTitle, KeepLines, buttons
     sections/            → Header, Hero, FeelNotes, Options, WhyUs,
                            HowItWorks, Schools, Airmail, About,
@@ -150,16 +175,20 @@ Dev server tip (from `AGENTS.md`): `astro dev --background`, then `astro dev sta
 ## Deploy
 
 - Push to `main` → Netlify build (`npm run build` → `dist`)
+- Pull requests get a Netlify **Deploy Preview** — use it to test real form submissions
 - GitHub Actions CI runs the same build check on push/PR
+- Netlify Forms: **form detection** must be on (Site configuration → Forms); email alerts live under Forms → Form notifications
 
 ## Next steps
 
 Tracked in GitHub Issues — remaining highlights:
 
-- Wire `#line` CTAs (booking is live at `/book/`)
-- Placeholder numbers (`00/week`, `000 students`)
-- StickyBar restore or remove
-- Nav IA cleanup
-- Open Graph / social preview
-- Analytics, search, Sveltia CMS + blog
-- Unify `/zine/` copy with the landing (checklist under [`/zine/`](#zine--editorial-redesign-work-in-progress))
+- [x] Wire `#book` CTAs → `/book/` and `/ja/book/` with Netlify Forms
+- [x] Hero polaroid matches the zine (study-abroad portrait instead of the Opera House)
+- [ ] Wire `#line` CTAs to the LINE official account
+- [ ] Placeholder numbers (`00/week`, `000 students`)
+- [ ] StickyBar restore or remove
+- [ ] Nav IA cleanup
+- [ ] Open Graph / social preview
+- [ ] Analytics, search, Sveltia CMS + blog
+- [ ] Unify `/zine/` copy with the landing — mostly done; team and Japanese left (checklist under [`/zine/`](#zine--editorial-redesign-work-in-progress))

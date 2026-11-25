@@ -43,7 +43,7 @@ export const ja: Messages = {
     checks: ['学生ビザの留学、週あたり00から', '学校入学手続き・ビザサポート'],
     bookCta: '無料30分チャットを予約',
     lineCta: 'LINEで24時間メッセージ',
-    polaroidAlt: '留学中、ハーバー沿いでの笑顔',
+    polaroidAlt: '赤いリュックの留学生が、街の交差点で振り返って笑顔',
     polaroidCaption: 'シドニー、最初のひと月。',
   },
   feel: {
