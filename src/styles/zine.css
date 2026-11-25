@@ -327,15 +327,6 @@
     transition: color 0.2s var(--ease-crisp), border-color 0.2s var(--ease-crisp);
   }
 
-  .editorial-pill:hover {
-    color: var(--color-ink);
-  }
-
-  .editorial-pill[aria-pressed="true"] {
-    color: var(--color-surface);
-    border-color: transparent;
-  }
-
   /* Section bar: 1px ink rules above and below in both states. Green chrome
      at rest (no CTA shown); once stuck only the fill fades to paper so the
      green primary CTA can sit in it unchanged. */

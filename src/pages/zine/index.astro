@@ -23,15 +23,12 @@ const latestOrder = [...latestSlugs, ...guides.map((g) => g.slug).filter((s) => 
 const latest = latestOrder.map((s) => guideBySlug(s)!);
 const [leadGuide, ...restLatest] = latest;
 
-/**
- * Sticky section nav (anchors). Target sections aren't built yet — add the
- * matching `id` to a section and the link + scroll-spy underline start working.
- */
+/** Sticky section nav — anchors match home band ids for scroll-spy. */
 const navLinks = [
-  { href: '#services', label: 'Services' },
-  { href: '#courses', label: 'Courses' },
-  { href: '#about', label: 'About' },
-  { href: '#quote', label: 'Quote' },
+  { href: '#latest', label: 'Latest' },
+  { href: '#plan', label: 'Plan' },
+  { href: '#checklists', label: 'Checklists' },
+  { href: '#who', label: 'About' },
 ] as const;
 ---
 <ZineLayout

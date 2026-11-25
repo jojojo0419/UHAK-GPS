@@ -188,8 +188,8 @@ function initPlan() {
 }
 
 /**
- * Sticky section nav: anchor links with a sliding 2px underline that follows
- * scroll position. Links whose target section doesn't exist yet are inert.
+ * Sticky section nav: anchor links with a sliding underline that follows
+ * scroll position. Missing targets stay inert (click still shows active).
  */
 function initSectionNav() {
   const nav = document.querySelector<HTMLElement>('[data-section-nav]');

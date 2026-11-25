@@ -67,7 +67,7 @@ Avoid default UI stacks (Inter, Roboto, system). Do not reintroduce Plus Jakarta
 1. Utility row → `1px` ink rule → cover wordmark (`paper`)
 2. **Sticky section bar** (`top: 0`; no rules + `primary` fill at rest → `paper` with `1px` ink rules top + bottom once stuck) — text anchor links. Once the masthead scrolls away the bar reveals mini wordmark (left; click smooth-scrolls to top) + Instagram / `日本語` / green primary `Book a chat →` behind a `1px` ink column rule (right); mobile shows only a short `Book →`
 3. **Hero** — single ink-bordered shell: `surface` copy (Free chat meta → inline `EdChat` → headline → support → `editorial-read-more`) + documentary photo (`paper` band)
-4. **The latest** — lead story + filterable grid (`paper`); cover slots are empty ink-bordered boxes for now
+4. **The latest** — lead story + default card grid (`paper`); cover slots are empty ink-bordered boxes for now
 5. **Your plan** — checklist builder + selected sheet (`paper`)
 6. **Manifesto** — full-bleed cool campus photo; frosted ink-bordered callout plate (`0px` radius) centered on the photo
 7. **Checklists** — 3 color blocks: sand / mint / sky (`paper`)
@@ -88,10 +88,10 @@ Removed from the edition: Questions/letters Q&A, weekly costs receipt, topic exp
 | Component | Rules | Interaction |
 | --- | --- | --- |
 | **Masthead** | Left: `Sydney ·` live SYD clock (+ Vol. on cover desktop). Right: `日本語` + green `Book a chat` pill (`.ed-btn`). Cover: thin `1px` ink rule under the utility row, then centered Playfair `UHAK` + JetBrains Mono `[GPS]` wordmark | Button: primary fill → ink fill / primary text on hover |
-| **Sticky section bar** | `.ed-topic-bar`: `primary` green fill, no rules, at rest (links only, no CTA). When the masthead scrolls away (`.is-stuck`) the fill fades to `paper` and `1px` ink rules appear above and below, so the revealed CTA stays the standard green `.ed-btn`. JetBrains Mono uppercase text links separated by `·` (`Services · Courses · About · Quote`) — anchors to page sections (targets TBD; links without a target are inert). The only pill in the bar is the CTA (green primary + `→`) | Hover: `1px` underline. Active (click or scroll spy): `800` weight + sliding `3px` primary underline/text (ink while the bar is still green); other links dim to `0.6`. Sticky while scrolling |
+| **Sticky section bar** | `.ed-topic-bar`: `primary` green fill, no rules, at rest (links only, no CTA). When the masthead scrolls away (`.is-stuck`) the fill fades to `paper` and `1px` ink rules appear above and below, so the revealed CTA stays the standard green `.ed-btn`. JetBrains Mono uppercase text links separated by `·` (`Latest · Plan · Checklists · About`) — anchors to `#latest` / `#plan` / `#checklists` / `#who`. The only pill in the bar is the CTA (green primary + `→`) | Hover: `1px` underline. Active (click or scroll spy): `800` weight + sliding `3px` primary underline/text (ink while the bar is still green); other links dim to `0.6`. Sticky while scrolling |
 | **Hero** | One bordered shell (no guides sidebar). Left `surface`: “Free chat” + inline `EdChat` + “Talk before you decide.” + short support + `Start a chat` (`editorial-read-more`). Right: documentary photo + “Sydney” caption | Chat transcript plays on intersect; wipe on copy/photo |
 | **EdChat** | Inline field-note bubbles above the hero headline (`EdChat.astro`) | Replay when entering view (`data-ed-chat`) |
-| **The latest** | Lead feature + up to 3 default cards; other guides unlock via topic filter. Empty cover boxes (no art yet). All CTAs → `/zine/guides/` | Stagger in on filter change |
+| **The latest** | Lead feature + up to 3 default cards. Empty cover boxes (no art yet). All CTAs → `/zine/guides/` | Static grid (topic filter removed) |
 | **Your plan** | Selectable options with check animation; sticky “Selected” sheet | Toggle `aria-pressed`; lines animate in/out |
 | **Manifesto callout** | Full-bleed campus photo (`~2.35/1` desktop, `5/4` mobile) with cool green wash + grain (not flat grayscale). Frosted `surface` plate, ink border, centered over photo. Structure: JetBrains Mono accent kicker → bold lead → `1px` rule → 14px support | Subtle parallax on photo only; plate stays planted |
 | **Checklists** | Three blocks (`card-sand`, `mint`, `card-sky`), ink border on hover via `.ed-block` | Hard offset hover |
