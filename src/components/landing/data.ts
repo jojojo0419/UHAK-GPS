@@ -55,8 +55,3 @@ export const STEP_ICONS = [
   '/images/step-5.webp',
   '/images/step-6.webp',
 ] as const;
-
-export const MAPS_URL =
-  'https://www.google.com/maps/search/?api=1&query=250+Pitt+St%2C+Sydney+NSW+2000';
-
-export const OFFICE = '250 Pitt St, Sydney NSW 2000';

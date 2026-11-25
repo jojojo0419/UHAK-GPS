@@ -1,4 +1,5 @@
 import type { Messages } from '../../../i18n';
+import { OPTION_TOPIC_IDS } from '../../../data/booking';
 import { OPTION_IDS } from '../data';
 import { cx, Container, KeepLines, PillLink, SectionTitle } from '../ui';
 
@@ -11,6 +12,8 @@ type Props = {
 export function Options({ picks, onToggle, t }: Props) {
   const cards = OPTION_IDS.map((id, i) => ({ id, ...t.options.cards[i] }));
   const picked = cards.filter((c) => picks[c.id]);
+  const planIds = OPTION_IDS.flatMap((id, i) => (picks[id] ? [OPTION_TOPIC_IDS[i]] : []));
+  const bookHref = planIds.length ? `${t.book.href}?plan=${planIds.join(',')}` : t.book.href;
 
   return (
     <section id="options" aria-labelledby="optionsTitle" className="bg-cream">
@@ -90,7 +93,7 @@ export function Options({ picks, onToggle, t }: Props) {
                 ))}
               </ul>
             )}
-            <PillLink href="#book" className="mt-auto">
+            <PillLink href={bookHref} className="mt-auto">
               {t.options.roadmapCta}
             </PillLink>
           </div>

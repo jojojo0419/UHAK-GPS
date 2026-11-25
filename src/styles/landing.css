@@ -338,7 +338,7 @@ html[lang='ja'] .ftr-logo {
     font-size: 17px !important; /* EN float 19 */
   }
 
-  .hdr-actions a[href='#book'] {
+  .hdr-actions .hdr-book {
     padding: 8px 14px !important;
     min-height: 40px !important;
     font-size: 12px !important;
@@ -371,7 +371,17 @@ html[lang='ja'] .ftr-logo {
   }
 }
 
+.book-pop {
+  animation: waPop 0.45s ease both;
+}
+
+.book-rise {
+  animation: waIn 0.5s cubic-bezier(0.3, 0.7, 0.2, 1) 0.25s both;
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .book-pop,
+  .book-rise,
   .wa-react,
   .wa-b,
   .ticker-track {

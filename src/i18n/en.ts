@@ -1,4 +1,5 @@
 import type { Messages } from './types';
+import { OFFICE } from '../data/office';
 
 export const en: Messages = {
   meta: {
@@ -27,7 +28,7 @@ export const en: Messages = {
     { href: '#options', id: 'options', label: 'Services' },
     { href: '#how', id: 'how', label: 'Courses' },
     { href: '#about', id: 'about', label: 'About us' },
-    { href: '#book', id: 'book', label: 'Quick quotation' },
+    { href: '/book/', id: 'book', label: 'Quick quotation' },
   ],
   header: {
     bookChat: 'Book a free chat',
@@ -50,7 +51,7 @@ export const en: Messages = {
     lead: 'We support 000 students with services that help your study journey in Australia.',
     notes: [
       { text: 'Expert guidance from a QEAC-qualified counsellor' },
-      { text: 'PR pathway' },
+      { text: 'Longer-stay planning' },
       { text: 'School courses selection and enrollment' },
       {
         text: 'Personal support in Japanese, Korean, and English',
@@ -83,9 +84,9 @@ export const en: Messages = {
         badges: ['Student Visa', 'Career Upgrade'],
       },
       {
-        title: 'Long-term Settlement',
-        line: 'Strategic pathways for a longer stay and future residency.',
-        badges: ['PR Pathway', 'Strategic Planning'],
+        title: 'Longer Stay',
+        line: 'Options after your first year. No outcome is guaranteed.',
+        badges: ['Planning Only', 'Strategic Planning'],
       },
     ],
   },
@@ -146,7 +147,7 @@ export const en: Messages = {
         flourish: 'その先を考える',
         body: 'Thinking about what comes after, together.',
         detail:
-          'Your career, and whether a longer stay in Australia makes sense. Honest about what’s possible; no guarantees we can’t keep.',
+          'Your career, and whether a longer stay in Australia makes sense. Honest about what’s possible; no guarantees we can’t keep. For migration advice, we point you to a registered agent.',
         note: '',
       },
     ],
@@ -179,7 +180,7 @@ export const en: Messages = {
       },
     ],
   },
-  airmail: ['Guidance', 'Clear on visas and residency', 'Schools that fit you'],
+  airmail: ['Guidance', 'No visa or residency promises', 'Schools that fit you'],
   about: {
     title: 'About us.',
     body: "School and visa are the easy part. We also think about where you'll live, how you'll get around, and what a normal week actually costs.",
@@ -199,7 +200,7 @@ export const en: Messages = {
     counsellor: {
       name: '[Counsellor name]',
       since: '[Year]',
-      meetUs: '250 Pitt St, Sydney NSW 2000',
+      meetUs: OFFICE,
     },
   },
   principles: {
@@ -207,7 +208,7 @@ export const en: Messages = {
     lead: 'Rooms, jobs, getting around.\nWe stay the local person you can ask, even over coffee.',
     items: [
       { title: "We don't sell schools.", line: 'Only the ones that fit you.' },
-      { title: "No promises we can't keep.", line: 'Honest about visas and residency.' },
+      { title: "No promises we can't keep.", line: 'We don’t guarantee visas or residency.' },
       { title: 'Your choice stays yours.', line: 'We lay out options. You decide.' },
     ],
   },
@@ -217,10 +218,62 @@ export const en: Messages = {
       { href: '#options', label: 'Services' },
       { href: '#how', label: 'Courses' },
       { href: '#about', label: 'About us' },
-      { href: '#book', label: 'Quick quotation' },
+      { href: '/book/', label: 'Quick quotation' },
     ],
     location: 'Sydney, Australia · Free 30-minute consultations',
     copyright: '© 2026 UHAK GPS',
+  },
+  book: {
+    href: '/book/',
+    metaTitle: 'Book a free chat — UHAK GPS',
+    metaDescription: 'Book a free 30-minute chat with someone in Sydney. No school or visa needed yet.',
+    eyebrow: 'Free · 30 minutes · JA · KO · EN',
+    title: 'Book a free chat.',
+    lead: 'Tell us a little. We’ll write back to set a time.',
+    expect: [
+      { title: '30 minutes', text: 'On video, or in person near Town Hall.' },
+      { title: 'A short summary', text: 'A written note of what we covered.' },
+      { title: 'No obligation', text: 'Stop any time. Come back whenever.' },
+    ],
+    fields: {
+      name: 'Your name',
+      namePlaceholder: 'Alex Kim',
+      contact: 'Email or LINE ID',
+      contactPlaceholder: 'name@email.com / LINE ID',
+      topics: 'What are you considering?',
+      language: 'Chat in',
+      timing: 'Timing',
+      note: 'Anything else? (optional)',
+      notePlaceholder: 'A question, a worry, anything.',
+    },
+    topics: {
+      wh: 'Working Holiday',
+      lang: 'Language & Experience',
+      vet: 'Specialised Degree / VET',
+      long: 'Longer Stay',
+      cost: 'Cost of living',
+      unsure: 'Not sure yet',
+    },
+    timings: {
+      exploring: 'Still exploring',
+      within6: 'In the next 6 months',
+      within12: 'In 6–12 months',
+      here: 'Already in Sydney',
+    },
+    defaultLanguage: 'en',
+    privacy: 'We only use this to reply. No newsletter unless you ask.',
+    submit: 'Send',
+    required: 'Add your name and an email or LINE ID so we can reply.',
+    sendError: 'Sorry, that didn’t send. Please try again, or message us on Instagram.',
+    doneTitle: 'Request sent.',
+    doneText: 'Thanks — it’s with us now.',
+    doneGreeting: 'Hi, I’m {name}.',
+    doneNext: [
+      'We read your note and reply by email or LINE.',
+      'We pick a 30-minute time that suits you.',
+      'Nothing to prepare. Just bring your questions.',
+    ],
+    backHome: 'Back to home',
   },
   sticky: {
     wondering: 'Been wondering…',

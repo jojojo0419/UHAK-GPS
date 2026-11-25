@@ -8,6 +8,8 @@ interface Props {
   locale?: Locale;
   title?: string;
   description?: string;
+  /** Path after the locale prefix, e.g. `book/`. Used for canonical + hreflang. */
+  path?: string;
 }
 
 const locale = Astro.props.locale ?? defaultLocale;
@@ -17,8 +19,9 @@ const title = Astro.props.title ?? t.meta.title;
 const description = Astro.props.description ?? t.meta.description;
 
 const site = Astro.site?.href.replace(/\/$/, '') ?? 'https://uhak-gps.netlify.app';
-const enUrl = `${site}/`;
-const jaUrl = `${site}/ja/`;
+const path = Astro.props.path ?? '';
+const enUrl = `${site}/${path}`;
+const jaUrl = `${site}/ja/${path}`;
 ---
 <!doctype html>
 <html lang={locale}>

@@ -1,0 +1,197 @@
+---
+/**
+ * Landing-style booking page for `/book/` and `/ja/book/`.
+ * Static Astro (not a React island) so Netlify can detect the form at deploy time.
+ * Field names/values: src/data/booking.ts · copy: `book` in src/i18n/ · design: docs/design.md
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getMessages, type Locale } from '../../i18n';
+import { BOOK_FORM_NAME, BOOK_LANGUAGES, BOOK_TIMINGS, BOOK_TOPICS } from '../../data/booking';
+import { MAPS_URL, OFFICE } from '../../data/office';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getMessages(locale);
+const b = t.book;
+const home = locale === 'ja' ? '/ja/' : '/';
+const other = getMessages(locale === 'ja' ? 'en' : 'ja');
+
+const field = 'flex flex-col gap-1.5';
+const label = 'text-[12px] font-semibold text-ink';
+/* Underline fields: solid ink line, deep green line on focus (no boxes, no radius). */
+const input =
+  'min-h-11 w-full rounded-none border-0 border-b-[1.5px] border-ink bg-transparent px-0 font-inherit text-[15px] text-ink transition-[border-color,box-shadow] duration-200 focus-visible:border-accent focus-visible:shadow-[0_1.5px_0_var(--color-accent)] focus-visible:outline-none';
+/* Chips = landing secondary button: deep green outline + text; selected/hover = ink fill. */
+const chip =
+  'inline-flex min-h-11 items-center rounded-pill border-[1.5px] border-accent bg-transparent px-4 text-[13px] font-medium text-accent transition duration-[250ms] ease-out hover:border-ink hover:bg-ink hover:text-surface peer-checked:border-ink peer-checked:bg-ink peer-checked:text-surface peer-focus-visible:outline-2 peer-focus-visible:outline-offset-3 peer-focus-visible:outline-accent';
+---
+<BaseLayout locale={locale} title={b.metaTitle} description={b.metaDescription} path="book/">
+  <div class="paper flex min-h-dvh flex-col bg-cream text-[13px] leading-[1.7] text-ink">
+    <header class="mx-auto flex w-full max-w-content items-center justify-between gap-4 px-5 py-4 landing:px-[35px]">
+      <a href={home} aria-label={t.a11y.home} class="font-display text-[20px] font-medium leading-none tracking-[0.06em] text-ink no-underline landing:text-[22px]">
+        UHAK GPS
+      </a>
+      <a
+        href={other.book.href}
+        lang={locale === 'ja' ? 'en' : 'ja'}
+        class:list={['px-1 py-2 text-xs text-muted no-underline', locale === 'en' && 'font-jp']}
+      >
+        {t.langSwitch.label}
+      </a>
+    </header>
+
+    <main class="mx-auto grid w-full max-w-content flex-1 items-start gap-10 px-5 pb-[72px] pt-8 landing:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] landing:gap-12 landing:px-[35px] landing:pb-[104px] landing:pt-14">
+      <div class="flex flex-col gap-5">
+        <p class="m-0 text-[11px] font-semibold uppercase tracking-[0.12em] text-accent">{b.eyebrow}</p>
+        <h1 class="m-0 font-display text-[clamp(28px,3.4vw,44px)] font-normal leading-[1.15] tracking-[-0.01em]">{b.title}</h1>
+        <p class="m-0 text-[15px] leading-[1.6]">{b.lead}</p>
+        <ul class="m-0 mt-2 flex list-none flex-col gap-4 p-0">
+          {b.expect.map((e) => (
+            <li class="flex items-start gap-3">
+              <span aria-hidden="true" class="mt-0.5 inline-flex size-[18px] shrink-0 items-center justify-center rounded-full bg-accent">
+                <svg viewBox="0 0 16 16" width="10" height="10"><path d="M3.2 8.2 L6.4 11.2 L12.8 4.6" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+              </span>
+              <span class="flex flex-col">
+                <span class="text-sm font-semibold leading-[1.45]">{e.title}</span>
+                <span class="text-[13px] leading-[1.55] opacity-80">{e.text}</span>
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="rounded-2xl bg-surface p-6 shadow-[0_1px_2px_rgba(31,40,50,.06),0_8px_20px_rgba(31,40,50,.08)] landing:p-8">
+        <form
+          id="book-form"
+          name={BOOK_FORM_NAME}
+          method="POST"
+          data-netlify="true"
+          netlify-honeypot="bot-field"
+          class="flex flex-col gap-6"
+          novalidate
+        >
+          <input type="hidden" name="form-name" value={BOOK_FORM_NAME} />
+          <p hidden aria-hidden="true">
+            <label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+          </p>
+
+          <div class="grid gap-5 landing:grid-cols-2">
+            <label class={field}>
+              <span class={label}>{b.fields.name}</span>
+              <input name="name" required autocomplete="name" placeholder={b.fields.namePlaceholder} class:list={[input, 'placeholder:text-ink/30']} />
+            </label>
+            <label class={field}>
+              <span class={label}>{b.fields.contact}</span>
+              <input name="contact" required autocomplete="email" placeholder={b.fields.contactPlaceholder} class:list={[input, 'placeholder:text-ink/30']} />
+            </label>
+          </div>
+
+          <fieldset class="m-0 border-0 p-0">
+            <legend class:list={[label, 'mb-2.5 p-0']}>{b.fields.topics}</legend>
+            <div class="flex flex-wrap gap-2">
+              {BOOK_TOPICS.map(({ id, value }) => (
+                <label class="cursor-pointer">
+                  <input type="checkbox" name="topics" value={value} data-topic-id={id} class="peer sr-only" />
+                  <span class={chip}>{b.topics[id]}</span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+
+          <div class="grid gap-6">
+            <fieldset class="m-0 border-0 p-0">
+              <legend class:list={[label, 'mb-2.5 p-0']}>{b.fields.language}</legend>
+              <div class="flex flex-wrap gap-2">
+                {BOOK_LANGUAGES.map((l) => (
+                  <label class="cursor-pointer">
+                    <input type="radio" name="language" value={l.value} checked={l.value === b.defaultLanguage} class="peer sr-only" />
+                    <span lang={l.lang} class:list={[chip, l.lang !== 'en' && 'font-jp']}>{l.label}</span>
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+            <label class={field}>
+              <span class={label}>{b.fields.timing}</span>
+              <select name="when" class:list={[input, 'cursor-pointer landing:max-w-[280px]']}>
+                {BOOK_TIMINGS.map((o) => <option value={o.value}>{b.timings[o.id]}</option>)}
+              </select>
+            </label>
+          </div>
+
+          <label class={field}>
+            <span class={label}>{b.fields.note}</span>
+            <textarea name="note" rows="1" placeholder={b.fields.notePlaceholder} class:list={[input, 'field-sizing-content max-h-48 resize-none py-2.5 placeholder:text-ink/30']}></textarea>
+          </label>
+
+          <p id="book-error" hidden class="m-0 text-[13px] font-semibold" role="alert">{b.required}</p>
+          <p id="book-send-error" hidden class="m-0 text-[13px] font-semibold" role="alert">{b.sendError}</p>
+
+          <div class="flex flex-col-reverse gap-4 border-t border-line-soft pt-5 landing:flex-row landing:items-center landing:justify-between">
+            <p class="m-0 max-w-[36ch] text-xs leading-[1.6] text-muted">{b.privacy}</p>
+            <button
+              type="submit"
+              class="inline-flex min-h-11 w-full cursor-pointer items-center justify-center rounded-pill border-[1.5px] border-ink bg-primary px-6 font-inherit text-[13px] font-medium text-ink transition duration-200 ease-out hover:translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[-4px_4px_0_#1C1E21] disabled:cursor-wait disabled:opacity-60 landing:w-auto"
+            >
+              {b.submit}
+            </button>
+          </div>
+        </form>
+
+        <div id="book-done" hidden tabindex="-1" role="status" class="flex flex-col gap-6 outline-none">
+          <div class="flex items-center gap-4">
+            <span aria-hidden="true" class="book-pop inline-flex size-12 shrink-0 items-center justify-center rounded-full border-[1.5px] border-ink bg-primary">
+              <svg viewBox="0 0 16 16" width="20" height="20"><path d="M3.2 8.2 L6.4 11.2 L12.8 4.6" fill="none" stroke="#1C1E21" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            </span>
+            <div class="flex flex-col gap-0.5">
+              <h2 class="m-0 font-display text-[clamp(22px,2.4vw,28px)] font-normal leading-[1.15]">{b.doneTitle}</h2>
+              <p class="m-0 text-[14px] opacity-80">{b.doneText}</p>
+            </div>
+          </div>
+
+          <div aria-hidden="true" class="flex flex-col rounded-xl bg-cream px-4 py-5">
+            <span class="book-rise max-w-[86%] self-end rounded-[12px_3px_12px_12px] bg-surface px-3 py-2 text-[15px] leading-[1.35] text-ink shadow-[0_1px_1px_rgba(0,0,0,.06),0_4px_12px_rgba(28,30,33,.08)]">
+              <span data-done="greeting" data-template={b.doneGreeting}></span>
+              <span data-done="topics" class="mt-1 block text-[13px] text-ink/70"></span>
+              <span class="float-right ml-2.5 mt-1.5 inline-flex items-center gap-0.5 text-[10px] text-ink/50">
+                <span data-done="time"></span>
+                <svg viewBox="0 0 16 11" width="14" height="9"><path d="M1 6 L4 9 L10 2 M6 9 L7 10 L15 1" fill="none" stroke="#53BDEB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+              </span>
+            </span>
+          </div>
+
+          <ol class="m-0 list-none border-t border-line-soft p-0">
+            {b.doneNext.map((step, i) => (
+              <li class="flex items-baseline gap-3 border-b border-line-soft py-3">
+                <span class="font-mono text-[12px] opacity-60">{String(i + 1).padStart(2, '0')}</span>
+                <span class="text-[14px] leading-[1.55]">{step}</span>
+              </li>
+            ))}
+          </ol>
+
+          <a
+            href={home}
+            class="inline-flex min-h-11 items-center justify-center self-start rounded-pill border-[1.5px] border-accent px-4 text-[13px] font-medium text-accent no-underline transition duration-200 ease-out hover:border-ink hover:bg-ink hover:text-surface"
+          >
+            {b.backHome}
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <footer class="border-t border-line">
+      <div class="mx-auto flex w-full max-w-content flex-wrap justify-between gap-x-6 gap-y-2 px-5 py-6 text-xs text-muted landing:px-[35px]">
+        <a href={MAPS_URL} target="_blank" rel="noopener noreferrer" class="text-muted no-underline hover:text-accent">{OFFICE}</a>
+        <span>{t.footer.copyright}</span>
+      </div>
+    </footer>
+  </div>
+</BaseLayout>
+
+<script>
+  import { initBookForm } from '../../scripts/book-form';
+
+  initBookForm();
+</script>

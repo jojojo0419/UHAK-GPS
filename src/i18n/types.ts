@@ -1,3 +1,5 @@
+import type { BookTimingId, BookTopicId } from '../data/booking';
+
 /** Supported locales. Add `'ko'` when Korean ships. */
 export type Locale = 'en' | 'ja';
 
@@ -112,6 +114,40 @@ export type Messages = {
     links: Array<{ href: string; label: string }>;
     location: string;
     copyright: string;
+  };
+  /** `/book/` page. Field names and stored values come from `src/data/booking.ts`. */
+  book: {
+    href: string;
+    metaTitle: string;
+    metaDescription: string;
+    eyebrow: string;
+    title: string;
+    lead: string;
+    expect: Array<{ title: string; text: string }>;
+    fields: {
+      name: string;
+      namePlaceholder: string;
+      contact: string;
+      contactPlaceholder: string;
+      topics: string;
+      language: string;
+      timing: string;
+      note: string;
+      notePlaceholder: string;
+    };
+    topics: Record<BookTopicId, string>;
+    timings: Record<BookTimingId, string>;
+    defaultLanguage: 'ja' | 'ko' | 'en';
+    privacy: string;
+    submit: string;
+    required: string;
+    sendError: string;
+    doneTitle: string;
+    doneText: string;
+    /** `{name}` is replaced with the sender's name. */
+    doneGreeting: string;
+    doneNext: string[];
+    backHome: string;
   };
   sticky: {
     wondering: string;

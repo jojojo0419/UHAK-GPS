@@ -1,4 +1,5 @@
 import type { Messages } from './types';
+import { OFFICE } from '../data/office';
 
 export const ja: Messages = {
   meta: {
@@ -27,7 +28,7 @@ export const ja: Messages = {
     { href: '#options', id: 'options', label: 'サービス' },
     { href: '#how', id: 'how', label: 'コース' },
     { href: '#about', id: 'about', label: '私たちについて' },
-    { href: '#book', id: 'book', label: 'かんたん見積もり' },
+    { href: '/ja/book/', id: 'book', label: 'かんたん見積もり' },
   ],
   header: {
     bookChat: '無料相談を予約',
@@ -50,7 +51,7 @@ export const ja: Messages = {
     lead: '000人の学生のオーストラリア留学を、\nさまざまなサービスで支えています。',
     notes: [
       { text: 'QEAC資格カウンセラーによる専門ガイダンス' },
-      { text: '永住（PR）パスウェイ' },
+      { text: '長期滞在のプランニング' },
       { text: '学校・コース選びと入学手続き' },
       { text: '日本語・韓国語・英語でのパーソナルサポート' },
       { text: '物件見学サポート' },
@@ -79,9 +80,9 @@ export const ja: Messages = {
         badges: ['学生ビザ', 'キャリアアップ'],
       },
       {
-        title: '長期滞在・定住',
-        line: 'より長く滞在し、将来の定住を見据えた戦略的な進路。',
-        badges: ['PRパスウェイ', '戦略プランニング'],
+        title: '長期滞在',
+        line: '1年目以降の選択肢を整理します。結果の保証はしません。',
+        badges: ['プランニングのみ', '戦略プランニング'],
       },
     ],
   },
@@ -142,7 +143,7 @@ export const ja: Messages = {
         flourish: 'Next',
         body: 'そのあとのことも、一緒に考える。',
         detail:
-          'キャリアや、オーストラリアでの長期滞在が現実的かどうか。できることだけ、正直に。守れない約束はしません。',
+          'キャリアや、オーストラリアでの長期滞在が現実的かどうか。できることだけ、正直に。守れない約束はしません。移民に関する助言は、登録エージェントをご案内します。',
         note: '',
       },
     ],
@@ -175,7 +176,7 @@ export const ja: Messages = {
       },
     ],
   },
-  airmail: ['ガイダンス', 'ビザ・定住をはっきりと', 'あなたに合う学校'],
+  airmail: ['ガイダンス', 'ビザ・定住の約束はしません', 'あなたに合う学校'],
   about: {
     title: '私たちについて。',
     body: '学校とビザは、実は簡単なほう。住む場所、移動のしかた、普通の一週間にかかるお金まで一緒に考えます。',
@@ -195,7 +196,7 @@ export const ja: Messages = {
     counsellor: {
       name: '[カウンセラー名]',
       since: '[年]',
-      meetUs: '250 Pitt St, Sydney NSW 2000',
+      meetUs: OFFICE,
     },
   },
   principles: {
@@ -203,7 +204,7 @@ export const ja: Messages = {
     lead: '部屋、仕事、移動。\nコーヒーを飲みながらでも聞ける、\n現地の人であり続けます。',
     items: [
       { title: '学校を売りません。', line: '合うものだけを案内します。' },
-      { title: '守れない約束はしません。', line: 'ビザや定住についても正直に。' },
+      { title: '守れない約束はしません。', line: 'ビザや定住の保証はしません。' },
       { title: '決めるのは、あなた。', line: '選択肢を並べます。選ぶのはあなたです。' },
     ],
   },
@@ -213,10 +214,62 @@ export const ja: Messages = {
       { href: '#options', label: 'サービス' },
       { href: '#how', label: 'コース' },
       { href: '#about', label: '私たちについて' },
-      { href: '#book', label: 'かんたん見積もり' },
+      { href: '/ja/book/', label: 'かんたん見積もり' },
     ],
     location: 'シドニー、オーストラリア · 無料30分相談',
     copyright: '© 2026 UHAK GPS',
+  },
+  book: {
+    href: '/ja/book/',
+    metaTitle: '無料相談の予約 — UHAK GPS',
+    metaDescription: 'シドニーのスタッフと無料で30分。学校やビザが決まっていなくても大丈夫です。',
+    eyebrow: '無料 · 30分 · 日本語 / 韓国語 / 英語',
+    title: '無料相談を予約する。',
+    lead: '少しだけ教えてください。日程を決めるためにご連絡します。',
+    expect: [
+      { title: '30分', text: 'オンライン、またはタウンホール近くで対面。' },
+      { title: '短いまとめ', text: '話した内容をあとで文章でお送りします。' },
+      { title: '勧誘なし', text: 'いつでもやめられます。また戻ってきても大丈夫。' },
+    ],
+    fields: {
+      name: 'お名前',
+      namePlaceholder: 'Alex Kim',
+      contact: 'メールまたはLINE ID',
+      contactPlaceholder: 'name@email.com / LINE ID',
+      topics: '考えていること',
+      language: '相談する言語',
+      timing: '時期',
+      note: 'そのほか（任意）',
+      notePlaceholder: '質問や不安など、なんでも。',
+    },
+    topics: {
+      wh: 'ワーキングホリデー',
+      lang: '語学＆経験',
+      vet: '専門学位 / VET',
+      long: '長期滞在',
+      cost: '生活費',
+      unsure: 'まだわからない',
+    },
+    timings: {
+      exploring: 'まだ情報収集中',
+      within6: '6か月以内',
+      within12: '6〜12か月後',
+      here: 'すでにシドニーにいる',
+    },
+    defaultLanguage: 'ja',
+    privacy: '返信のためだけに使います。メルマガは希望された場合のみ。',
+    submit: '送信する',
+    required: 'お返事のため、お名前とメールまたはLINE IDを入力してください。',
+    sendError: '送信できませんでした。もう一度お試しいただくか、Instagramからご連絡ください。',
+    doneTitle: '送信しました。',
+    doneText: 'ありがとうございます。たしかに受け取りました。',
+    doneGreeting: '{name}です。よろしくお願いします。',
+    doneNext: [
+      '内容を読んで、メールかLINEでご連絡します。',
+      'ご都合のいい30分を一緒に決めます。',
+      '準備は不要です。気になることを持ってきてください。',
+    ],
+    backHome: 'ホームに戻る',
   },
   sticky: {
     wondering: '気になっていたこと…',

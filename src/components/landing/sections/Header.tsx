@@ -78,7 +78,7 @@ export function Header({ collapsed, activeNav, t, locale, onLocaleChange }: Prop
           >
             {t.langSwitch.label}
           </a>
-          <PrimaryLink href="#book" className="hdr-book ml-1 px-3.5 text-xs leading-none landing:ml-4">
+          <PrimaryLink href={t.book.href} className="hdr-book ml-1 px-3.5 text-xs leading-none landing:ml-4">
             <span className="hdr-book-long">{t.header.bookChat}</span>
             <span className="hdr-book-short">{t.header.bookChatShort}</span>
           </PrimaryLink>

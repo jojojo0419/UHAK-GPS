@@ -17,6 +17,45 @@ Astro + React landing site for **UHAK GPS** — Sydney-based study abroad & Work
 - Responsive layout (breakpoint `760px`)
 - Netlify deploy from `main` + GitHub Actions CI (`npm ci` + `npm run build`)
 
+## `/zine/` — editorial redesign (work in progress)
+
+> **Status:** an experimental magazine-style edition of the site, being redesigned as a **separate portfolio piece**.
+> It ships with the build at `/zine/` but is **`noindex`**, not linked from the landing, and **not the live site**.
+> Its copy has **not yet been unified with the main landing** — treat `/` and `/ja/` as the source of truth until it is.
+
+| Home (desktop) | Home (mobile) |
+| --- | --- |
+| [![Zine home, desktop](docs/zine/zine-home-desktop.png)](https://uhak-gps.netlify.app/zine/) | <img src="docs/zine/zine-home-mobile.png" alt="Zine home, mobile" width="260"> |
+
+[![Zine booking page](docs/zine/zine-book-desktop.png)](https://uhak-gps.netlify.app/zine/book/)
+
+**Routes:** `/zine/` (home) · `/zine/guides/` (single feature-article skeleton) · `/zine/book/` (booking form → Netlify Forms)
+
+**Where it lives** — fully separate from the landing; no shared components or CSS:
+
+```
+src/pages/zine/            → index, guides/index, book
+src/layouts/ZineLayout.astro
+src/components/zine/       → Masthead, Wordmark, EdChat, SpotArt, Footer, InstagramLink
+src/zine/content.ts        → all zine copy (English only, separate from src/i18n/)
+src/scripts/zine-motion.ts → sticky section bar, reveals, smooth scroll
+src/styles/zine.css        → Editorial Green tokens (bundled only on /zine/ pages)
+public/images/spot/        → spot illustrations
+docs/design-zine.md        → zine design guidelines
+```
+
+**Before the zine can replace or sit beside the landing, its content needs syncing with main:**
+
+- [x] **Longer stay / residency wording** — unified on the zine's position: no visa/residency guarantees, registered-agent referral. Landing card renamed *Long-term Settlement → Longer Stay*.
+- [ ] **Team** — zine lists three people (counsellor, Japanese desk, arrival support); landing shows one counsellor. *Intentionally left as is for now.*
+- [x] **QEAC** — zine counsellor now shows *QEAC-qualified* (principles stay 3 on landing / 4 on zine).
+- [x] **Service names** — zine plan cards and booking chips use the landing names (*Working Holiday · Language & Experience · Specialised Degree / VET · Longer Stay*).
+- [x] **Booking** — `/zine/book/` submits to **Netlify Forms** (form `book-chat`, honeypot spam filter). Submissions: Netlify → Forms; email alerts: Forms → Form notifications.
+- [x] **Landing booking** — every landing *Book* CTA goes to `/book/` or `/ja/book/` (landing design, same `book-chat` form; *Your Plan* picks prefill via `?plan=`).
+- [ ] **LINE** — zine and landing LINE links are still `#line` (waiting on the official account URL).
+- [ ] **Japanese** — zine is English-only; its 日本語 link jumps to the landing `/ja/`. *Left as is for now.*
+- [x] **Shared facts** — `OFFICE` / `MAPS_URL` live in one module, `src/data/office.ts`, used by both surfaces.
+
 ## Stack
 
 | Layer | Choice |
@@ -46,7 +85,8 @@ src/
   styles/
     global.css           → @theme tokens + fonts
     landing.css          → motion, header float, JA font remap
-docs/design.md           → full design guidelines
+docs/design.md           → full design guidelines (landing)
+docs/design-zine.md      → zine design guidelines (/zine/ only, see above)
 public/images/           → polaroids, steps, map, etc.
 legacy/                  → original single-file export
 ```
@@ -67,7 +107,8 @@ legacy/                  → original single-file export
 
 ## Design
 
-Full tokens and rules: **[docs/design.md](docs/design.md)** (UHAK GPS Green).
+Full tokens and rules: **[docs/design.md](docs/design.md)** (UHAK GPS Green) — landing `/` and `/ja/` only.
+The zine has its own system in **[docs/design-zine.md](docs/design-zine.md)**; don't mix tokens across the two.
 
 **Summary**
 
@@ -115,9 +156,10 @@ Dev server tip (from `AGENTS.md`): `astro dev --background`, then `astro dev sta
 
 Tracked in GitHub Issues — remaining highlights:
 
-- Wire `#book` / `#line` CTAs
+- Wire `#line` CTAs (booking is live at `/book/`)
 - Placeholder numbers (`00/week`, `000 students`)
 - StickyBar restore or remove
 - Nav IA cleanup
 - Open Graph / social preview
 - Analytics, search, Sveltia CMS + blog
+- Unify `/zine/` copy with the landing (checklist under [`/zine/`](#zine--editorial-redesign-work-in-progress))
