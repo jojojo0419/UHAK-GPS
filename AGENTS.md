@@ -8,6 +8,17 @@ astro dev --background
 
 Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`.
 
+## Commits & PRs
+
+Match the existing history (`git log --oneline`):
+
+- **Subject:** one imperative sentence in sentence case, ending with a period. No `feat:` / `fix:` prefixes. Aim for ≤ 72 characters.
+  - e.g. `Wire the sticky section nav to real home anchors and drop dead pill styles.`
+- **One focused change per commit.** Split landing, zine, and docs work into separate commits.
+- **Body (optional):** 1–2 plain sentences on what changed and why. No bullet lists.
+- Keep the co-author trailer your tool adds.
+- **Branches:** `feat/…`, `fix/…`, `docs/…`, or a short experiment name (e.g. `design-experiment`).
+
 ## Design
 
 Two separate design docs — do not mix tokens across surfaces:
