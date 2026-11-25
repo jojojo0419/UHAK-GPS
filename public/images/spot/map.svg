@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="map">
+  <g transform="translate(4 4)" fill="var(--accent,#25D366)" stroke="none"><path d="M18 58L20 50L30 44L38 40L42 34L50 30L54 36L60 30L68 28L72 32L70 38L78 44L82 38L84 26L88 34L90 42L96 50L101 60L100 70L96 78L92 86L84 90L76 87L72 82L68 78L62 76L52 76L42 80L34 86L24 86L20 80L20 70Z"/><path d="M81 98h9l-2 7h-5Z"/></g>
+  <path d="M18 58L20 50L30 44L38 40L42 34L50 30L54 36L60 30L68 28L72 32L70 38L78 44L82 38L84 26L88 34L90 42L96 50L101 60L100 70L96 78L92 86L84 90L76 87L72 82L68 78L62 76L52 76L42 80L34 86L24 86L20 80L20 70Z"/><path d="M81 98h9l-2 7h-5Z"/>
+  <path d="M30 64C42 54 52 70 64 62S78 66 84 70" stroke-dasharray="0.1 5"/>
+  <circle cx="30" cy="64" r="2.5" fill="currentColor" stroke="none"/>
+  <path d="M95 80C95 80 83 66 83 55a12 12 0 0 1 24 0C107 66 95 80 95 80Z" fill="currentColor"/>
+  <circle cx="95" cy="55" r="4" fill="#fff" stroke="none"/>
+  <path d="M24 18l2.5 6 6 2.5-6 2.5-2.5 6-2.5-6-6-2.5 6-2.5Z" fill="currentColor" stroke="none"/>
+</svg>

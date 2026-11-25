@@ -1,0 +1,16 @@
+---
+interface Props {
+  size?: 'cover' | 'compact' | 'mobile' | 'footer';
+  class?: string;
+}
+
+const { size = 'cover', class: className } = Astro.props;
+---
+<a
+  href="/zine/"
+  aria-label="UHAK GPS home"
+  class:list={['ed-wordmark', `ed-wordmark--${size}`, className]}
+>
+  <span class="ed-wordmark-name">UHAK</span>
+  <span class="ed-wordmark-tag" aria-hidden="true">[GPS]</span>
+</a>

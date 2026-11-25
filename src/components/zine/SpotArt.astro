@@ -1,0 +1,86 @@
+---
+/**
+ * Sticker icons for How we work — SVG (crisp at any size).
+ * Assets: public/images/spot/*.svg
+ */
+export type SpotKind =
+  | 'tea'
+  | 'calendar'
+  | 'notebook'
+  | 'map'
+  | 'backpack'
+  | 'speech'
+  | 'gradcap'
+  | 'key'
+  | 'sim'
+  | 'coins'
+  | 'question'
+  | 'free'
+  | 'train'
+  | 'envelope';
+
+interface Props {
+  kind: SpotKind;
+  class?: string;
+}
+
+const { kind, class: className = '' } = Astro.props;
+
+const src: Record<SpotKind, string> = {
+  tea: '/images/spot/tea.svg',
+  calendar: '/images/spot/calendar.svg',
+  notebook: '/images/spot/notebook.svg',
+  map: '/images/spot/map.svg',
+  backpack: '/images/spot/backpack.svg',
+  speech: '/images/spot/speech.svg',
+  gradcap: '/images/spot/gradcap.svg',
+  key: '/images/spot/key.svg',
+  sim: '/images/spot/sim.svg',
+  coins: '/images/spot/coins.svg',
+  question: '/images/spot/question.svg',
+  free: '/images/spot/free.svg',
+  train: '/images/spot/train.svg',
+  envelope: '/images/spot/envelope.svg',
+};
+---
+
+<span class:list={['ed-stamp', className]} data-kind={kind}>
+  <img
+    src={`${src[kind]}?v=line1`}
+    alt=""
+    width="160"
+    height="160"
+    decoding="async"
+    draggable="false"
+  />
+</span>
+
+<style>
+  .ed-stamp {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    width: 80px;
+    height: 80px;
+  }
+
+  .ed-stamp img {
+    display: block;
+    width: 80px;
+    height: 80px;
+    max-width: 100%;
+    object-fit: contain;
+    object-position: left center;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  @media (min-width: 760px) {
+    .ed-stamp,
+    .ed-stamp img {
+      width: 96px;
+      height: 96px;
+    }
+  }
+</style>

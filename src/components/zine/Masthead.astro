@@ -1,0 +1,47 @@
+---
+import Wordmark from './Wordmark.astro';
+import InstagramLink from './InstagramLink.astro';
+
+interface Props {
+  variant?: 'cover' | 'compact';
+}
+
+const { variant = 'cover' } = Astro.props;
+---
+<header class:list={['ed-masthead bg-paper text-ink', variant !== 'cover' && 'editorial-rule-bottom']}>
+  <div class="wrap grid min-h-6 grid-cols-[1fr_auto] items-center gap-x-4 py-1.5">
+    <p class:list={['ed-meta m-0 flex flex-wrap items-center gap-x-2 leading-none', variant === 'compact' && 'max-landing:hidden']}>
+      <span>Sydney</span>
+      <span class="text-muted" aria-hidden="true">·</span>
+      <span class="syd-clock inline-flex items-baseline leading-none tabular-nums" data-syd-clock aria-label="Current time in Sydney">
+        <span data-syd-h>00</span><span class="syd-colon" data-syd-colon>:</span><span data-syd-m>00</span>
+        <span class="ml-1.5">SYD</span>
+      </span>
+      <span class="text-muted" aria-hidden="true">·</span>
+      <span>Field notes</span>
+    </p>
+
+    {variant === 'compact' && (
+      <Wordmark size="mobile" class="justify-self-center landing:hidden" />
+    )}
+
+    <div class="flex items-center justify-end gap-4 justify-self-end">
+      <InstagramLink class="text-muted hover:text-ink" />
+      <a href="/ja/" lang="ja" class="mr-1 font-jp text-[13px] leading-none text-muted transition-colors hover:text-ink">日本語</a>
+      <a href="/zine/book/" class="ed-btn min-h-9! px-4! text-[11px]!">Book a chat</a>
+    </div>
+  </div>
+
+  {variant === 'cover' ? (
+    <div class="wrap">
+      <div class="ed-masthead-brand border-t border-ink pb-3.5 pt-4 landing:pb-6 landing:pt-5">
+        <Wordmark size="cover" />
+      </div>
+    </div>
+  ) : (
+    <div class="wrap hidden items-end justify-between gap-6 border-t border-ink py-2.5 landing:flex">
+      <Wordmark size="compact" />
+      <p class="ed-meta m-0 text-muted">Vol. 01 · Nov 2026</p>
+    </div>
+  )}
+</header>

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="coins">
+  <g transform="translate(4 4)" fill="var(--accent,#25D366)" stroke="none"><circle cx="84" cy="48" r="19"/></g>
+  <path d="M24 86v10a24 8 0 0 0 48 0v-10" /><ellipse cx="48" cy="86" rx="24" ry="8"/><path d="M24 74v10a24 8 0 0 0 48 0v-10" fill="currentColor"/><ellipse cx="48" cy="74" rx="24" ry="8"/><path d="M24 62v10a24 8 0 0 0 48 0v-10" /><ellipse cx="48" cy="62" rx="24" ry="8"/>
+  <circle cx="84" cy="48" r="19"/><path d="M90 42c-3-4-12-3-12 2s12 3 12 9-9 6-13 2M84 35v26"/>
+</svg>

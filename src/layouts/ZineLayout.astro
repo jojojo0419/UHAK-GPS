@@ -1,0 +1,63 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import '../styles/zine.css';
+import Masthead from '../components/zine/Masthead.astro';
+import Footer from '../components/zine/Footer.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  masthead?: 'cover' | 'compact';
+}
+
+const { title, description, masthead = 'compact' } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content={description} />
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#25D366" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Playfair+Display:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap"
+    />
+    <ClientRouter />
+    <title>{title}</title>
+  </head>
+  <body id="top">
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+      <filter id="duotone-green" color-interpolation-filters="sRGB">
+        <feColorMatrix
+          type="matrix"
+          values="
+            .2126 .7152 .0722 0 0
+            .2126 .7152 .0722 0 0
+            .2126 .7152 .0722 0 0
+            0 0 0 1 0"
+        />
+        <feComponentTransfer>
+          <feFuncR type="table" tableValues="0.1 0.16 0.24" />
+          <feFuncG type="table" tableValues="0.32 0.56 0.74" />
+          <feFuncB type="table" tableValues="0.24 0.36 0.45" />
+        </feComponentTransfer>
+      </filter>
+    </svg>
+    <div class="ed-progress" data-reading-progress aria-hidden="true">
+      <div class="ed-progress-fill" data-reading-progress-fill></div>
+    </div>
+    <Masthead variant={masthead} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      import '../scripts/zine-motion.ts';
+    </script>
+  </body>
+</html>
